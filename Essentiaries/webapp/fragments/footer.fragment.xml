@@ -1,0 +1,39 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<l:VerticalLayout width="100%" class="footer sapUiTinyMarginTop">
+						<l:BlockLayout >
+							<l:BlockLayoutRow>
+								<l:BlockLayoutCell >
+									<Title text="Category"/>
+									<SelectList items="{oProductModel>/Category}">
+										<core:Item key="{oProductModel>categoryname}" text="{oProductModel>categoryname}"/>
+									</SelectList>
+								</l:BlockLayoutCell>
+								<l:BlockLayoutCell>
+									<Title text="Essentiaries"/>
+									<SelectList>
+										<core:Item key="About us" text="About us"/>
+										<core:Item key="FAQ" text="FAQ"/>
+										<core:Item key="Privacy Policy" text="Privacy Policy"/>
+											<core:Item key="Careers" text="Careers" />
+										<core:Item key="Terms and Conditions" text="Terms and Conditions"/>
+									</SelectList>
+								</l:BlockLayoutCell>
+								<l:BlockLayoutCell>
+							<Title text="Contact Us"/>
+								<HBox class="sapUiTinyMargin">	<core:Icon size="1rem"  src="sap-icon://email"/>
+									<Link text="essentiaries@gmail.com"/></HBox>	
+										<HBox class="sapUiTinyMarginBegin">	<core:Icon  size="1rem"  src="sap-icon://call"/>
+									<Link text="1800 000 1450"/></HBox>	
+								
+								</l:BlockLayoutCell>
+								<l:BlockLayoutCell>
+									<Title text="Newsletter"/>
+									<HBox><Input placeholder="email"/>
+									<Button icon="sap-icon://paper-plane" /></HBox>	
+								</l:BlockLayoutCell>
+							</l:BlockLayoutRow>
+						</l:BlockLayout>
+					</l:VerticalLayout>
+</core:FragmentDefinition>
+
+	

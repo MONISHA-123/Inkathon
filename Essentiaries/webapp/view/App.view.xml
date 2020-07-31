@@ -1,0 +1,54 @@
+<mvc:View controllerName="com.ink.Essentiaries.controller.App" xmlns:mvc="sap.ui.core.mvc" displayBlock="true" xmlns="sap.m" 	xmlns:tnt="sap.tnt" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:f="sap.f">
+	<tnt:ToolPage id="toolPage">
+		<tnt:header>
+		<tnt:ToolHeader class="header">
+							<SearchField  width="15%" id="searchField" placeholder="Search" liveChange=".onSuggest" enableSuggestions="true" search=".onSearch"
+							suggest=".onSuggest" suggestionItems="{ path: 'oProductModel>/Product', sorter: { path: 'productname' } }">
+							<SuggestionItem text="{oProductModel>productname}" description="{path:'oProductModel>categoryname'} {path:'oProductModel>brandname'}"
+								key="{oProductModel>productid}"/>
+									<layoutData>
+									<OverflowToolbarLayoutData priority="NeverOverflow"/>
+								</layoutData>
+					
+								<layoutData>
+									<OverflowToolbarLayoutData priority="NeverOverflow"/>
+								</layoutData>
+							</SearchField>
+						<!--	<ComboBox>
+									<core:ListItem key="Mumbai" text="Mumbai" icon="sap-icon://map"/>
+									<core:ListItem key="Kolkata" text="Kolkata" icon="sap-icon://map"/>
+									<core:ListItem key="Chennai" text="Chennai" icon="sap-icon://map"/>
+									<core:ListItem key="Bangalore" text="Bangalore" icon="sap-icon://map"/>
+							</ComboBox>-->
+							<ToolbarSpacer/>
+							<Title  text="Essentiaries">
+									<layoutData>
+									<OverflowToolbarLayoutData priority="NeverOverflow"/>
+								</layoutData>
+						
+							</Title>
+							<ToolbarSpacer/>
+							<Button class="ToolbarIcon" icon="sap-icon://cart"  id="cart" tooltip="{i18n>Cart}" press="fnOnAddToCart" >
+									<layoutData>
+									<OverflowToolbarLayoutData priority="NeverOverflow"/>
+								</layoutData>
+							</Button>
+							<Button  class="ToolbarIcon" icon="sap-icon://bell"  tooltip="{i18n>Notification}"/>
+							<Button  class="ToolbarIcon" icon="sap-icon://person-placeholder"   press="fnOnUser" tooltip="Login/sign Up" id="signIn">
+								
+							</Button>
+							<Avatar visible="false" displaySize="XS" backgroundColor="Transparent" press="fnAccountMenu" id="accountMenu">
+									<layoutData>
+									<OverflowToolbarLayoutData priority="NeverOverflow"/>
+								</layoutData>
+							</Avatar>
+						</tnt:ToolHeader>
+		</tnt:header>
+
+		<tnt:mainContents>
+			<NavContainer id="essentiaries" initialPage="homePage">
+			
+			</NavContainer>
+		</tnt:mainContents>
+	</tnt:ToolPage>
+</mvc:View>

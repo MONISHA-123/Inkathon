@@ -1,0 +1,110 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<Dialog contentHeight="55%" contentWidth="40%">
+		<customHeader>
+			<Bar>
+				<contentMiddle>
+					<Image src="./Images/Logo.jpg"></Image>
+					<Title text="{i18n>Company Name}"/>
+				</contentMiddle>
+				<contentRight>
+					<Button class="ToolbarIcon" icon="sap-icon://decline" tooltip="Close" press="fnOnCancel" type="Transparent"/>
+				</contentRight>
+			</Bar>
+		</customHeader>
+		<content >
+			<VBox class="sapUiSmallMargin">
+				<f:Form editable="true">
+				
+					<f:layout>
+						<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0"
+							emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false"/>
+					</f:layout>
+					<f:formContainers>
+						<f:FormContainer id="Category" >
+							<f:FormElement label="{i18n>CategoryName}" id="CategoryFld">
+								<f:fields>
+									<ComboBox 	items="{oProductModel>/Category}"  selectionChange="onCateDelSelction" selectedKey="{oEmptyModel>/Category/categoryname}">
+										<core:Item key="{oProductModel>categoryname}" text="{oProductModel>categoryname}"/>
+									</ComboBox>
+								</f:fields>
+							</f:FormElement>
+							<f:FormElement label="{i18n>CategoryID}" >
+								<f:fields>
+									<Input value="{oEmptyModel>/Category/categoryid}" editable="false" />
+									<Button class="sapUiSmallMarginTop frgamentbtn" text="{i18n>Delete}"  press="fnOnCateDel" id="CateDelBtn" enabled="false">
+										<layoutData>
+											<l:GridData span="XL6 L6 M6 S6"/>
+										</layoutData>
+									</Button>
+									<Button class="sapUiSmallMarginTop frgamentbtn" text="{i18n>Cancel}" press="fnOnNewCateCancel">
+										<layoutData>
+											<l:GridData span="XL6 L6 M6 S6"/>
+										</layoutData>
+									</Button>
+								</f:fields>
+							</f:FormElement>
+						</f:FormContainer>
+					<!--	<f:FormContainer id="newBrand">
+							<f:formElements>
+								<f:FormElement label="{i18n>BrandName}" id="newBrandFld">
+									<f:fields>
+										<Input></Input>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="{i18n>BrandID}" id="NewBrandID">
+									<f:fields>
+										<Input/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="{i18n>CategoryName}">
+									<f:fields>
+										<ComboBox></ComboBox>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="{i18n>CategoryID}">
+									<f:fields>
+										<Input/>
+										<Button class="sapUiSmallMarginTop" text="{i18n>Save}" id="BrandSaveBt" press="fnOnNewBrandSave">
+											<layoutData>
+												<l:GridData span="XL6 L6 M6 S6"/>
+											</layoutData>
+										</Button>
+										<Button class="sapUiSmallMarginTop" text="{i18n>Cancel}" press="fnOnNewBrandCancel">
+											<layoutData>
+												<l:GridData span="XL6 L6 M6 S6"/>
+											</layoutData>
+										</Button>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>
+						<f:FormContainer  id="newUnit">
+							<f:formElements>
+								<f:FormElement label="{i18n>UnitName}">
+									<f:fields>
+										<Input/>
+									</f:fields>
+								</f:FormElement>
+								<f:FormElement label="{i18n>UnitID}">
+									<f:fields>
+										<Input/>
+										<Button class="sapUiSmallMarginTop" text="{i18n>Save}" >
+											<layoutData>
+												<l:GridData span="XL5 L5 M5 S5"/>
+											</layoutData>
+										</Button>
+										<Button class="sapUiSmallMarginTop" text="{i18n>Cancel}" >
+											<layoutData>
+												<l:GridData span="XL5 L5 M5 S5"/>
+											</layoutData>
+										</Button>
+									</f:fields>
+								</f:FormElement>
+							</f:formElements>
+						</f:FormContainer>-->
+					</f:formContainers>
+				</f:Form>
+			</VBox>
+		</content>
+	</Dialog>
+</core:FragmentDefinition>

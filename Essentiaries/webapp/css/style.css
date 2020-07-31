@@ -1,0 +1,310 @@
+/* Enter your custom styles here */
+/* Enter your custom styles here */
+
+@import url("https://fonts.googleapis.com/css2");
+
+
+.bgImage{
+background-image:url("../images/veg.jpg");
+background-size:contain ;
+width:100%; 
+height:100%;
+background-attachment: fixed;
+  background-position: center;
+  background-repeat: no-repeat;
+ 
+}
+.bgImage{
+background-image:url("../images/spice.jpg");
+background-position: center center;
+			background-repeat:  no-repeat;
+			background-attachment: scroll;
+			background-size:  cover;
+			width:100%;
+				height:auto;
+  
+
+}
+.bgImage1{
+background-image:url("../images/banner_bg.jpg");
+background-position: center ;
+overflow: hidden;
+    z-index: 1;
+	position: relative;
+    background-color: transparent;
+    background-image: linear-gradient(180deg, #0A32F0 0%, #B240A7 100%);
+}
+
+.bgtop{
+	background-image:url("../images/top.svg");
+	    background-repeat: no-repeat;
+	    	background-size:  cover;
+}
+.ToolbarColor{
+	background-color: white !important;
+}
+.carousel{
+	background-color: transparent;
+}
+
+
+
+.idDialog {
+    position: fixed !important;
+    top: 50% !important;
+    left: 50% !important;
+    transform: translate(-60%, -50%) !important;
+}
+
+.welcomeCarouselText {
+	color: black;
+	display: inline;
+	position: relative;
+	bottom: 0;
+	padding: 1rem;
+	font-size: 1.5rem;
+	width: 100%;
+	text-shadow: 0 0 0.125rem black;
+}
+.bgimage{
+	  background-size:cover;
+}
+
+.sapMSFF{
+	border-radius:12px;
+}
+.search_field{
+	top: 50%;
+    left: 53%;
+    transform: translate(-50%, -50%);
+
+}
+.terms {
+    margin-top: 10%;
+}
+
+.customCellImageBackground {
+	color: #fff;
+	background-image: url("../Images/Logo.jpg");
+	background-size: 100% auto;
+	background-position: 0 80%;
+}
+
+.box{
+	background:#98bf21;
+	height:100px;
+	width:100px;
+	margin:6px;
+}
+
+.title{
+	text-align:center;
+	
+	background-color: transparent;
+	margin-top: 17rem;
+	/*background:#dbe90c75;*/
+}
+.text{
+	font-family: 'Modak', cursive;
+}
+.titleText{
+	font-family: 'Modak', cursive;
+    font-size: 3rem;
+    color:#E2605B;
+    margin-bottom:1.5rem;
+}
+.headertitle .sapTntToolHeader .sapMText, .sapTntToolHeader .sapMTitle, .sapTntToolHeader .sapMLabel {
+    color: #de8941;
+}
+	
+
+
+.AdDashtile1{
+background-color: #cea3d0;
+
+}
+.colorWh{
+	color:white;
+}
+.AdDashtile2{
+background-color:#8fddf9;
+
+
+}
+.AdDashtile3{
+background-color: #ff8a8a;
+
+
+}
+.AdDashtile4{
+background-color: #cfff9e;
+
+
+}
+.sapMGTHdrTxt>.sapMText {
+   color: black;
+    font-weight: bold;
+}
+.ToolbarColor{
+	background-color: white !important;
+}
+.button{
+		background-color: #F5B566 !important;
+		font-weight:bold;
+}
+.button.sapMBtnBack,.button .sapMBtnTransparent {
+	color:white;
+	font-weight:bold;
+}
+.navBarFontOrange.sapMBtnBack,.navBarFontOrange .sapMBtnTransparent {
+	color: #F5B566;
+}
+.footer{
+	background-color:#ffffff !important;
+}
+
+.sapMDialog .sapMDialogScrollCont>* {
+   
+    background-image:linear-gradient(80deg, #f17979 0%, #d4c8be 100%)
+}
+
+.sapMDialog.sapMPopup-CTX> header .sapMHeader-CTX, .sapMDialog.sapMPopup-CTX> header .sapMSubHeader-CTX {
+   
+   background-color: #6e1f1f;
+     
+}
+
+.headerbg{
+	background-color: #6e1f1f;
+
+
+}
+
+
+
+
+.sapMBar .sapMBarRight.sapMBarContainer>*:last-child, .sapMBar .sapMBarLeft.sapMBarContainer>*:last-child, .sapMBar .sapMBarMiddle .sapMBarContainer>*:last-child {
+    
+    color: ghostwhite;
+}
+.headertitle{
+	color:ghostwhite;
+}
+
+
+.header.sapTntToolHeader.sapMTB {
+	
+    background-color:#6e1f1f;
+    font-size: large;
+   
+}
+
+
+.header.sapTntToolHeader .sapMText, .sapTntToolHeader .sapMTitle, .sapTntToolHeader .sapMLabel {
+    color: #de8941;
+}
+.headertext{
+	 color: #de8941;
+}
+.whiteLinks.sapMLnk:not(.sapMLnkDsbl) {
+    text-shadow: none !important;
+    color:white !important;
+}
+.whiteLinks.sapMLnk:visited {
+    color: white!important;
+}
+.ToolbarIcon.sapTntToolHeader .sapMBtn .sapMBtnTransparent .sapUiIcon, .ToolbarIcon.sapTntToolHeader .sapMBtn .sapMBtnDefault .sapUiIcon, .ToolbarIcon.sapTntToolHeader .sapMBtn .sapMBtnBack .sapUiIcon,.ToolbarIcon .sapTntToolHeader .sapMBtn .sapMBtnUp .sapUiIcon {
+    color: #ffffff!important;
+}
+.tilecolor{
+background-color:white;
+}
+/*....................Button ........*/
+.sapMBtnInner {
+background-color: #fce66d!important;
+    color: #000000 !important;
+    border: .0625rem solid #171717 !important;
+}
+/*....................Icons in Button ........*/
+.sapMBtnIcon{
+	color:black !important;
+}
+/*....................Step Input background ........*/
+.sapMInputBaseContentWrapper {
+    border: .0625rem solid #000000 !important;
+    background:white !important;
+    border-radius: .3rem !important;
+   
+}
+/*....................Step Input Value .......*/
+.sapMInputBaseInner {
+    color: black;
+}
+/*....................Step Input + and - Button ........*/
+.sapMInputBaseIconContainer .sapMInputBaseIcon {
+    color: black;
+}
+.sapMInputBaseIconContainer .sapMInputBaseIcon:hover {
+    background-color: black;
+}
+/*........stepInput....*/
+.stepMargin{
+	margin-left: 1.8rem
+}
+/*................tilte in fragments....*/
+.loginTitle {
+	 color: #ffffff;
+}
+.sapMPopover .sapMIBar.sapMHeader-CTX {
+    background-color:#6E1F1F;
+}
+
+.textstrike{
+	text-decoration: line-through;
+}
+.ToolbarIcon .sapMBtnInner{
+	background-color: #6e1f1f !important;
+    color: #6e1f1f !important;
+    border: .0625rem solid #6e1f1f !important;
+	
+}
+.ToolbarIcon .sapMBtnIcon{
+	color:white !important;
+} 
+
+/* backgroung for filters*/
+.bgcoloritems.sapMSelectList{
+	margin: revert;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+.brandfilter{
+	margin: revert;
+    margin-left: 1rem;
+    margin-right: 1rem;
+    background:white;
+}
+
+/* for sliders in filter*/
+.sapMRangeSlider.sapMSlider .sapMSliderInner:not(.sapMSliderInnerDisabled):hover>.sapMSliderHandle {
+    background-color: rgba(235,245,254,0.25);
+    border-color: #6e1f1f;
+	
+}
+    
+.sapMSliderProgress {
+    background: #6e1f1f;
+   
+}
+.sapMSliderInner {
+    background: #ffffff;
+}
+.sapMRangeSlider.sapMSlider .sapMSliderLabels .sapMSliderRangeLabel {
+   
+    color: #000000;
+}
+
+.frgamentbtn.sapMBtnInner {
+	background-color:#db9d9d !important;
+
+}

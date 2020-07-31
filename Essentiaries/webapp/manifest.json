@@ -1,0 +1,158 @@
+{
+	"_version": "1.12.0",
+	"sap.app": {
+		"id": "com.ink.Essentiaries",
+		"type": "application",
+		"i18n": "i18n/i18n.properties",
+		"applicationVersion": {
+			"version": "1.0.0"
+		},
+		"title": "{{appTitle}}",
+		"description": "{{appDescription}}",
+		"sourceTemplate": {
+			"id": "html5moduletemplates.basicSAPUI5ApplicationProjectModule",
+			"version": "1.40.12"
+		}
+	},
+	"sap.ui": {
+		"technology": "UI5",
+		"icons": {
+			"icon": "",
+			"favIcon": "",
+			"phone": "",
+			"phone@2": "",
+			"tablet": "",
+			"tablet@2": ""
+		},
+		"deviceTypes": {
+			"desktop": true,
+			"tablet": true,
+			"phone": true
+		}
+	},
+	"sap.ui5": {
+		"flexEnabled": false,
+		"rootView": {
+			"viewName": "com.ink.Essentiaries.view.App",
+			"type": "XML",
+			"async": true,
+			"id": "App"
+		},
+		"dependencies": {
+			"minUI5Version": "1.65.6",
+			"libs": {
+				"sap.ui.core": {},
+				"sap.m": {},
+				"sap.ui.layout": {}
+			}
+		},
+		"contentDensities": {
+			"compact": true,
+			"cozy": true
+		},
+		"models": {
+			"i18n": {
+				"type": "sap.ui.model.resource.ResourceModel",
+				"settings": {
+					"bundleName": "com.ink.Essentiaries.i18n.i18n"
+				}
+			},
+				"oProductModel": {
+				"type": "sap.ui.model.json.JSONModel",
+				"settings": {
+					"defaultBindingMode": "TwoWay"
+				}
+			}
+		},
+		"resources": {
+			"css": [{
+				"uri": "css/style.css"
+			}]
+		},
+		"routing": {
+			"config": {
+				"routerClass": "sap.m.routing.Router",
+				"viewType": "XML",
+				"async": true,
+				"viewPath": "com.ink.Essentiaries.view",
+				"controlAggregation": "pages",
+				"controlId": "essentiaries",
+				"clearControlAggregation": false
+			},
+			"routes": [{
+				"name": "App",
+				"pattern": "App",
+				"target": ["Home"]
+			}, {
+				"name": "Home",
+				"pattern": "",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["Home"]
+			}, {
+				"name": "Admin",
+				"pattern": "Admin",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["Admin"]
+			}, {
+				"name": "Order",
+				"pattern": "Order",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["Order"]
+			}, {
+				"name": "Product",
+				"pattern": "Product/{CategoryId}",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["Product"]
+			}, {
+				"name": "productDetails",
+				"pattern": "productDetails/{ProductId}",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["productDetails"]
+			}, {
+				"name": "userDashBoard",
+				"pattern": "userDashBoard",
+				"titleTarget": "",
+				"greedy": false,
+				"target": ["userDashBoard"]
+			}],
+			"targets": {
+				"TargetApp": {
+					"viewType": "XML",
+					"transition": "slide",
+					"clearControlAggregation": false,
+					"viewId": "App",
+					"viewName": "App"
+				},
+				"Home": {
+					"viewType": "XML",
+					"viewName": "Home"
+				},
+				"Admin": {
+					"viewType": "XML",
+					"viewName": "Admin"
+				},
+				"Order": {
+					"viewType": "XML",
+					"viewName": "Order"
+				},
+				"Product": {
+					"viewType": "XML",
+					"viewName": "Product"
+				},
+				"userDashBoard": {
+					"viewType": "XML",
+					"viewName": "userDashBoard"
+				},
+				"productDetails": {
+					"viewType": "XML",
+					"viewName": "productDetails"
+				}
+			}
+		}
+	}
+}

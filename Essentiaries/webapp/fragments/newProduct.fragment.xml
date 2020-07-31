@@ -1,0 +1,199 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<Dialog contentHeight="55%" contentWidth="60%">
+		<customHeader>
+			<Bar>
+				<contentMiddle>
+					<Title text="Add a new product"/>
+				</contentMiddle>
+				<contentRight>
+					<Button class="ToolbarIcon" icon="sap-icon://decline" tooltip="Close" press="fnOnCancel" type="Transparent"/>
+				</contentRight>
+			</Bar>
+		</customHeader>
+		<content >
+			<IconTabBar id="idIconTabBar" class="sapUiResponsiveContentPadding" backgroundDesign="Transparent" stretchContentHeight="true"
+				select="firstTab">
+				<items>
+					<IconTabFilter text="{i18n>Category}" id="idNewProCategory" key="Category">
+						<ScrollContainer height="100%" width="100%" horizontal="false" vertical="true">
+							<VBox class="sapUiSmallMargin">
+								<f:Form editable="true">
+									<f:toolbar>
+										<Toolbar>
+											<Title id="Title1" text="{i18n>Category}"/>
+											<ToolbarSpacer/>
+										</Toolbar>
+									</f:toolbar>
+									<f:layout>
+										<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0"
+											emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false"/>
+									</f:layout>
+									<f:formContainers>
+										<f:FormContainer >
+											<f:formElements>
+												<f:FormElement label="{i18n>CategoryName}" id="cateDropDown">
+													<f:fields>
+														<ComboBox selectedKey="{oEmptyModel>/Product/categoryname}" items="{oProductModel>/Category}" selectionChange="onNewPro_CateDD">
+															<core:Item key="{oProductModel>categoryname}" text="{oProductModel>categoryname}" />
+														</ComboBox>
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="{i18n>CategoryID}" id="CategoryID">
+													<f:fields>
+														<Input   value="{oEmptyModel>/Product/categoryid}" editable="false"/>
+													</f:fields>
+												</f:FormElement>
+												
+												
+											</f:formElements>
+										</f:FormContainer>
+									</f:formContainers>
+								</f:Form>
+							</VBox>
+						</ScrollContainer>
+					</IconTabFilter>
+					<IconTabSeparator icon="sap-icon://open-command-field"/>
+					<IconTabFilter text="{i18n>Brand}" id="idNewProBrand" key="Brand">
+						<ScrollContainer height="100%" width="100%" horizontal="false" vertical="true">
+							<VBox class="sapUiSmallMargin">
+								<f:Form editable="true">
+									<f:toolbar>
+										<Toolbar>
+											<Title text="{i18n>Brand}"/>
+											<ToolbarSpacer/>
+										</Toolbar>
+									</f:toolbar>
+									<f:layout>
+										<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0"
+											emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false"/>
+									</f:layout>
+									<f:formContainers>
+										<f:FormContainer >
+											<f:formElements>
+												<f:FormElement label="{i18n>BrandName}" id="brandDropDown">
+													<f:fields>
+															<ComboBox selectedKey="{oEmptyModel>/Product/brandname}" items="{oEmptyModel>/cateWiseBrand}" selectionChange="onNewPro_BrandDD" >
+															<core:Item key="{oEmptyModel>brandname}" text="{oEmptyModel>brandname}" />
+														</ComboBox>
+													</f:fields>
+												</f:FormElement>
+											
+												<f:FormElement label="{i18n>BrandID}" id="BrandID">
+													<f:fields>
+														<Input value="{oEmptyModel>/Product/brandid}" editable="false"/>
+													</f:fields>
+												</f:FormElement>
+												
+											
+											</f:formElements>
+										</f:FormContainer>
+									</f:formContainers>
+								</f:Form>
+							</VBox>
+						</ScrollContainer>
+					</IconTabFilter>
+					<IconTabSeparator icon="sap-icon://open-command-field"/>
+					<IconTabFilter text="{i18n>Product}" id="idNewProInfo" key="Product">
+						<ScrollContainer height="100%" width="100%" horizontal="false" vertical="true">
+							<VBox class="sapUiSmallMargin">
+								<f:Form editable="true">
+									<f:title>
+										<core:Title text="Product Details"/>
+									</f:title>
+									<f:layout>
+										<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0"
+											emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false"/>
+									</f:layout>
+									<f:formContainers>
+										<f:FormContainer >
+											<f:formElements>
+												<f:FormElement label="ID">
+													<f:fields>
+														<Input value="{oEmptyModel>/Product/productid}"></Input>
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="Name">
+													<f:fields>
+														<Input value="{oEmptyModel>/Product/productname}"></Input>
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="Description">
+													<f:fields>
+														<TextArea value="{oEmptyModel>/Product/productdescription}"></TextArea>
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="Image Url">
+													<f:fields>
+														<Input value="{oEmptyModel>/Product/image}"></Input>
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="Stock">
+													<f:fields>
+														<StepInput value="{oEmptyModel>/Product/stock}"></StepInput>
+													</f:fields>
+												</f:FormElement>
+													<f:FormElement label="Status">
+													<f:fields>
+														<Input value="{oEmptyModel>/Product/status}"></Input>
+													</f:fields>
+												</f:FormElement>
+											</f:formElements>
+										</f:FormContainer>
+										<f:FormContainer >
+											
+												<f:FormElement label="Unit Name">
+													<f:fields>
+														<!--	<ComboBox selectedKey="{oEmptyModel>/Product/unitname}" items="{oProductModel>/Unit}">
+															<core:Item key="{oProductModel>unitname}" text="{oProductModel>unitname}"/>
+														</ComboBox>-->
+															<Input value="{oEmptyModel>/Product/unitname}"></Input>
+													</f:fields>
+												</f:FormElement>
+												<f:formElements>
+												<f:FormElement label="Unit ID">
+													<f:fields>
+														<Input value="{oEmptyModel>/Product/unitid}"></Input>
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="Unit short" >
+													<f:fields>
+														<Input value="{oEmptyModel>/Product/unitshort}"></Input>
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="Size">
+													<f:fields>
+														<Input value="{oEmptyModel>/Product/size}"></Input>
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="Price">
+													<f:fields>
+														<Input value="{oEmptyModel>/Product/price}"></Input>
+													</f:fields>
+												</f:FormElement>
+													<f:FormElement label="offer percentage">
+													<f:fields>
+														<Input value="{oEmptyModel>/Product/offer percentage}"></Input>
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="offer price">
+													<f:fields>
+														<Input value="{oEmptyModel>/Product/offerprice}"></Input>
+													</f:fields>
+												</f:FormElement>
+											</f:formElements>
+										</f:FormContainer>
+									</f:formContainers>
+								</f:Form>
+							</VBox>
+						</ScrollContainer>
+					</IconTabFilter>
+				</items>
+			</IconTabBar>
+		</content>
+		<buttons>
+			<Button class="ToolbarIcon" text="{i18n>Previous}" press="fnOnPrevious" id="prevID" visible="false"></Button>
+			<Button  class="ToolbarIcon" text="{i18n>Next}" press="fnOnNext" id="nextID"></Button>
+			<Button class="ToolbarIcon" text="{i18n>Save}" id="saveID" visible="false" press="fnNewProdSave"></Button>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

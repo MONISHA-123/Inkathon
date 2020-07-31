@@ -1,0 +1,52 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<Dialog contentHeight="40%" contentWidth="30%">
+		<customHeader>
+			<Bar>
+				<contentMiddle>
+					<Title text="CompanyName"/>
+				</contentMiddle>
+				<contentRight>
+					<Button class="ToolbarIcon" icon="sap-icon://decline" tooltip="Close" press="fnOnCancel" type="Transparent"/>
+				</contentRight>
+			</Bar>
+		</customHeader>
+		<f:Form editable="true">
+									<f:toolbar>
+										<Toolbar>
+											<Title text="Filter"/>
+											<ToolbarSpacer/>
+										</Toolbar>
+									</f:toolbar>
+									<f:layout>
+										<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0"
+											emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false"/>
+									</f:layout>
+									<f:formContainers>
+										<f:FormContainer >
+											<f:formElements>
+												<f:FormElement label="{i18n>Category}" >
+													<f:fields>
+													<ComboBox id="categorySelect" selectedKey="{oEmptyModel>/Product/categoryname}" items="{oProductModel>/Category}" selectionChange="onNewPro_CateDD">
+															<core:Item key="{oProductModel>categoryname}" text="{oProductModel>categoryname}" />
+														</ComboBox>
+													</f:fields>
+												</f:FormElement>
+												<f:FormElement label="{i18n>Brand}" >
+													<f:fields>
+													<ComboBox id="brandSelect" items="{oEmptyModel>/cateWiseBrand}" selectedKey="{oEmptyModel>/Product/brandname}" >
+															<core:Item key="{oEmptyModel>brandname}" text="{oEmptyModel>brandname}" />
+														</ComboBox>
+													</f:fields>
+												</f:FormElement>
+									
+											</f:formElements>
+										</f:FormContainer>
+									</f:formContainers>
+								</f:Form>
+								<buttons>
+			<Button class="frgamentbtn" text="go" icon="sap-icon://filter" press="fnBrandFilter"></Button>
+			<Button  class="frgamentbtn" text="{i18n>Cancel}" press="fnOnCancel"></Button>
+		
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

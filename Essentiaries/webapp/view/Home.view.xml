@@ -1,0 +1,120 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="com.ink.Essentiaries.controller.Home"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:tnt="sap.tnt" xmlns:l="sap.ui.layout" xmlns:card="sap.f.cards" xmlns:grid="sap.ui.layout.cssgrid"
+	xmlns:f="sap.f">
+	<App id="essentiaries">
+		<ScrollContainer
+						id="homePage"
+						horizontal="false"
+						vertical="true"
+						height="100%">
+							<MessageStrip id="idConfirmation" type="Success" showIcon="true" text="Acccount created successfully!!!Login to Shop"
+						class="sapUiMediumMarginBottom" visible="false"></MessageStrip>
+						<VBox class="bgtop"></VBox>
+						<VBox class="bgImage">
+					<VBox class="title " >
+					<!--	<Title class="titleText sapUiLargeMargin" text="Essentiaries" level="H3"></Title>
+						<SearchField class="search_field" width="80%" id="searchField" placeholder="Search for Products,Brands and More" liveChange=".onSuggest"
+							enableSuggestions="true" search=".onSearch" suggest=".onSuggest"
+							suggestionItems="{ path: 'oTableModel>/ProductCollection', sorter: { path: 'Name' } }">
+							<SuggestionItem text="{oTableModel>Name}" description="{path:'oTableModel>Price'} {path:'oTableModel>CurrencyCode'}"
+								key="{oTableModel>ProductId}"/>
+							<layoutData>
+								<OverflowToolbarLayoutData priority="NeverOverflow"/>
+							</layoutData>
+						</SearchField>-->
+					</VBox>
+					
+					<VBox class="sapUiLargeMarginTop bgtop">
+						<Title class="sapUiSmallMarginBegin text" text="Shop by categories" level="H3"/>
+						<HeaderContainer scrollStep="500" id="container1" scrollStepByItem="1" showOverflowItem="true" content="{oProductModel>/Category}"
+							class="sapUiSmallMargin">
+							<FlexBox alignItems="Center" justifyContent="Center">
+								<l:Grid defaultSpan="XL3 L3 M3 S6">
+									<l:content class="sapUiSmallMargin">
+										<HBox >
+											<VBox alignItems="Center">
+												<Avatar src="{oProductModel>icon}" displaySize="L" displayShape="Square" press="fnCategorySelect" backgroundColor="Transparent"/>
+												<Text textAlign="Center" text="{oProductModel>categoryname}" class="sapUiSmallMarginTop text"/>
+											</VBox>
+										</HBox>
+									</l:content>
+								</l:Grid>
+							</FlexBox>
+						</HeaderContainer>
+					</VBox>
+					</VBox>
+					<VBox>
+						<Title class="sapUiSmallMarginBegin sapUiSmallMarginTop text" text="Top Sellers" level="H3"/>
+						<HeaderContainer scrollStep="500" id="container2" scrollStepByItem="1" showDividers="false" showOverflowItem="true"
+							content="{oProductModel>/Product}" class="sapUiSmallMargin">
+							<FlexBox alignItems="Center" justifyContent="Center">
+								<l:Grid defaultSpan="XL2 L2 M3 S6">
+									<l:content >
+										<HBox >
+											<VBox>
+												<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" press="press" backgroundImage="{oProductModel>image}"></GenericTile>
+												<VBox class="sapUiTinyMarginBegin tilecolor" alignItems="Center">
+													<Title text="{oProductModel>productname}" level="H3" class="sapUiTinyMarginTop"></Title>
+													<!--<Text text="{oProductModel>brandname}" class="sapUiTinyMarginTop" ></Text>-->
+													<Text text="{oProductModel>size}{oProductModel>unitshort}" class="sapUiTinyMarginTop"></Text>
+													<RatingIndicator id="RI_XS" maxValue="5" class="sapUiSmallMarginBottom" value="4" iconSize="12px" tooltip="Rating Tooltip"/>
+													
+													<HBox><Text text="MRP:" /><Text text="{ parts: [ {path: 'oEmptyModel>/Currency/currency'} ], type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true } }"/>
+                                                    <Text text="{oProductModel>price}"></Text></HBox>
+													<VBox>
+													<Button icon="sap-icon://cart" text="Add to Cart" press="fnCart" class="sapUiTinyMarginTop buttonBg"></Button>
+													<StepInput value="1"  width="10%" min="0" visible="false" id="stepinput" class="sapUiTinyMarginTop stepMargin" ></StepInput>
+													</VBox>
+													
+												</VBox>
+											</VBox>
+										</HBox>
+									</l:content>
+								</l:Grid>
+							</FlexBox>
+						</HeaderContainer>
+					</VBox>
+					<Carousel class="carousel" loop="true" height="auto" showPageIndicator="false">
+						<Image src="https://images-eu.ssl-images-amazon.com/images/G/31/img17/Pantry/July_2020/Pantry-storefront_PC-1500x300staysafer.jpg"
+							width="100%" height="auto" alt="Example " />
+						<Image src="https://www.jiomart.com/images/cms/aw_rbslider/slides/1595690676_LifeBuoy_web.jpg" width="100%" height="auto"
+							alt="Example "/>
+						<Image src="https://images-eu.ssl-images-amazon.com/images/G/31/img17/Pantry/May2020/COOP_Banners/HUL_DESKTOP_23RD_JULY.jpg" width="100%"
+							height="auto" alt="Example "/>
+							<Image src="https://www.jiomart.com/images/cms/aw_rbslider/slides/1595954789_Immunity-Booster-Banner---1680-x-320.jpg" width="100%" height="auto"
+							alt="Example "/>
+					</Carousel>
+					<VBox >
+						<Title class="sapUiSmallMarginBegin sapUiSmallMarginTop text" text="On Offers" level="H3"/>
+						<HeaderContainer scrollStep="500" id="container3" scrollStepByItem="1" showDividers="false" showOverflowItem="true"
+							content="{oProductModel>/offers}" class="sapUiSmallMargin">
+							<FlexBox alignItems="Center" justifyContent="Center">
+								<l:Grid defaultSpan="XL2 L2 M3 S6">
+									<l:content >
+										<HBox >
+											<VBox>
+												<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" press="press" backgroundImage="{oProductModel>image}"></GenericTile>
+												<VBox class="sapUiTinyMarginBegin tilecolor" alignItems="Center">
+													<Title text="{oProductModel>productname}" level="H3" class="sapUiTinyMarginTop"></Title>
+													<Text text="100g" class="sapUiTinyMarginTop"></Text>
+													<!--<Text text="Brand Name" class="sapUiTinyMarginTop" ></Text>-->
+													<RatingIndicator maxValue="5" class="sapUiSmallMarginBottom" value="4" iconSize="12px" tooltip="Rating Tooltip"/>
+													<HBox><Text class="textstrike" text="MRP: " /><Text class="textstrike" text="{ parts: [ {path: 'oEmptyModel>/Currency/currency'} ], type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true } }"/>
+                                                    <Text class="textstrike" text="{oProductModel>price}"></Text></HBox>
+                                                   	<HBox><Text  text="MRP:" /><Text text="{ parts: [ {path: 'oEmptyModel>/Currency/currency'} ], type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true } }"/>
+                                                    <Text text="{oProductModel>offerprice}"></Text></HBox>
+												<!--	<Text class="textstrike" text="MRP : RS {oProductModel>price} "></Text><Text text= "MRP : RS {oProductModel>offerprice} "></Text>-->
+													<Button icon="sap-icon://cart" text="Add to Cart" press="fnCart" class="sapUiTinyMarginTop"></Button>
+													<StepInput value="1" width="8%" min="0" visible="false" id="stepinput2" class="sapUiTinyMarginTop sapUiSmallMarginBegin"></StepInput>
+												</VBox>
+											</VBox>
+										</HBox>
+									</l:content>
+								</l:Grid>
+							</FlexBox>
+						</HeaderContainer>
+					</VBox>
+						<core:Fragment fragmentName="com.ink.Essentiaries.fragments.footer" type="XML"></core:Fragment>
+					</ScrollContainer>
+	</App>
+</mvc:View>

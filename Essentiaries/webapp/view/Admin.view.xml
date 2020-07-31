@@ -1,0 +1,482 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="com.ink.Essentiaries.controller.Admin"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:tnt="sap.tnt" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:f="sap.f"
+	xmlns:viz="sap.viz.ui5.controls">
+	<App id="essentiaries">
+		<ScrollContainer
+					
+						horizontal="false"
+						vertical="true"
+						height="100%">
+			<IconTabBar id="idIconTabBar" select="handleIconTabBarSelect" class="sapUiResponsiveContentPadding" stretchContentHeight="true">
+							<items>
+								<IconTabFilter  text="DashBoard" key="All" icon="sap-icon://supplier" >
+									<ScrollContainer height="100%" width="100%" horizontal="false" vertical="true">
+									<!--	<FlexBox alignItems="Start" justifyContent="Center" class="sapUiTinyMarginTop">
+											<l:Grid defaultSpan="XL3 L3 M3 S6">
+												<GenericTile header="Order Pending" press="press" sizeBehavior="Responsive" class="AdDashtile1">
+													<TileContent>
+														<NumericContent value="3" icon="sap-icon://pending" withMargin="false"/>
+													</TileContent>
+												</GenericTile>
+												<GenericTile header="Order in Process" press="press" sizeBehavior="Responsive" class="AdDashtile2">
+													<TileContent >
+														<NumericContent value="3" icon="sap-icon://process" withMargin="false"/>
+													</TileContent>
+												</GenericTile>
+												<GenericTile header="Cancel Order" press="press" sizeBehavior="Responsive" class="AdDashtile3">
+													<TileContent >
+														<NumericContent value="3" icon="sap-icon://sys-cancel" withMargin="false"/>
+													</TileContent>
+												</GenericTile>
+												<GenericTile header="Total Income " press="press" sizeBehavior="Responsive" class="AdDashtile4">
+													<TileContent >
+														<NumericContent value="3" icon="sap-icon://money-bills" withMargin="false"/>
+													</TileContent>
+												</GenericTile>
+											</l:Grid>
+										</FlexBox>-->
+										
+										
+										<f:GridList>
+											<f:GridListItem class="AdDashtile1">
+												<VBox height="100%">
+													<VBox class="sapUiSmallMargin">
+														<layoutData>
+															<FlexItemData growFactor="1" shrinkFactor="0"/><!-- Don't shrink below minimum size. Fill space if available. --></layoutData>
+														<Title text="Order Pending" wrapping="true"/>
+														<NumericContent value="3" icon="sap-icon://pending" withMargin="false"/>
+													</VBox>
+												</VBox>
+												
+											</f:GridListItem>
+												<f:GridListItem class="AdDashtile2">
+												<VBox height="100%">
+													<VBox class="sapUiSmallMargin">
+														<layoutData>
+															<FlexItemData growFactor="1" shrinkFactor="0"/><!-- Don't shrink below minimum size. Fill space if available. --></layoutData>
+														<Title text="Order in Process" wrapping="true"/>
+															<NumericContent value="3" icon="sap-icon://process" withMargin="false"/>
+													</VBox>
+												</VBox>
+												
+											</f:GridListItem>
+												
+												<f:GridListItem class="AdDashtile3">
+												<VBox height="100%">
+													<VBox class="sapUiSmallMargin">
+														<layoutData>
+															<FlexItemData growFactor="1" shrinkFactor="0"/><!-- Don't shrink below minimum size. Fill space if available. --></layoutData>
+														<Title text="Cancel Order" wrapping="true"/>
+														<NumericContent value="3" icon="sap-icon://sys-cancel" withMargin="false"/>
+													</VBox>
+												</VBox>
+												
+											</f:GridListItem>
+											
+											
+												<f:GridListItem class="AdDashtile4">
+												<VBox height="100%">
+													<VBox class="sapUiSmallMargin">
+														<layoutData>
+															<FlexItemData growFactor="1" shrinkFactor="0"/><!-- Don't shrink below minimum size. Fill space if available. --></layoutData>
+														<Title text="Total Income" wrapping="true"/>
+													<NumericContent value="3" icon="sap-icon://money-bills" withMargin="false"/>
+													</VBox>
+												</VBox>
+												
+											</f:GridListItem>
+										</f:GridList>
+										
+										
+										
+										
+										
+										
+										
+										
+										
+										<l:Grid id="gridHeader" defaultSpan="XL5 L5 M6 S12">
+											<l:content>
+												<viz:VizFrame id="idcolumn" width="100%">
+													<viz:layoutData>
+														<l:GridData span="L12 M12 S12"/>
+													</viz:layoutData>
+												</viz:VizFrame>
+											</l:content>
+										</l:Grid>
+										<!--	<VBox class="sapUiResponsiveContentPadding">
+										<l:Grid id="grid" defaultSpan="XL6 L4 M6 S12">
+											<l:content>
+												<viz:VizFrame xmlns="sap.viz" id="idcolumn" width="100%">
+													<viz:layoutData>
+														<l:GridData span="L6 M12 S12"/>
+													</viz:layoutData>
+												</viz:VizFrame>
+												<viz:VizFrame xmlns="sap.viz" id="idpiechart" width="100%" vizType="pie">
+													<viz:layoutData>
+														<l:GridData span="L6 M12 S12"/>
+													</viz:layoutData>
+												</viz:VizFrame>
+											</l:content>
+										</l:Grid>
+									</VBox>-->
+									</ScrollContainer>
+								</IconTabFilter>
+								<IconTabSeparator/>
+								<IconTabFilter icon="sap-icon://order-status"  text="Orders" key="Orders">
+									<VBox>
+										<Table id="idOrderTable1" inset="false" alternateRowColors="true" items="">
+											<headerToolbar>
+												<OverflowToolbar>
+													<content>
+														<Title text="Products" level="H3"/>
+														<ToolbarSpacer></ToolbarSpacer>
+														<Label text="Search Order " design="Bold"/>
+														<Input width="auto" placeholder="Type To Search" id="order" liveChange="onSearchID"/>
+														<MenuButton text="Status" useDefaultActionOnly="true" menuPosition="BeginBottom">
+															<menu>
+																<Menu itemSelected="onNewItem">
+																	<items>
+																		<MenuItem icon="sap-icon://pending" text="Pending"/>
+																		<MenuItem icon="sap-icon://complete" text="Completed"/>
+																		<MenuItem icon="sap-icon://status-in-process" text="On Process"/>
+																		<MenuItem icon="sap-icon://cancel" text="Cancel"/>
+																	</items>
+																</Menu>
+															</menu>
+														</MenuButton>
+													</content>
+												</OverflowToolbar>
+											</headerToolbar>
+											<columns>
+												<Column width="12em">
+													<Text text="Order Id"/>
+												</Column>
+											<!--	<Column minScreenWidth="Tablet" demandPopin="true">
+													<Text text="Product Details"/>
+												</Column>-->
+												<Column minScreenWidth="Desktop" demandPopin="true">
+													<Text text="Date"/>
+												</Column>
+												<Column minScreenWidth="Desktop" demandPopin="true">
+													<Text text="Address"/>
+												</Column>
+												<Column minScreenWidth="Desktop" demandPopin="true">
+													<Text text="Amount"/>
+												</Column>
+												<Column minScreenWidth="Desktop" demandPopin="true">
+													<Text text="Status"/>
+												</Column>
+												<Column minScreenWidth="Desktop">
+													<Text text="Edit Status" class="sapUiMediumMarginTop"/>
+												</Column>
+											</columns>
+											<items>
+												<ColumnListItem type="Navigation" press="onPress">
+													<cells>
+														<Text/>
+														<!--<Text/>-->
+														<Text/>
+														<Text/>
+														<Text/>
+														<Input editable="false"/>
+														<HBox>
+															<Button icon="sap-icon://edit" class="sapUiSmallMargin" id="rowEditId1" press="for_edit_status"></Button>
+															<Button text="save" class="sapUiSmallMargin" visible="false" press="fnSave"></Button>
+															<Button icon="sap-icon://delete" class="sapUiSmallMargin" press="for_delete"></Button>
+														</HBox>
+													</cells>
+												</ColumnListItem>
+											</items>
+										</Table>
+									</VBox>
+								</IconTabFilter>
+								<IconTabSeparator/>
+								<IconTabFilter text="Products" icon="sap-icon://product"  key="All">
+									<VBox>
+										<Table id="idProductsTable1" inset="false" alternateRowColors="true" items="{ path: 'oProductModel>/Product'}">
+											<headerToolbar>
+												<OverflowToolbar>
+													<content>
+														<Title id="prodResultCount" level="H3"/>
+														<ToolbarSpacer></ToolbarSpacer>
+														<Input width="auto" placeholder="Search a product" id="input" liveChange="onSearchID"/>
+														<Button icon="sap-icon://add" press="fnOnNewProduct">
+															<layoutData>
+																<OverflowToolbarLayoutData priority="NeverOverflow"/>
+															</layoutData>
+														</Button>
+														<!--	<MenuButton text="Add new item" useDefaultActionOnly="true" menuPosition="BeginBottom">
+															<menu>
+																<Menu itemSelected="onNewItem">
+																	<items>
+																		<MenuItem icon="sap-icon://add" text="New Category"/>
+																		<MenuItem icon="sap-icon://add" text="New Brand"/>
+																		<MenuItem icon="sap-icon://add" text="New Product"/>
+																		<MenuItem icon="sap-icon://add" text="New Unit"/>
+																	</items>
+																</Menu>
+															</menu>
+														</MenuButton>-->
+														<!--<MenuButton text="Delete item" useDefaultActionOnly="true" menuPosition="BeginBottom">
+															<menu>
+																<Menu itemSelected="onMenuAction">
+																	<items>
+																		<MenuItem icon="sap-icon://delete" text="Category" press="fnOnFragDelCate"/>
+																		<MenuItem icon="sap-icon://delete" text="Brand"/>
+																	
+																		<MenuItem icon="sap-icon://delete" text="Unit"/>
+																	</items>
+																</Menu>
+															</menu>
+														</MenuButton>-->
+														<!--	<Button text="New Category" type="Emphasized" press="fnOnNewCate"></Button>
+														<Button text="New Brand" type="Emphasized" press="fnOnNewBrand"></Button>
+														<Button text="New Product" type="Emphasized" press="fnOnNewProduct"></Button>
+														<Button text="New Unit" type="Emphasized" press="fnOnNewUnit"></Button>-->
+													</content>
+												</OverflowToolbar>
+											</headerToolbar>
+											<!--	<infoToolbar>
+												<OverflowToolbar>
+													<Label text="Wide range of available products"/>
+												</OverflowToolbar>
+											</infoToolbar>-->
+											<columns>
+												<Column minScreenWidth="Desktop" demandPopin="true">
+													<Text text="{i18n>Id}"/>
+												</Column>
+												<Column minScreenWidth="Desktop" demandPopin="true">
+													<Text text="{i18n>Name}"/>
+												</Column>
+												<Column minScreenWidth="Desktop" demandPopin="true">
+													<HBox>
+														<Text text="{i18n>Price}" class="sapUiSmallMarginTop"/>
+														<Button icon="sap-icon://sort-ascending" type="Transparent" id="for_sort" press="fnHandelSort"></Button>
+													</HBox>
+												</Column>
+												<Column minScreenWidth="Desktop" demandPopin="true">
+													<Text text="{i18n>Stock}"/>
+												</Column>
+												<Column minScreenWidth="Desktop" demandPopin="true">
+													<Text text="{i18n>Status}"/>
+												</Column>
+												<Column minScreenWidth="Desktop" demandPopin="true">
+													<Text text="Action"/>
+												</Column>
+											</columns>
+											<items>
+												<ColumnListItem type="Navigation" press="onPress">
+													<cells>
+														<Text text="{oProductModel>productid}"/>
+														<Input value="{oProductModel>productname}" editable="false"></Input>
+														<!--<Text text="{oTableModel>Name}"/>-->
+														<Input value="{oProductModel>price}" editable="false"/>
+														<Input value="{oProductModel>stock}" editable="false"/>
+														<VBox>
+															<RadioButtonGroup select="fnChangeProdStatus"  visible="false">
+															<RadioButton  text="active"    />
+															<RadioButton text="inactive" />
+															<RadioButton  text="delete" />
+																</RadioButtonGroup>
+															<Button text="{oProductModel>status}" type="Emphasized"/>
+														
+														</VBox>
+														<HBox>
+															<Button icon="sap-icon://edit" class="sapUiSmallMargin" id="rowEditId" press="for_edit"></Button>
+															<Button text="save" class="sapUiSmallMargin" visible="false" press="fnSave"></Button>
+															<!--<Button icon="sap-icon://delete" class="sapUiSmallMargin" press="for_deleteRow"></Button>-->
+														</HBox>
+													</cells>
+												</ColumnListItem>
+											</items>
+										</Table>
+									</VBox>
+								</IconTabFilter>
+								<IconTabSeparator/>
+								<IconTabFilter text="Promotions"  key="All" icon="sap-icon://activate" >
+									<Table inset="false" alternateRowColors="true" items="">
+										<headerToolbar>
+											<OverflowToolbar>
+												<content>
+													<Title text="Promotions" level="H3"/>
+													<ToolbarSpacer></ToolbarSpacer>
+													<Button icon="sap-icon://add" text="Promotion"></Button>
+													<SearchField placeholder="Promotion ID" width="40%">
+														<layoutData>
+															<OverflowToolbarLayoutData priority="NeverOverflow"/>
+														</layoutData>
+													</SearchField>
+												</content>
+											</OverflowToolbar>
+										</headerToolbar>
+										<columns>
+											<Column width="12em">
+												<Text text="{i18n>Id}"/>
+											</Column>
+											<Column minScreenWidth="Tablet" demandPopin="true">
+												<Text text="{i18n>Brand}"/>
+											</Column>
+											<Column minScreenWidth="Desktop" demandPopin="true">
+												<Text text="{i18n>Category}"/>
+											</Column>
+											<Column minScreenWidth="Desktop" demandPopin="true">
+												<Text text="Image Url"/>
+											</Column>
+											<Column minScreenWidth="Desktop" demandPopin="true">
+												<Text text="Offer"/>
+											</Column>
+											<Column >
+												<Text text="Action"/>
+											</Column>
+										</columns>
+										<items>
+											<ColumnListItem type="Navigation" press="onPress">
+												<cells>
+													<Input value="" editable="false"/>
+													<Input value="" editable="false"></Input>
+													<Input value="" editable="false"/>
+													<Input value="" editable="false"/>
+													<Input value="" editable="false"/>
+													<HBox>
+														<Button icon="sap-icon://edit" class="sapUiSmallMargin" press="for_edit"></Button>
+														<!--<Button text="save" class="sapUiSmallMargin" visible="false" press="fnSave"></Button>-->
+														<Button icon="sap-icon://delete" class="sapUiSmallMargin" press="for_delete"></Button>
+													</HBox>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+								</IconTabFilter>
+								<IconTabSeparator/>
+								
+								<IconTabFilter  key="All" id="CategoryTab" icon="sap-icon://bullet-text"  text="Category" >
+									<VBox>
+										<Table id="categorytable" inset="false" alternateRowColors="true" items="{ path: 'oProductModel>/Category'}">
+											<headerToolbar>
+												<OverflowToolbar>
+													<content>
+														<Title text="Categories" level="H3"/>
+														<ToolbarSpacer></ToolbarSpacer>
+														<Button icon="sap-icon://filter" press="filterDialog"/>
+														<Button icon="sap-icon://synchronize" press="onRefreshBrandTable"></Button>
+														<Input width="auto" placeholder="Search Category" id="category" liveChange="onSearchCategory"/>
+														<Button icon="sap-icon://add" text="New Category" press="fnOnNewCate"></Button>
+														<Button icon="sap-icon://delete" text="Delete Category" press="fnOnFragDelCate"></Button>
+														<!--<MenuButton text="Category">
+															<menu>
+																<Menu>
+																	<MenuItem icon="sap-icon://add" text="Category" press="fnOnNewCate"/>
+																	<MenuItem icon="sap-icon://delete" text="Category" press="fnOnFragDelCate"/>
+																</Menu>
+															</menu>
+														</MenuButton>-->
+														<!--	<Button icon="sap-icon://add" text="New Category" press="fnOnNewCate"></Button>
+														<Button text="Delete Category" press="fnOnFragDelCate"></Button>-->
+													</content>
+												</OverflowToolbar>
+											</headerToolbar>
+											<columns>
+												<Column minScreenWidth="Tablet" demandPopin="true">
+													<Text text="{i18n>Category Icon}"/>
+												</Column>
+												<Column minScreenWidth="Tablet" demandPopin="true">
+													<Text text="{i18n>Category Id}"/>
+												</Column>
+												<Column minScreenWidth="Desktop" demandPopin="true">
+													<Text text="{i18n>Category Name}"/>
+												</Column>
+												<Column minScreenWidth="Desktop" demandPopin="true">
+													<Text text="{i18n>Status}"/>
+												</Column>
+												<Column minScreenWidth="Desktop" demandPopin="true">
+													<Text text="Action"/>
+												</Column>
+											</columns>
+											<items>
+												<ColumnListItem type="Inactive" press="onPress">
+													<cells>
+														<Image src="{oProductModel>icon}" width="20%" />
+														<!--<Input value="{oProductModel>icon}" editable="false"/>-->
+														<Input value="{oProductModel>categoryid}" editable="false"/>
+														<Input value="{oProductModel>categoryname}" editable="false"/>
+														<Input value="{oProductModel>status}" editable="false"></Input>
+														<HBox>
+															<Button icon="sap-icon://edit" class="sapUiSmallMargin" press="fnEditBrandRow"></Button>
+															<Button text="save" class="sapUiSmallMargin" visible="false" press="fnSaveBrandRow"></Button>
+															<Button icon="sap-icon://delete" class="sapUiSmallMargin" press="fnBrandDelConfirm"></Button>
+														</HBox>
+													</cells>
+												</ColumnListItem>
+											</items>
+										</Table>
+									</VBox>
+								</IconTabFilter>
+								
+								<IconTabSeparator/>
+								
+								<IconTabFilter  key="All" id="BrandTab" icon="sap-icon://bullet-text"  text="Brands" >
+									<VBox>
+										<Table id="brandtable" inset="false" alternateRowColors="true" items="{ path: 'oProductModel>/Brand'}">
+											<headerToolbar>
+												<OverflowToolbar>
+													<content>
+														<Title text="Brands" level="H3"/>
+														<ToolbarSpacer></ToolbarSpacer>
+														<Button icon="sap-icon://filter" press="filterDialog"/>
+														<Button icon="sap-icon://synchronize" press="onRefreshBrandTable"></Button>
+														<Input width="auto" placeholder="Search Brand" id="brand" liveChange="onSearchBrand"/>
+														<Button icon="sap-icon://add" text="New Brand" press="fnOnNewBrand"></Button>
+														<MenuButton text="Category">
+															<menu>
+																<Menu>
+																	<MenuItem icon="sap-icon://add" text="Category" press="fnOnNewCate"/>
+																	<MenuItem icon="sap-icon://delete" text="Category" press="fnOnFragDelCate"/>
+																</Menu>
+															</menu>
+														</MenuButton>
+														<!--	<Button icon="sap-icon://add" text="New Category" press="fnOnNewCate"></Button>
+														<Button text="Delete Category" press="fnOnFragDelCate"></Button>-->
+													</content>
+												</OverflowToolbar>
+											</headerToolbar>
+											<columns>
+												<Column minScreenWidth="Desktop" demandPopin="true">
+													<Text text="{i18n>Brand ID}"/>
+												</Column>
+												<Column minScreenWidth="Desktop" demandPopin="true">
+													<Text text="{i18n>Brand Name}"/>
+												</Column>
+												<Column minScreenWidth="Desktop" demandPopin="true">
+													<Text text="{i18n>Category Id}"/>
+												</Column>
+												<Column minScreenWidth="Tablet" demandPopin="true">
+													<Text text="{i18n>Category Name}"/>
+												</Column>
+												<Column minScreenWidth="Desktop" demandPopin="true">
+													<Text text="Action"/>
+												</Column>
+											</columns>
+											<items>
+												<ColumnListItem type="Inactive" press="onPress">
+													<cells>
+														<Input value="{oProductModel>brandid}" editable="false"/>
+														<Input value="{oProductModel>brandname}" editable="false"/>
+														<Input value="{oProductModel>categoryid}" editable="false"/>
+														<Input value="{oProductModel>categoryname}" editable="false"></Input>
+														<HBox>
+															<Button icon="sap-icon://edit" class="sapUiSmallMargin" press="fnEditBrandRow"></Button>
+															<Button text="save" class="sapUiSmallMargin" visible="false" press="fnSaveBrandRow"></Button>
+															<Button icon="sap-icon://delete" class="sapUiSmallMargin" press="fnBrandDelConfirm"></Button>
+														</HBox>
+													</cells>
+												</ColumnListItem>
+											</items>
+										</Table>
+									</VBox>
+								</IconTabFilter>
+							</items>
+						</IconTabBar>
+		</ScrollContainer>
+	</App>
+</mvc:View>

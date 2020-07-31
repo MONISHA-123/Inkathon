@@ -1,0 +1,241 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="com.ink.Essentiaries.controller.productDetails"
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:f="sap.ui.layout.form">
+	<App id="essentiaries">
+		<ScrollContainer
+					
+						horizontal="false"
+						vertical="true"
+						height="100%">
+				<Toolbar>
+						<Title id="SelectedProdTitle"/>
+						<ToolbarSpacer/>
+					</Toolbar>
+					<VBox class="sapUiSmallMargin">
+						<!--	<f:SimpleForm id="idSimpleFormDisplay" editable="false" layout="ColumnLayout" title="Products">
+							<f:content>
+								<Label text="Product ID"/>
+								<Text id="nameText" text="{ID}"/>
+								<Label text="Product Name"/>
+								<Text text="{Name}"/>
+								<Label text="Price"/>
+								<Text text="{Price}"/>
+								<Label text="Description"/>
+								<Text id="countryText" text="{Description}"/>
+							</f:content>
+						</f:SimpleForm>
+						<f:SimpleForm id="idSimpleFormEdit" editable="true" layout="ColumnLayout" title="Products" visible="false">
+							<f:content>
+								<Label text="Product ID"/>
+								<Input id="name" value="{ID}"/>
+								<Label text="Product Name"/>
+								<Input value="{Name}"></Input>
+								<Label text="Price"/>
+								<Input value="{Price}"></Input>
+								<Label text="Description"/>
+								<Input value="{Description}"></Input>
+							</f:content>
+						</f:SimpleForm>-->
+						<f:Form editable="true" id="ProdDisplay">
+							<f:layout>
+								<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0"
+									emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false"/>
+							</f:layout>
+							<f:formContainers>
+								<f:FormContainer title="{i18n>Category}" >
+									<f:formElements>
+										<f:FormElement label="{i18n>CategoryName}">
+											<f:fields>
+												<Text text="{oProductModel>/oSelectedRow/categoryname}"/>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="{i18n>CategoryID}" id="CategoryID">
+											<f:fields>
+												<Text text="{oProductModel>/oSelectedRow/categoryid}"/>
+											</f:fields>
+										</f:FormElement>
+									</f:formElements>
+								</f:FormContainer>
+								<f:FormContainer title="{i18n>BrandName}">
+									<f:formElements>
+										<f:FormElement label="{i18n>BrandName}" id="brandDropDown">
+											<f:fields>
+												<Text text="{oProductModel>/oSelectedRow/brandname}"/>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="{i18n>BrandID}" id="BrandID">
+											<f:fields>
+												<Text text="{oProductModel>/oSelectedRow/brandid}"/>
+											</f:fields>
+										</f:FormElement>
+									</f:formElements>
+								</f:FormContainer>
+								<f:FormContainer title="{i18n>Product}">
+									<f:formElements>
+										<f:FormElement label="ID">
+											<f:fields>
+												<Text text="{oProductModel>/oSelectedRow/productid}"/>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="Name">
+											<f:fields>
+												<Text text="{oProductModel>/oSelectedRow/productname}"/>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="Description">
+											<f:fields>
+												<Text text="{oProductModel>/oSelectedRow/productdescription}"/>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="Image Url">
+											<f:fields>
+													<Image src="{oProductModel>/oSelectedRow/image}" width="10rem" height="10rem" />
+												<!--<Text text="{oProductModel>/oSelectedRow/image}"/>-->
+											</f:fields>
+										</f:FormElement>
+									</f:formElements>
+								</f:FormContainer>
+								<f:FormContainer title=" ">
+									<f:FormElement label="Unit Name">
+										<f:fields>
+											<Text text="{oProductModel>/oSelectedRow/unitname}"/>
+										</f:fields>
+									</f:FormElement>
+									<f:formElements>
+										<f:FormElement label="Unit ID">
+											<f:fields>
+												<Text text="{oProductModel>/oSelectedRow/unitid}"></Text>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="Unit short">
+											<f:fields>
+												<Text text="{oProductModel>/oSelectedRow/unitshort}"></Text>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="Price">
+											<f:fields>
+												<Text text="{oProductModel>/oSelectedRow/price}"></Text>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="Quantity">
+											<f:fields>
+												<Text text="{oProductModel>/oSelectedRow/stock}"></Text>
+											</f:fields>
+										</f:FormElement>
+											<f:FormElement label="Status">
+											<f:fields>
+												<Text text="{oProductModel>/oSelectedRow/status}"></Text>
+											</f:fields>
+										</f:FormElement>
+									</f:formElements>
+								</f:FormContainer>
+							</f:formContainers>
+						</f:Form>
+						<f:Form editable="true" id="ProdChange" visible="false">
+							
+							<f:layout>
+								<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0"
+									emptySpanM="0" emptySpanS="0" columnsXL="3" columnsL="2" columnsM="2" singleContainerFullSize="false"/>
+							</f:layout>
+							<f:formContainers>
+								<f:FormContainer title="{i18n>Category}">
+									<f:formElements>
+										<f:FormElement label="{i18n>CategoryName}">
+											<f:fields>
+												<Input value="{oProductModel>/oChangeRow/categoryname}" editable="false"/>
+											<!--	<ComboBox selectedKey="{oProductModel>/oChangeRow/categoryname}" items="{oProductModel>/Category}" selectionChange="onProCateDD">
+													<core:Item key="{oProductModel>categoryname}" text="{oProductModel>categoryname}"/>
+												</ComboBox>-->
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="{i18n>CategoryID}">
+											<f:fields>
+												<Input value="{oProductModel>/oChangeRow/categoryid}" editable="false"/>
+											</f:fields>
+										</f:FormElement>
+									</f:formElements>
+								</f:FormContainer>
+								<f:FormContainer title="{i18n>BrandName}">
+									<f:formElements>
+										<f:FormElement label="{i18n>BrandName}">
+											<f:fields>
+													<Input value="{oProductModel>/oChangeRow/brandname}" editable="false"/>
+											<!--	<ComboBox selectedKey="{oProductModel>/oChangeRow/brandname}" items="{oProductModel>/cateWiseBrand}" selectionChange="onProBrandDD">
+													<core:Item key="{oProductModel>brandname}" text="{oProductModel>brandname}"/>
+												</ComboBox>-->
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="{i18n>BrandID}">
+											<f:fields>
+												<Input value="{oProductModel>/oChangeRow/brandid}" editable="false"/>
+											</f:fields>
+										</f:FormElement>
+									</f:formElements>
+								</f:FormContainer>
+								<f:FormContainer title="{i18n>Product}">
+									<f:formElements>
+										<f:FormElement label="ID">
+											<f:fields>
+												<Input value="{oProductModel>/oChangeRow/productid}" editable="false"></Input>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="Name">
+											<f:fields>
+												<Input value="{oProductModel>/oChangeRow/productname}"></Input>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="Description">
+											<f:fields>
+												<TextArea value="{oProductModel>/oChangeRow/productdescription}"></TextArea>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="Image Url">
+											<f:fields>
+												<Input value="{oProductModel>/oChangeRow/image}"></Input>
+											</f:fields>
+										</f:FormElement>
+									</f:formElements>
+								</f:FormContainer>
+								<f:FormContainer >
+									<f:FormElement label="Unit Name">
+										<f:fields>
+											<Input value="{oProductModel>/oChangeRow/unitname}"></Input>
+										</f:fields>
+									</f:FormElement>
+									<f:formElements>
+										<f:FormElement label="Unit ID">
+											<f:fields>
+												<Input value="{oProductModel>/oChangeRow/unitid}"></Input>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="Unit short">
+											<f:fields>
+												<Input value="{oProductModel>/oChangeRow/unitshort}"></Input>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="Price">
+											<f:fields>
+												<Input value="{oProductModel>/oChangeRow/price}"></Input>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="Quantity">
+											<f:fields>
+												<StepInput value="{oProductModel>/oChangeRow/stock}"></StepInput>
+											</f:fields>
+										</f:FormElement>
+									</f:formElements>
+								</f:FormContainer>
+							</f:formContainers>
+						</f:Form>
+					</VBox>
+						<footer>
+					<OverflowToolbar active="true">
+						<ToolbarSpacer></ToolbarSpacer>
+						<Button id="idBtnEdit" type="Emphasized" text="Edit" press="onEditBtnPressed"></Button>
+						<Button id="idBtnSave" type="Emphasized" text="Save" visible="false" press="onDataUpdate"></Button>
+						<!--<ToolbarSpacer></ToolbarSpacer>-->
+						<Button id="idBtnCancel" type="Emphasized" text="Cancel" visible="false" press="onCancelBtnPressed"></Button>
+					</OverflowToolbar>
+				</footer>
+		</ScrollContainer>
+	</App>
+</mvc:View>

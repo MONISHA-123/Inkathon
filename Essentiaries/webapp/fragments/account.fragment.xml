@@ -1,0 +1,25 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:u="sap.ui.unified"> 
+
+    <!--<VBox class="sapUiSmallMargin">--> 
+
+            <u:Menu > 
+
+         
+
+        <u:MenuItem text="{i18n>My Account}" select="fnUserDashBoard" icon="sap-icon://person-placeholder" /> 
+
+        <u:MenuItem text="{i18n>My Orders}" select="fnUserDashBoard"  icon="sap-icon://shipping-status"/> 
+
+        <u:MenuItem text="{i18n>Wallet}" select="fnUserDashBoard" icon="sap-icon://wallet" /> 
+
+        <u:MenuItem text="{i18n>Contact us}" select="fnUserDashBoard" icon="sap-icon://arobase" /> 
+
+        <u:MenuItem text="{i18n>Logout}" select="fnLogOut" icon="sap-icon://log"/> 
+
+    </u:Menu> 
+
+    <!--</VBox>--> 
+
+  
+
+</core:FragmentDefinition> 

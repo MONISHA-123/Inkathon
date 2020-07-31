@@ -1,0 +1,38 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<Dialog contentWidth="40%">
+		<customHeader class="headerbg">
+			<Bar>
+				<contentMiddle>
+					<Image src="./Images/Logo.jpg"></Image>
+					<Title text="{i18n>ShopName}" class="headertitle"/>
+				</contentMiddle>
+				<contentRight>
+					<Button class="ToolbarIcon" icon="sap-icon://decline" tooltip="Close" press="fnOnCancel" type="Transparent"/>
+				</contentRight>
+			</Bar>
+		</customHeader>
+		<VBox class="bgDialog" fitContainer="true" justifyContent="Center" alignItems="Center" alignContent="Center">
+			<VBox class="white sapUiTinyMargin" fitContainer="true" justifyContent="Center" alignItems="Center" alignContent="Center">
+				<core:Icon class="sapUiTinyMarginTop" size="3rem"  src="sap-icon://customer" color="black"/>
+				<Title text="{i18n>login}" class="loginTitle"></Title>
+				<HBox class=" sapUiTinyMarginBegin sapUiTinyMarginEnd"><core:Icon class="sapUiTinyMarginTop" size="1.5rem" src="sap-icon://email" color="black"/>
+					<Input class="sapUiTinyMarginBegin" width="12rem" type="Email" placeholder="{i18n>Email}" value="{oEmptyModel>/oList/Email}"></Input>
+				</HBox>
+				<!--<Label text="{i18n>passcode}"></Label>-->
+				<HBox class="sapUiTinyMarginTop sapUiTinyMarginBegin sapUiTinyMarginEnd"><core:Icon  color="blacks" class="sapUiTinyMarginTop" size="1.5rem" src="sap-icon://key"/>
+					<Input class="sapUiTinyMarginBegin" width="12rem" placeholder="{i18n>passcode}" change="fnOnPassChange"
+						value="{oEmptyModel>/oList/password}" type="Password"></Input>
+				</HBox>
+				<Link class="forgettPwd whiteLinks" text="Forgot password?" press="fnOnResetPass"/>
+				<HBox><Button  class="frgamentbtn" press="fnOnLoginValidation" icon="sap-icon://paper-plane" text="{i18n>submit}"/>
+					<!--<Button class="sapUiTinyMarginBegin" text="{i18n>OTP}" press="fnOnOTP"/>-->
+				</HBox>
+				<Button class="frgamentbtn" text="{i18n>Login with OTP}" press="fnGuestLogin" type="Transparent"/>
+				<HBox class="sapUiSmallMargin">
+					<!--<core:Icon  size="1.5rem" color="white" src="sap-icon://request"/>-->
+					<Link text="Create an account-->" press="fnOnCreateAcc" class=" whiteLinks"></Link>
+				</HBox>
+			</VBox>
+		</VBox>
+	</Dialog>
+</core:FragmentDefinition>
