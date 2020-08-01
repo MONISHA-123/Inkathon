@@ -14,8 +14,12 @@
 						</Breadcrumbs>
 					</VBox>
 					<VBox class=" sapUiTinyMargin" alignItems="Center">
-						<core:Icon class="sapUiTinyMarginTop" size="3rem" src="sap-icon://customer"/>
-						<Title text="Welcome user" class="formText"></Title>
+					<Avatar
+										displaySize="L"
+										id="Avatar"
+										src="images/cannotfind_Woman_avatar_01.png"
+										backgroundColor="Random"/>
+						<Title text="Welcome" ></Title>
 					</VBox>
 					<SplitApp id="SplitAppDemo">
 						<detailPages>

@@ -1,4 +1,5 @@
 sap.ui.define([
+	"com/ink/Essentiaries/controller/BaseController",
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/UIComponent",
 	"sap/m/MessageToast",
@@ -11,9 +12,9 @@ sap.ui.define([
 	"sap/ui/core/Popup",
 	"sap/ui/core/routing/History"
 
-], function (Controller, UIComponent, MessageToast, BusyIndicator, JSONModel, Fragment, Filter, FilterOperator, Device, Popup,History) {
+], function (BaseController,Controller, UIComponent, MessageToast, BusyIndicator, JSONModel, Fragment, Filter, FilterOperator, Device, Popup,History) {
 	"use strict";
-	return Controller.extend("com.ink.Essentiaries.controller.App", {
+	return BaseController.extend("com.ink.Essentiaries.controller.App", {
 		onInit: function () {
 	this.forgotOTP = 0;
 	this.oRegistration = {
@@ -36,8 +37,8 @@ sap.ui.define([
 			getRouter: function () {
 			return UIComponent.getRouterFor(this);
 		},
-			fnOnAddToCart: function (oEvent) {
-		 var oButton=this.byId("cart");
+		/*	fnOnAddToCart: function (oEvent) {
+			var oButton=this.byId("cart");
 			if (!this._oPopover) {
 
 				Fragment.load({
@@ -62,7 +63,7 @@ sap.ui.define([
 
 			}
 
-		},
+		},*/
 		fnPopCloseButton: function (oEvent) {
 
 			this._oPopover.close();

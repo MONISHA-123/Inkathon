@@ -1,4 +1,5 @@
 sap.ui.define([
+	"com/ink/Essentiaries/controller/BaseController",
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/UIComponent",
 	"sap/m/MessageToast",
@@ -11,9 +12,9 @@ sap.ui.define([
 	"sap/ui/core/Popup",
 	"sap/ui/core/routing/History"
 
-], function (Controller, UIComponent, MessageToast, BusyIndicator, JSONModel, Fragment, Filter, FilterOperator, Device, Popup,History) {
+], function (BaseController,Controller, UIComponent, MessageToast, BusyIndicator, JSONModel, Fragment, Filter, FilterOperator, Device, Popup,History) {
 	"use strict";
-	return Controller.extend("com.ink.Essentiaries.controller.Home", {
+	return BaseController.extend("com.ink.Essentiaries.controller.Home", {
 
 
 		onInit: function () {
@@ -202,8 +203,28 @@ sap.ui.define([
 		},
 		getRouter: function () {
 			return UIComponent.getRouterFor(this);
-		}
-	
+		},
+			fnCart :function(oEvent){
+			MessageToast.show("Product Added To Cart ");
+			oEvent.getSource().getParent().getItems()[0].setVisible(false);
+			oEvent.getSource().getParent().getItems()[1].setVisible(true);
+			
+			var Path=oEvent.getSource().getBindingContext("oProductModel").sPath;
+			var oData=this.getOwnerComponent().getModel("oProductModel").getProperty(Path);
+			this.getOwnerComponent().getModel("oProductModel").setProperty(Path+"/quantity",1);
+			this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart").unshift(oData);
+			var price=this.getOwnerComponent().getModel("oProductModel").getProperty(Path+"/price");
+			 this.getOwnerComponent().getModel("oProductModel").setProperty(Path+"/amount",price);
+			console.log(this.getOwnerComponent().getModel("oProductModel").getProperty(Path));
+			
+			
+			this.getOwnerComponent().getModel("oProductModel").refresh();
+		this.fnTotalCalc();
+		
+			
+			 this.fnOnAddToCart();
+		},
+			
 
 	});
 
