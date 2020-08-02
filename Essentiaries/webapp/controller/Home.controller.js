@@ -17,7 +17,7 @@ sap.ui.define([
 	return BaseController.extend("com.ink.Essentiaries.controller.Home", {
 
 
-		onInit: function () {
+		onInit: function (oEvent) {
 				this.token = "";
 					var oEmptyModel = new JSONModel();
 						this.getOwnerComponent().getModel("oProductModel").setProperty("/Cart",[]);
@@ -26,9 +26,10 @@ sap.ui.define([
 				this.GETMethod_CATE();
 			this.GETMethod_Prod();
 			this.GETMethod_ProdOffers();
-				
+			
+			
 		},
-
+		
 		fnCategorySelect:function(oEvent){
 		var sPath=oEvent.getSource().getBindingContext("oProductModel").getPath();
 		var id=this.getOwnerComponent().getModel("oProductModel").getProperty(sPath+"/categoryid");
@@ -222,10 +223,13 @@ sap.ui.define([
 		this.fnTotalCalc();
 		
 			
-			 this.fnOnAddToCart();
+			 //this.fnOnAddToCart();
 		},
-			
-
+		onCheck1:function(oEvent){
+			console.log(oEvent);
+		//	this.onCheck(oEvent);
+			this.fnOnAddToCart(oEvent);                  
+		}
 	});
 
 });

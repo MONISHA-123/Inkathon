@@ -65,8 +65,9 @@ sap.ui.define([
 
 		},*/
 		fnPopCloseButton: function (oEvent) {
-
+				
 			this._oPopover.close();
+			
 
 		},
 		//fragment for user

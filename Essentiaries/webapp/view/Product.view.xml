@@ -6,6 +6,7 @@
 						horizontal="false"
 						vertical="true"
 						height="100%">
+				<Button text="check" press="onCheck"></Button>
 			<Breadcrumbs currentLocationText="{oProductModel>/CategoryByProduct/0/categoryname}" class="sapUiSmallMargin">
 						<Link press="fnToHome" text="Home"/>
 						<!--<Link press="onPress" text="Category"/>-->

@@ -3,8 +3,7 @@
 		<customHeader>
 			<Bar>
 				<contentMiddle>
-					<Image src="./Images/Logo.jpg"></Image>
-					<Title text="{i18n>Company Name}"/>
+					<Title text="{i18n>ShopName}"/>
 				</contentMiddle>
 				<contentRight>
 					<Button class="ToolbarIcon" icon="sap-icon://decline" tooltip="Close" press="fnOnCancel" type="Transparent"/>
@@ -31,6 +30,18 @@
 									<Input value="{oEmptyModel>/Category/categoryname}"></Input>
 								</f:fields>
 							</f:FormElement>
+							<f:FormElement label="{i18n>Icon}">
+								<f:fields>
+									<Input value="{oEmptyModel>/Category/icon}"></Input>
+								</f:fields>
+							</f:FormElement>
+								<f:FormElement label="status">
+								<f:fields>
+									<ComboBox selectedKey="{oEmptyModel>/Category/status}" >
+											<core:Item key="true" text="true"/>
+												<core:Item key="false" text="false"/>
+								</f:fields>
+							</f:FormElement>
 							<f:FormElement label="{i18n>CategoryID}" id="NewCateID">
 								<f:fields>
 									<Input value="{oEmptyModel>/Category/categoryid}"/>
@@ -49,21 +60,21 @@
 						</f:FormContainer>
 						<f:FormContainer id="newBrand">
 							<f:formElements>
-								<f:FormElement label="{i18n>BrandName}" id="newBrandFld" >
+								<f:FormElement label="{i18n>BrandName}" id="newBrandFld">
 									<f:fields>
 										<Input value="{oEmptyModel>/Brand/brandname}"></Input>
 									</f:fields>
 								</f:FormElement>
 								<f:FormElement label="{i18n>BrandID}" id="NewBrandID">
 									<f:fields>
-										<Input value="{oEmptyModel>/Brand/brandid}" />
+										<Input value="{oEmptyModel>/Brand/brandid}"/>
 									</f:fields>
 								</f:FormElement>
 								<f:FormElement label="{i18n>CategoryName}">
 									<f:fields>
-											<ComboBox selectedKey="{oEmptyModel>/Brand/categoryname}" items="{oProductModel>/Category}" selectionChange="onNewBrand_CateDD">
-															<core:Item key="{oProductModel>categoryname}" text="{oProductModel>categoryname}" />
-														</ComboBox>
+										<ComboBox selectedKey="{oEmptyModel>/Brand/categoryname}" items="{oProductModel>/Category}" selectionChange="onNewBrand_CateDD">
+											<core:Item key="{oProductModel>categoryname}" text="{oProductModel>categoryname}"/>
+										</ComboBox>
 									</f:fields>
 								</f:FormElement>
 								<f:FormElement label="{i18n>CategoryID}">
@@ -83,7 +94,7 @@
 								</f:FormElement>
 							</f:formElements>
 						</f:FormContainer>
-						<f:FormContainer  id="newUnit">
+						<f:FormContainer id="newUnit">
 							<f:formElements>
 								<f:FormElement label="{i18n>UnitName}">
 									<f:fields>
@@ -93,12 +104,12 @@
 								<f:FormElement label="{i18n>UnitID}">
 									<f:fields>
 										<Input/>
-										<Button class="sapUiSmallMarginTop frgamentbtn" text="{i18n>Save}" >
+										<Button class="sapUiSmallMarginTop frgamentbtn" text="{i18n>Save}">
 											<layoutData>
 												<l:GridData span="XL5 L5 M5 S5"/>
 											</layoutData>
 										</Button>
-										<Button class="sapUiSmallMarginTop frgamentbtn" text="{i18n>Cancel}" >
+										<Button class="sapUiSmallMarginTop frgamentbtn" text="{i18n>Cancel}">
 											<layoutData>
 												<l:GridData span="XL5 L5 M5 S5"/>
 											</layoutData>

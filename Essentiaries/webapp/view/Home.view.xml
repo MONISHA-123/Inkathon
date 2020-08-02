@@ -2,20 +2,22 @@
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:tnt="sap.tnt" xmlns:l="sap.ui.layout" xmlns:card="sap.f.cards" xmlns:grid="sap.ui.layout.cssgrid"
 	xmlns:f="sap.f">
 	<App id="essentiaries">
+		
 		<ScrollContainer
 						id="homePage"
 						horizontal="false"
 						vertical="true"
 						height="100%">
-							
+						
 						<VBox class="bgtop"></VBox>
 						<VBox class="bgImage">
 					<VBox class="title " >
 
 					</VBox>
-					
+				
 					<VBox class="sapUiLargeMarginTop bgtop">
 						<Title class="sapUiSmallMarginBegin text" text="Shop by categories" level="H3"/>
+						
 						<HeaderContainer scrollStep="500" id="container1" scrollStepByItem="1" showOverflowItem="true" content="{oProductModel>/Category}"
 							class="sapUiSmallMargin">
 							<FlexBox alignItems="Center" justifyContent="Center">
@@ -34,6 +36,7 @@
 					</VBox>
 					</VBox>
 					<VBox>
+							<Button text="check" press="fnOnAddToCart"></Button>
 						<Title class="sapUiSmallMarginBegin sapUiSmallMarginTop text" text="Top Sellers" level="H3"/>
 						<HeaderContainer scrollStep="500" id="container2" scrollStepByItem="1" showDividers="false" showOverflowItem="true"
 							content="{oProductModel>/Product}" class="sapUiSmallMargin">
@@ -103,7 +106,9 @@
 								</l:Grid>
 							</FlexBox>
 						</HeaderContainer>
+						
 					</VBox>
+					
 						<core:Fragment fragmentName="com.ink.Essentiaries.fragments.footer" type="XML"></core:Fragment>
 					</ScrollContainer>
 	</App>

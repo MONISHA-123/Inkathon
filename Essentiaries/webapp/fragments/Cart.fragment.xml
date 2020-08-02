@@ -5,13 +5,13 @@
 		placement="Bottom"
 		contentHeight="30%"
 		>
-				<Table id="idProductsTable"
+	<Table id="idProductsTable"
 		items="{oProductModel>/Cart}" width="27rem">
 		<columns>
-			<Column  hAlign="Start" >
+			<Column  >
 			
 			</Column>
-			<Column hAlign="Start" >
+			<Column >
 			
 			</Column>
 			<Column  hAlign="End" >

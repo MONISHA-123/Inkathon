@@ -30,14 +30,16 @@ sap.ui.define([
 			
 			this.getOwnerComponent().getModel("oProductModel").setProperty("/Total", total);
 		},
-			fnOnAddToCart: function (oEvent) {
-		 var oButton=this.byId("cart");
+	fnOnAddToCart: function (oEvent) {
+		
+		 //var oButton=this.byId("cart");
+		 var oButton=oEvent.getSource();
 			if (!this._oPopover) {
 
 				Fragment.load({
 
 					name: "com.ink.Essentiaries.fragments.Cart",
-
+					id:"cartFragment",
 					controller: this
 
 				}).then(function (oPopover) {
@@ -53,9 +55,14 @@ sap.ui.define([
 			} else {
 
 				this._oPopover.openBy(oButton);
+				MessageToast.show("Closed");
 
 			}
 
+		},
+		onCheck:function(oEvent){
+			MessageToast.show("Ok!!");
+			console.log(oEvent);
 		}
  
   });

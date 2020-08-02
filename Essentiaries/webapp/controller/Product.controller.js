@@ -5,8 +5,12 @@ sap.ui.define([
 	"sap/ui/model/json/JSONModel",
 	"sap/m/MessageToast",
 	"sap/ui/core/BusyIndicator",
-		"sap/ui/core/Fragment"
-], function (Controller, History, UIComponent, JSONModel, MessageToast,BusyIndicator,Fragment) {
+		"sap/ui/core/Fragment",
+		"sap/ui/core/Fragment",
+		"sap/ui/model/Filter",
+	"sap/ui/model/Sorter",
+	"sap/ui/model/FilterOperator"
+], function (Controller, History, UIComponent, JSONModel, MessageToast,BusyIndicator,Fragment,Filter,Sorter,FilterOperator) {
 	"use strict";
 
 
@@ -54,7 +58,7 @@ sap.ui.define([
 					sap.m.MessageToast.show("Hi  Congtz! you succussfully consumed destination from CF!");
 					that.brandCount = data.length;
 					that.getOwnerComponent().getModel("oProductModel").setProperty("/Brand", data);
-					console.log(data);
+				//	console.log(data);
 
 				},
 				type: "GET"
@@ -143,6 +147,40 @@ sap.ui.define([
 			this.getView().getModel("oEmptyModel").setProperty("/cateWiseBrand", aCWB);
 			this.getView().getModel("oEmptyModel").refresh();
 			
+				var that=this;
+				var sUrl = "/AdminModule/api/productbycategory/"+this.id1;
+			$.ajax({
+				url: sUrl,
+				data: null,
+				async: true,
+				dataType: "json",
+				contentType: "application/json; charset=utf-8",
+				headers: {
+					"x-CSRF-Token": "fetch"
+				},
+				error: function (err) {
+					MessageToast.show("Category Fetch Destination Failed");
+				},
+				success: function (data, status, xhr) {
+
+				//	MessageToast.show("Succussfully consumed destination from CF!");
+					that.cateCount = data.length;
+					//console.log(data);
+					that.getOwnerComponent().getModel("oProductModel").setProperty("/CategoryByProduct", data);
+				
+				},
+				complete: function (xhr, status) {
+						//	that.getOwnerComponent().getModel("oProductModel").refresh();
+							that.byId("gridList").getBinding("items").filter();
+					},
+				type: "GET"
+			}).always(function (data, status, xhr) {
+				that.token = xhr.getResponseHeader("x-CSRF-Token");
+
+			});
+			
+		
+			
 		},
 			fnOnCancel:function(){
 				this._oDialog.close();
@@ -150,6 +188,18 @@ sap.ui.define([
 			this._oDialog.destroy();
 
 			this._oDialog = null;
+		},
+		handleSelectionFinish: function(oEvent) {
+				var selectedItems = oEvent.getParameter("selectedItems");
+					var aTemp = [];
+				for(var i=0; i<selectedItems.length; i++)
+						{
+							aTemp.push(new Filter("brandname", FilterOperator.Contains, selectedItems[i].getText()));
+						}
+			var oTable = this.byId("gridList");
+			var oBinding = oTable.getBinding("items");
+			oBinding.filter(aTemp);
+			
 		},
 		fnOnFilter :function(oEvent){
 		//	var sPath=oEvent.getSource().getBindingContext("oProductModel").getPath();

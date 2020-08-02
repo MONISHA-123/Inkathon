@@ -33,16 +33,12 @@
 			</ScrollContainer>
 			<Title class="sapUiSmallMargin" text="Brand"/>
 			<ScrollContainer height="10%" width="100%" horizontal="false" vertical="true">
-				<VBox class="brandfilter">
-					<List  items="{oEmptyModel>/cateWiseBrand}">
-						<CustomListItem>
-						<CheckBox text="{oEmptyModel>brandname}" press="fnBrandSelect" showMarkers="true"/>
-						</CustomListItem>
-					</List>
-					<!--<CheckBox text="Brand2"/>
-					<CheckBox text="Brand3"/>
-					<CheckBox text="Brand4"/>-->
-				</VBox>
+		
+						 <MultiComboBox id="brandSelection" class="sapUiSmallMarginBottom" placeholder="Brands" width="100%" showValueHelp="true"
+                                        items="{path:'oEmptyModel>/cateWiseBrand'}" selectionFinish="handleSelectionFinish">
+                                        <core:Item key="{oEmptyModel>brandid}" text="{oEmptyModel>brandname}" />
+                          </MultiComboBox>
+			
 			</ScrollContainer>
 			<Title class="sapUiSmallMargin" text="Price"/>
 			<RangeSlider showAdvancedTooltip="true" range="0,500" min="0" max="1000" width="18rem" class="sapUiLargeMarginBottom"/>

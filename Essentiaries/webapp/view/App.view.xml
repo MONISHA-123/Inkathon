@@ -28,7 +28,7 @@
 						
 							</Title>
 							<ToolbarSpacer/>
-							<Button class="ToolbarIcon" icon="sap-icon://cart"  id="cart" tooltip="{i18n>Cart}" press="fnOnAddToCart" >
+							<Button class="ToolbarIcon" icon="sap-icon://cart"   tooltip="{i18n>Cart}" press="fnOnAddToCart" >
 									<layoutData>
 									<OverflowToolbarLayoutData priority="NeverOverflow"/>
 								</layoutData>
