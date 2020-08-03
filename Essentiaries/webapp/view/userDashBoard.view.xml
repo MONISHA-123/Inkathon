@@ -1,8 +1,7 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="com.ink.Essentiaries.controller.userDashBoard"
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:tnt="sap.tnt" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:f="sap.f"
 	xmlns:viz="sap.viz.ui5.controls" xmlns:u="sap.uxap" xmlns:form="sap.ui.layout.form" xmlns:p="sap.suite.ui.commons"
-	xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
-	 xmlns:Order="com.ink.Essentiaries.Blocks.Order">
+	xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1" xmlns:Order="com.ink.Essentiaries.Blocks.Order">
 	<App id="essentiaries">
 		<u:ObjectPageLayout id="ObjectPageLayout" enableLazyLoading="true">
 			<u:headerTitle>
@@ -51,33 +50,40 @@
 			</u:headerContent>
 			<u:sections>
 				<u:ObjectPageSection id="Personal" title="Personal Information">
-					
-						<u:ObjectPageSubSection>
-							<form:SimpleForm editable="false" id="personalForm" layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4">
-								<form:content>
-									<Label text="Name"/>
-									<Input value="Denise"/><Input value="Smith"/>
-									<Label text="Email"/>
-									<Input type="Email" value="DeniseSmith@sap.com"/>
-									<Label text="Mobile"/>
-									<Input type="Tel" value="+33 6 4512 5158"/>
-								</form:content>
-							</form:SimpleForm>
-							<Button text="Save" press="onSave"> </Button>
-						</u:ObjectPageSubSection>
+					<u:ObjectPageSubSection>
 						
+						<form:SimpleForm  id="personalForm" layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4">
 							
+							<form:content>
+								<Label text="Name"/>
+								<Input value="Denise" editable="false"/><Input value="Smith" editable="false"/>
+								<Label text="Email"/>
+								<Input type="Email" value="DeniseSmith@sap.com" editable="false"/>
+								<Label text="Mobile"/>
+								<Input type="Tel" value="+33 6 4512 5158" editable="false"/>
+							</form:content>
+						</form:SimpleForm>
+					<OverflowToolbar>
+						<Button type="Emphasized" icon="sap-icon://edit" tooltip="Edit" text="Edit" press="fnEditInfo"/>
+						<Button type="Emphasized" visible="false" icon="sap-icon://save" tooltip="Save" text="Save" press="fnSaveInfo"/>
+					</OverflowToolbar>
+					</u:ObjectPageSubSection>
 				</u:ObjectPageSection>
 				<u:ObjectPageSection id="Order" title="Order Information">
-					
 					<u:ObjectPageSubSection>
-							<u:blocks>
-								<Order:OrderDetail id="order"/>
-							</u:blocks>
+						<u:blocks>
+							<Order:OrderDetail id="order"/>
+						</u:blocks>
 					</u:ObjectPageSubSection>
-						
 				</u:ObjectPageSection>
-					</u:sections>
-				</u:ObjectPageLayout>
-			</App>
-		</mvc:View>
+					<u:ObjectPageSection id="Address" title="Address">
+					<u:ObjectPageSubSection>
+						<u:blocks>
+							<Order:Address id="address"/>
+						</u:blocks>
+					</u:ObjectPageSubSection>
+				</u:ObjectPageSection>
+			</u:sections>
+		</u:ObjectPageLayout>
+	</App>
+</mvc:View>
