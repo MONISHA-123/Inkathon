@@ -1,46 +1,83 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="com.ink.Essentiaries.controller.userDashBoard"
-	xmlns:html="http://www.w3.org/1999/xhtml"  xmlns:tnt="sap.tnt" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:f="sap.f"
-	xmlns:viz="sap.viz.ui5.controls" xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1">
+	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:tnt="sap.tnt" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:f="sap.f"
+	xmlns:viz="sap.viz.ui5.controls" xmlns:u="sap.uxap" xmlns:form="sap.ui.layout.form" xmlns:p="sap.suite.ui.commons"
+	xmlns:custom="http://schemas.sap.com/sapui5/extension/sap.ui.core.CustomData/1"
+	 xmlns:Order="com.ink.Essentiaries.Blocks.Order">
 	<App id="essentiaries">
-		<ScrollContainer
+		<u:ObjectPageLayout id="ObjectPageLayout" enableLazyLoading="true">
+			<u:headerTitle>
+				<u:ObjectPageDynamicHeaderTitle>
+					<u:expandedHeading>
+						<Title text="Denise Smith" wrapping="true"/>
+					</u:expandedHeading>
+					<u:snappedHeading>
+						<FlexBox fitContainer="true" alignItems="Center">
+							<Avatar src="./test-resources/sap/uxap/images/imageID_275314.png" class="sapUiTinyMarginEnd"/>
+							<Title text="Denise Smith" wrapping="true"/>
+						</FlexBox>
+					</u:snappedHeading>
+					<u:expandedContent>
+						<Text text="Platinum Member"/>
+					</u:expandedContent>
+					<u:snappedContent>
+						<Text text="Platinum Member"/>
+					</u:snappedContent>
+					<u:snappedTitleOnMobile>
+						<Title text="Denise Smith"/>
+					</u:snappedTitleOnMobile>
+					<u:actions>
+						<OverflowToolbarButton type="Emphasized" icon="sap-icon://edit" tooltip="Edit" text="Edit Info" press="fnEditInfo"/>
+					</u:actions>
+				</u:ObjectPageDynamicHeaderTitle>
+			</u:headerTitle>
+			<u:headerContent>
+				<FlexBox wrap="Wrap" fitContainer="true">
+					<Avatar class="sapUiSmallMarginEnd" src="./test-resources/sap/uxap/images/imageID_275314.png" displaySize="L"/>
+					<l:VerticalLayout class="sapUiSmallMarginBeginEnd">
+						<Link text="+33 6 4512 5158"/>
+						<Link text="DeniseSmith@sap.com"/>
+					</l:VerticalLayout>
+					<l:VerticalLayout class="sapUiSmallMarginBeginEnd">
+						<Label text="Hello! 70% to unlock Next Offers"/>
+						<VBox>
+							<Label text="Next Offer"/>
+							<ProgressIndicator percentValue="30" displayValue="30%"/>
+						</VBox>
+					</l:VerticalLayout>
+					<l:VerticalLayout class="sapUiSmallMarginBeginEnd">
+						<Label text="San Jose, USA"/>
+					</l:VerticalLayout>
+				</FlexBox>
+			</u:headerContent>
+			<u:sections>
+				<u:ObjectPageSection id="Personal" title="Personal Information">
 					
-						horizontal="false"
-						vertical="true"
-						height="100%">
-			<VBox class=" sapUiTinyMargin">
-						<Breadcrumbs currentLocationText="user Dashboard" class="sapUiSmallMargin">
-							<Link press="onPress" text="Home"/>
-							<!--<Link press="onPress" text="Category"/>-->
-						</Breadcrumbs>
-					</VBox>
-					<VBox class=" sapUiTinyMargin" alignItems="Center">
-					<Avatar
-										displaySize="L"
-										id="Avatar"
-										src="images/cannotfind_Woman_avatar_01.png"
-										backgroundColor="Random"/>
-						<Title text="Welcome" ></Title>
-					</VBox>
-					<SplitApp id="SplitAppDemo">
-						<detailPages>
-							<Page title="Welcome "></Page>
-						</detailPages>
-						<masterPages>
-							<Page id="master" title="Account" backgroundDesign="List" class="sapUiStdPage sapUiSmallMarginBegin">
-								<List>
-									<items>
-										<StandardListItem title="Overview" icon="sap-icon://rhombus-milestone-2" />
-										<StandardListItem icon="sap-icon://shipping-status" title="My Orders" type="Navigation" press="fnOnPressGoToMaster"/>
-										<StandardListItem icon="sap-icon://person-placeholder" title="My Profile"/>
-										<StandardListItem title="My Wallet" icon="sap-icon://wallet" />
-										<StandardListItem title="Logout" icon="sap-icon://log"/>
-									</items>
-								</List>
-							</Page>
-						</masterPages>
-					</SplitApp>
-						<core:Fragment fragmentName="com.ink.Essentiaries.fragments.footer" type="XML"></core:Fragment>
-		</ScrollContainer>
-		
-	</App>
-</mvc:View>
+						<u:ObjectPageSubSection>
+							<form:SimpleForm editable="false" id="personalForm" layout="ColumnLayout" columnsM="2" columnsL="3" columnsXL="4">
+								<form:content>
+									<Label text="Name"/>
+									<Input value="Denise"/><Input value="Smith"/>
+									<Label text="Email"/>
+									<Input type="Email" value="DeniseSmith@sap.com"/>
+									<Label text="Mobile"/>
+									<Input type="Tel" value="+33 6 4512 5158"/>
+								</form:content>
+							</form:SimpleForm>
+							<Button text="Save" press="onSave"> </Button>
+						</u:ObjectPageSubSection>
+						
+							
+				</u:ObjectPageSection>
+				<u:ObjectPageSection id="Order" title="Order Information">
+					
+					<u:ObjectPageSubSection>
+							<u:blocks>
+								<Order:OrderDetail id="order"/>
+							</u:blocks>
+					</u:ObjectPageSubSection>
+						
+				</u:ObjectPageSection>
+					</u:sections>
+				</u:ObjectPageLayout>
+			</App>
+		</mvc:View>

@@ -15,11 +15,13 @@ sap.ui.define([
 		onInit: function () {
 			var oRouter = this.getRouter();
 			oRouter.getRoute("userDashBoard").attachMatched(this._onRouteMatched, this);
-				var data=this.getOwnerComponent().getModel("oProductModel").getProperty("/LoginUser");
+				/*var data=this.getOwnerComponent().getModel("oProductModel").getProperty("/LoginUser");
 								var sInitial = (data.fname).charAt(0) + (data.lname).charAt(0);
 
 								this.getView().byId("Avatar").setInitials(sInitial);
-	
+								
+	*/
+//	this.fnToTrackOrder();
 		},
 		getRouter: function () {
 			return UIComponent.getRouterFor(this);
@@ -27,6 +29,12 @@ sap.ui.define([
 		_onRouteMatched: function (oEvent) {
 			
 		
+		},
+		fnToTrackOrder: function(){
+			MessageToast.show("Inside Order");
+		},
+		onSave :function(){
+			MessageToast.show("Profile Saved");
 		}
 	});
 

@@ -1,0 +1,33 @@
+<mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core"
+		  xmlns:forms="sap.ui.layout.form" xmlns="sap.m" controllerName="com.ink.Essentiaries.controller.OrderDetail">
+					<Table inset="false" alternateRowColors="true">
+										<columns>
+											<Column width="12em">
+												<Text text="Order Id"/>
+											</Column>
+											<Column minScreenWidth="Desktop" demandPopin="true">
+												<Text text="Date"/>
+											</Column>
+											<Column minScreenWidth="Desktop" demandPopin="true">
+												<Text text="Address"/>
+											</Column>
+											<Column minScreenWidth="Desktop" demandPopin="true">
+												<Text text="Amount"/>
+											</Column>
+											<Column minScreenWidth="Desktop" demandPopin="true">
+												<Text text="Status"/>
+											</Column>
+										</columns>
+										<items>
+											<ColumnListItem type="Navigation" press="fnToTrackOrder">
+												<cells>
+													<Text/>
+													<Text/>
+													<Text/>
+													<Text/>
+													<Text/>
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+						</mvc:View>

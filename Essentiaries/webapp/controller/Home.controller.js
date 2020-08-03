@@ -226,9 +226,10 @@ sap.ui.define([
 			 //this.fnOnAddToCart();
 		},
 		onCheck1:function(oEvent){
-			console.log(oEvent);
+			
 		//	this.onCheck(oEvent);
-			this.fnOnAddToCart(oEvent);                  
+	//	console.log(oEvent.getSource());
+			this.fnOnAddToCart(this.oButton);                  
 		}
 	});
 

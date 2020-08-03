@@ -30,10 +30,11 @@ sap.ui.define([
 			
 			this.getOwnerComponent().getModel("oProductModel").setProperty("/Total", total);
 		},
-	fnOnAddToCart: function (oEvent) {
+	fnOnAddToCart: function (oEvent ) {
 		
 		 //var oButton=this.byId("cart");
-		 var oButton=oEvent.getSource();
+		 this.oButton=oEvent.getSource();
+		// console.log(this.oButton);
 			if (!this._oPopover) {
 
 				Fragment.load({
@@ -48,21 +49,17 @@ sap.ui.define([
 
 					this.getView().addDependent(this._oPopover);
 
-					this._oPopover.openBy(oButton);
+					this._oPopover.openBy(this.oButton);
 
 				}.bind(this));
 
 			} else {
 
-				this._oPopover.openBy(oButton);
+				this._oPopover.openBy(this.oButton);
 				MessageToast.show("Closed");
-
+				console.log(this.oButton);
 			}
 
-		},
-		onCheck:function(oEvent){
-			MessageToast.show("Ok!!");
-			console.log(oEvent);
 		}
  
   });

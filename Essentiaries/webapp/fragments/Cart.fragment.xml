@@ -5,7 +5,8 @@
 		placement="Bottom"
 		contentHeight="30%"
 		>
-	<Table id="idProductsTable"
+	
+	<Table 
 		items="{oProductModel>/Cart}" width="27rem">
 		<columns>
 			<Column  >
@@ -37,11 +38,12 @@
 						
 							<Text
 						text="Rs {oProductModel>price}"/>
-						<Button id="next" icon="sap-icon://sys-cancel-2" type="Transparent" press="fnOnDelete" />
+						<Button  icon="sap-icon://sys-cancel-2" type="Transparent" press="fnOnDelete" />
 				</cells>
 			</ColumnListItem>
 		</items>
 	</Table>
+
 	<footer>
 			<OverflowToolbar>
 				<ToolbarSpacer/>

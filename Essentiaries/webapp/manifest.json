@@ -57,7 +57,7 @@
 					"bundleName": "com.ink.Essentiaries.i18n.i18n"
 				}
 			},
-				"oProductModel": {
+			"oProductModel": {
 				"type": "sap.ui.model.json.JSONModel",
 				"settings": {
 					"defaultBindingMode": "TwoWay"
@@ -65,9 +65,11 @@
 			}
 		},
 		"resources": {
-			"css": [{
-				"uri": "css/style.css"
-			}]
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
 		},
 		"routing": {
 			"config": {
@@ -79,47 +81,69 @@
 				"controlId": "essentiaries",
 				"clearControlAggregation": false
 			},
-			"routes": [{
-				"name": "App",
-				"pattern": "App",
-				"target": ["Home"]
-			}, {
-				"name": "Home",
-				"pattern": "",
-				"titleTarget": "",
-				"greedy": false,
-				"target": ["Home"]
-			}, {
-				"name": "Admin",
-				"pattern": "Admin",
-				"titleTarget": "",
-				"greedy": false,
-				"target": ["Admin"]
-			}, {
-				"name": "Order",
-				"pattern": "Order",
-				"titleTarget": "",
-				"greedy": false,
-				"target": ["Order"]
-			}, {
-				"name": "Product",
-				"pattern": "Product/{CategoryId}",
-				"titleTarget": "",
-				"greedy": false,
-				"target": ["Product"]
-			}, {
-				"name": "productDetails",
-				"pattern": "productDetails/{ProductId}",
-				"titleTarget": "",
-				"greedy": false,
-				"target": ["productDetails"]
-			}, {
-				"name": "userDashBoard",
-				"pattern": "userDashBoard",
-				"titleTarget": "",
-				"greedy": false,
-				"target": ["userDashBoard"]
-			}],
+			"routes": [
+				{
+					"name": "App",
+					"pattern": "App",
+					"target": [
+						"Home"
+					]
+				},
+				{
+					"name": "Home",
+					"pattern": "",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"Home"
+					]
+				},
+				{
+					"name": "Admin",
+					"pattern": "Admin",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"Admin"
+					]
+				},
+				{
+					"name": "Order",
+					"pattern": "Order",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"Order"
+					]
+				},
+				{
+					"name": "Product",
+					"pattern": "Product/{CategoryId}",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"Product"
+					]
+				},
+				{
+					"name": "productDetails",
+					"pattern": "productDetails/{ProductId}",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"productDetails"
+					]
+				},
+				{
+					"name": "userDashBoard",
+					"pattern": "userDashBoard",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"userDashBoard"
+					]
+				}
+			],
 			"targets": {
 				"TargetApp": {
 					"viewType": "XML",
@@ -151,6 +175,10 @@
 				"productDetails": {
 					"viewType": "XML",
 					"viewName": "productDetails"
+				},
+				"Block1": {
+					"viewType": "XML",
+					"viewName": "Block1"
 				}
 			}
 		}
