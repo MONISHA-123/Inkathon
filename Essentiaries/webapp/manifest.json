@@ -142,6 +142,15 @@
 					"target": [
 						"userDashBoard"
 					]
+				},
+					{
+					"name": "Invoice",
+					"pattern": "Invoice",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"Invoice"
+					]
 				}
 			],
 			"targets": {
@@ -179,6 +188,10 @@
 				"Block1": {
 					"viewType": "XML",
 					"viewName": "Block1"
+				},
+				"Invoice": {
+					"viewType": "XML",
+					"viewName": "Invoice"
 				}
 			}
 		}

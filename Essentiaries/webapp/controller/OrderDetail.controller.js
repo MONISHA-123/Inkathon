@@ -14,8 +14,27 @@ sap.ui.define([
 	onInit: function () {
 			console.log("InsideController");	
 		},
+		getRouter: function () {
+			return UIComponent.getRouterFor(this);
+		},
+		onNavBack: function () {
+			// UIComponent.getRouterFor(this).navTo("adminDashboard");
+			var oHistory, sPreviousHash;
+
+			oHistory = History.getInstance();
+			sPreviousHash = oHistory.getPreviousHash();
+
+			if (sPreviousHash !== undefined) {
+				window.history.go(-1);
+			} else {
+				// this.getOwnerComponent().getRouter().navTo("Home");
+				this.getRouter().navTo("Home", {}, true);
+
+			}
+		},
+		
 	fnToTrackOrder: function(){
-			MessageToast.show("Inside Order");
+			this.getRouter().navTo("Invoice");
 		}
 	});
 });

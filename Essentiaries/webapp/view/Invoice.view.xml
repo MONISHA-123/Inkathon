@@ -1,0 +1,66 @@
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="com.ink.Essentiaries.controller.Invoice" xmlns:form="sap.ui.layout.form" 
+	xmlns:html="http://www.w3.org/1999/xhtml" >
+	<App>
+		<pages>
+			<Page title="Invoice">
+				<ObjectHeader
+		binding="{/ProductCollection/0}"
+		title="{Name}"
+		number="{
+			parts:[{path:'Price'},{path:'CurrencyCode'}],
+			type: 'sap.ui.model.type.Currency',
+			formatOptions: {showMeasure: false}
+		}"
+		numberUnit="{CurrencyCode}"
+		class="sapUiResponsivePadding--header" >
+		<statuses>
+			<ObjectStatus
+				text="Deliverd"
+				state="Error" />
+			<ObjectStatus
+				text="Processing"
+				state="Success" />
+		</statuses>
+		<ObjectAttribute text="Address Line 1" />
+		<ObjectAttribute text="Address Line 2" />
+		<ObjectAttribute text="State" />
+		<ObjectAttribute
+			text="www.sap.com"
+			active="true"
+			press="handleLinkObjectAttributePress" />
+	</ObjectHeader>
+		  
+		
+				<Table inset="false" alternateRowColors="true">
+										<columns>
+											<Column width="12em">
+												<Text text="Item"/>
+											</Column>
+											<Column minScreenWidth="Desktop" demandPopin="true">
+												<Text text="Price"/>
+											</Column>
+											<Column minScreenWidth="Desktop" demandPopin="true">
+												<Text text="Quantity"/>
+											</Column>
+											<Column minScreenWidth="Desktop" demandPopin="true">
+												<Text text="Amount"/>
+											</Column>
+										
+										</columns>
+										<items>
+											<ColumnListItem >
+												<cells>
+													<Text/>
+													<Text/>
+													<Text/>
+													<Text/>
+												
+												</cells>
+											</ColumnListItem>
+										</items>
+									</Table>
+		  
+			</Page>
+		</pages>
+	</App>
+</mvc:View>
