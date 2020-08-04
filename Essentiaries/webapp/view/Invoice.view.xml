@@ -5,7 +5,7 @@
 			<Page title="Invoice">
 				<ObjectHeader
 		binding="{/ProductCollection/0}"
-		title="{Name}"
+		title="Invoice"
 		number="{
 			parts:[{path:'Price'},{path:'CurrencyCode'}],
 			type: 'sap.ui.model.type.Currency',

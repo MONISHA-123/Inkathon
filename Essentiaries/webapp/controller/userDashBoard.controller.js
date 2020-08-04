@@ -33,8 +33,30 @@ sap.ui.define([
 		fnToTrackOrder: function(){
 			MessageToast.show("Inside Order");
 		},
-		onSave :function(){
+		fnEditInfo :function(){
+			this.byId("editProfile").setVisible(false);
+			this.byId("saveProfile").setVisible(true);
+			this.byId("personalFormFname").setEditable(true);
+			this.byId("personalFormLname").setEditable(true);
+		
+			this.byId("personalFormTel").setEditable(true);
+		},
+		fnSaveInfo :function(){
 			MessageToast.show("Profile Saved");
+			this.byId("editProfile").setVisible(true);
+			this.byId("saveProfile").setVisible(false);
+			this.byId("personalFormFname").setEditable(false);
+			
+			this.byId("personalFormLname").setEditable(false);
+			this.byId("personalFormTel").setEditable(false);
+			
+			var fname=this.byId("personalFormFname").getValue();
+			var lname=this.byId("personalFormLname").getValue();
+			var tel=this.byId("personalFormTel").getValue();
+			this.byId("Profilename1").setText(fname);
+			this.byId("Profilename2").setText(fname);
+			this.byId("Profilename3").setText(fname);
+			this.byId("telLink").setText(tel);
 		}
 	});
 

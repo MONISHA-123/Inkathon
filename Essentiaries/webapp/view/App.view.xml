@@ -2,7 +2,14 @@
 	<tnt:ToolPage id="toolPage">
 		<tnt:header>
 		<tnt:ToolHeader class="header">
-							<SearchField  width="15%" id="searchField" placeholder="Search" liveChange=".onSuggest" enableSuggestions="true" search=".onSearch"
+					<Title  text="Essentiaries">
+					<layoutData>
+									<OverflowToolbarLayoutData priority="NeverOverflow"/>
+						</layoutData>
+						
+						</Title>
+						<ToolbarSpacer/>
+							<!--<SearchField  width="15%" id="searchField" placeholder="Search" liveChange=".onSuggest" enableSuggestions="true" search=".onSearch"
 							suggest=".onSuggest" suggestionItems="{ path: 'oProductModel>/Product', sorter: { path: 'productname' } }">
 							<SuggestionItem text="{oProductModel>productname}" description="{path:'oProductModel>categoryname'} {path:'oProductModel>brandname'}"
 								key="{oProductModel>productid}"/>
@@ -13,20 +20,15 @@
 								<layoutData>
 									<OverflowToolbarLayoutData priority="NeverOverflow"/>
 								</layoutData>
-							</SearchField>
+							</SearchField>-->
 						<!--	<ComboBox>
 									<core:ListItem key="Mumbai" text="Mumbai" icon="sap-icon://map"/>
 									<core:ListItem key="Kolkata" text="Kolkata" icon="sap-icon://map"/>
 									<core:ListItem key="Chennai" text="Chennai" icon="sap-icon://map"/>
 									<core:ListItem key="Bangalore" text="Bangalore" icon="sap-icon://map"/>
 							</ComboBox>-->
-							<ToolbarSpacer/>
-							<Title  text="Essentiaries">
-									<layoutData>
-									<OverflowToolbarLayoutData priority="NeverOverflow"/>
-								</layoutData>
-						
-							</Title>
+							
+							
 							<ToolbarSpacer/>
 							<Button class="ToolbarIcon" icon="sap-icon://cart"   tooltip="{i18n>Cart}" press="fnOnAddToCart" >
 									<layoutData>

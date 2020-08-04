@@ -10,7 +10,7 @@
 						vertical="true"
 						height="100%">
 				<VBox>
-						<Wizard id="ShoppingCartWizard" complete="fnPlaceOrder" finishButtonText="Place Order" enableBranching="true">
+						<Wizard id="ShoppingCartWizard" complete="fnPlaceOrder" finishButtonText="Place Order" enableBranching="true" class="bgtopwiz">
 							<WizardStep id="cartContent" nextStep="Address" title="Shopping cart contents" icon="sap-icon://cart">
 								<grid:CSSGrid id="grid1">
 									<grid:customLayout>

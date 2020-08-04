@@ -99,11 +99,14 @@ overflow: hidden;
 
 .title{
 	text-align:center;
-	
 	background-color: transparent;
 	margin-top: 17rem;
 	/*background:#dbe90c75;*/
+
+}.search{
+	align-items:center;
 }
+
 .text{
 	font-family: 'Modak', cursive;
 }
@@ -308,3 +311,11 @@ background-color: #fce66d!important;
 	background-color:#db9d9d !important;
 
 }
+/*Background for cart
+.sapMWizard.sapMWizardBgStandard .sapMWizardStepContainer {
+
+		background-image:url("../images/cart.jpg");
+	    background-repeat: no-repeat;
+	    	background-size:  cover;
+}
+*/

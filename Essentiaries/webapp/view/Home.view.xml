@@ -8,12 +8,19 @@
 						horizontal="false"
 						vertical="true"
 						height="100%">
-						
-						<VBox class="bgtop"></VBox>
 						<VBox class="bgImage">
-					<VBox class="title " >
-
-					</VBox>
+					<VBox class="title">
+					
+					<SearchField class="search_field" width="70%" id="searchField" placeholder="Search for Products,Brands and More" liveChange=".onSuggest"
+						enableSuggestions="true" search=".onSearch" suggest=".onSuggest"
+						suggestionItems="{ path: 'oTableModel>/ProductCollection', sorter: { path: 'Name' } }">
+						<SuggestionItem text="{oTableModel>Name}" description="{path:'oTableModel>Price'} {path:'oTableModel>CurrencyCode'}"
+							key="{oTableModel>ProductId}"/>
+						<layoutData>
+							<OverflowToolbarLayoutData priority="NeverOverflow"/>
+						</layoutData>
+					</SearchField>
+				</VBox>
 				
 					<VBox class="sapUiLargeMarginTop bgtop">
 						<Title class="sapUiSmallMarginBegin text" text="Shop by categories" level="H3"/>
@@ -36,7 +43,7 @@
 					</VBox>
 					</VBox>
 					<VBox>
-							<Button text="check" press="onCheck1"></Button>
+						
 						<Title class="sapUiSmallMarginBegin sapUiSmallMarginTop text" text="Top Sellers" level="H3"/>
 						<HeaderContainer scrollStep="500" id="container2" scrollStepByItem="1" showDividers="false" showOverflowItem="true"
 							content="{oProductModel>/Product}" class="sapUiSmallMargin">
