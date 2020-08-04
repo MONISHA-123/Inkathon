@@ -235,11 +235,20 @@ sap.ui.define([
 				this.getOwnerComponent().getModel("oProductModel").setProperty("/oChangeRow/brandid", " ");
 			}
 			},*/
-				onDataUpdate:function(){
-						var that = this;
-					var oData = this.getOwnerComponent().getModel("oProductModel").getProperty("/oChangeRow");
-						if(oData.productid==""||oData.productname==""||oData.productdescription==""||oData.brandname==""||oData.categoryname==""||oData.unitid==""||oData.unitname==""||oData.unitshort==""||oData.image==""||oData.price==""||oData.stock=="")
-			MessageToast.show("Fill all the fields");	
+	
+    OnOfferPerChange:function(oEvent){
+                var per=oEvent.getParameters().value;
+   
+            var price=this.getOwnerComponent().getModel("oProductModel").getProperty("/oChangeRow/price");
+                        var offerprice=price-(price*(per/100));
+            this.getOwnerComponent().getModel("oProductModel").setProperty("/oChangeRow/offerprice",offerprice);   
+            },
+		onDataUpdate:function(){
+				var that = this;
+			var oData = this.getOwnerComponent().getModel("oProductModel").getProperty("/oChangeRow");
+			console.log(oData);
+				if(oData.productid==""||oData.productname==""||oData.productdescription==""||oData.brandname==""||oData.categoryname==""||oData.unitid==""||oData.unitname==""||oData.unitshort==""||oData.image==""||oData.price==""||oData.stock=="")
+					MessageToast.show("Fill all the fields");	
 			else
 			{
 				var sUrl = "/AdminModule/api/product/" + oData.productid;

@@ -7,7 +7,7 @@
 						horizontal="false"
 						vertical="true"
 						height="100%">
-			<IconTabBar id="idIconTabBar" select="handleIconTabBarSelect" class="sapUiResponsiveContentPadding" stretchContentHeight="true">
+				<IconTabBar id="idIconTabBar" select="handleIconTabBarSelect" class="sapUiResponsiveContentPadding" stretchContentHeight="true">
 							<items>
 								<IconTabFilter  text="DashBoard" key="All" icon="sap-icon://supplier" >
 									<ScrollContainer height="100%" width="100%" horizontal="false" vertical="true">
@@ -181,9 +181,9 @@
 														<Text/>
 														<Input editable="false"/>
 														<HBox>
-															<Button icon="sap-icon://edit" class="sapUiSmallMargin" id="rowEditId1" press="for_edit_status"></Button>
-															<Button text="save" class="sapUiSmallMargin" visible="false" press="fnSave"></Button>
-															<Button icon="sap-icon://delete" class="sapUiSmallMargin" press="for_delete"></Button>
+															<Button  icon="sap-icon://edit" class="sapUiSmallMargin adminbtn" id="rowEditId1" press="for_edit_status"></Button>
+															<Button text="save" class="sapUiSmallMargin adminbtn" visible="false" press="fnSave"></Button>
+															<Button icon="sap-icon://delete" class="sapUiSmallMargin adminbtn" press="for_delete"></Button>
 														</HBox>
 													</cells>
 												</ColumnListItem>
@@ -201,47 +201,16 @@
 														<Title id="prodResultCount" level="H3"/>
 														<ToolbarSpacer></ToolbarSpacer>
 														<Input width="auto" placeholder="Search a product" id="input" liveChange="onSearchID"/>
-														<Button icon="sap-icon://add" press="fnOnNewProduct">
+														<Button  class="adminbtn" icon="sap-icon://add" press="fnOnNewProduct">
 															<layoutData>
 																<OverflowToolbarLayoutData priority="NeverOverflow"/>
 															</layoutData>
 														</Button>
-														<!--	<MenuButton text="Add new item" useDefaultActionOnly="true" menuPosition="BeginBottom">
-															<menu>
-																<Menu itemSelected="onNewItem">
-																	<items>
-																		<MenuItem icon="sap-icon://add" text="New Category"/>
-																		<MenuItem icon="sap-icon://add" text="New Brand"/>
-																		<MenuItem icon="sap-icon://add" text="New Product"/>
-																		<MenuItem icon="sap-icon://add" text="New Unit"/>
-																	</items>
-																</Menu>
-															</menu>
-														</MenuButton>-->
-														<!--<MenuButton text="Delete item" useDefaultActionOnly="true" menuPosition="BeginBottom">
-															<menu>
-																<Menu itemSelected="onMenuAction">
-																	<items>
-																		<MenuItem icon="sap-icon://delete" text="Category" press="fnOnFragDelCate"/>
-																		<MenuItem icon="sap-icon://delete" text="Brand"/>
-																	
-																		<MenuItem icon="sap-icon://delete" text="Unit"/>
-																	</items>
-																</Menu>
-															</menu>
-														</MenuButton>-->
-														<!--	<Button text="New Category" type="Emphasized" press="fnOnNewCate"></Button>
-														<Button text="New Brand" type="Emphasized" press="fnOnNewBrand"></Button>
-														<Button text="New Product" type="Emphasized" press="fnOnNewProduct"></Button>
-														<Button text="New Unit" type="Emphasized" press="fnOnNewUnit"></Button>-->
+													
 													</content>
 												</OverflowToolbar>
 											</headerToolbar>
-											<!--	<infoToolbar>
-												<OverflowToolbar>
-													<Label text="Wide range of available products"/>
-												</OverflowToolbar>
-											</infoToolbar>-->
+										
 											<columns>
 												<Column minScreenWidth="Desktop" demandPopin="true">
 													<Text text="{i18n>Id}"/>
@@ -252,11 +221,14 @@
 												<Column minScreenWidth="Desktop" demandPopin="true">
 													<HBox>
 														<Text text="{i18n>Price}" class="sapUiSmallMarginTop"/>
-														<Button icon="sap-icon://sort-ascending" type="Transparent" id="for_sort" press="fnHandelSort"></Button>
+														<Button  class="adminbtn" icon="sap-icon://sort-ascending" type="Transparent" id="for_sort" press="fnHandelSort"></Button>
 													</HBox>
 												</Column>
 												<Column minScreenWidth="Desktop" demandPopin="true">
 													<Text text="{i18n>Stock}"/>
+												</Column>
+													<Column minScreenWidth="Desktop" demandPopin="true">
+													<Text text="offerpercentage"/>
 												</Column>
 												<Column minScreenWidth="Desktop" demandPopin="true">
 													<Text text="{i18n>Status}"/>
@@ -273,18 +245,19 @@
 														<!--<Text text="{oTableModel>Name}"/>-->
 														<Input value="{oProductModel>price}" editable="false"/>
 														<Input value="{oProductModel>stock}" editable="false"/>
+															<Input value="{oProductModel>offerpercentage}" liveChange="OnOfferRowChange" editable="false"/>
 														<VBox>
-															<RadioButtonGroup select="fnChangeProdStatus"  visible="false">
-															<RadioButton  text="active"    />
-															<RadioButton text="inactive" />
-															<RadioButton  text="delete" />
+															<RadioButtonGroup select="fnChangeProdStatus"  visible="false" >
+															<RadioButton  text="active"    groupName="GroupA"  />
+															<RadioButton text="inactive"  groupName="GroupA" />
+															<RadioButton  text="delete"  groupName="GroupA" />
 																</RadioButtonGroup>
-															<Button text="{oProductModel>status}" type="Emphasized"/>
+															<Button  class="adminbtn" text="{oProductModel>status}" type="Emphasized"/>
 														
 														</VBox>
 														<HBox>
-															<Button icon="sap-icon://edit" class="sapUiSmallMargin" id="rowEditId" press="for_edit"></Button>
-															<Button text="save" class="sapUiSmallMargin" visible="false" press="fnSave"></Button>
+															<Button icon="sap-icon://edit" class="sapUiSmallMargin adminbtn" id="rowEditId" press="for_edit"></Button>
+															<Button text="save" class="sapUiSmallMargin adminbtn" visible="false" press="fnSave"></Button>
 															<!--<Button icon="sap-icon://delete" class="sapUiSmallMargin" press="for_deleteRow"></Button>-->
 														</HBox>
 													</cells>
@@ -295,13 +268,13 @@
 								</IconTabFilter>
 								<IconTabSeparator/>
 								<IconTabFilter text="Promotions"  key="All" icon="sap-icon://activate" >
-									<Table inset="false" alternateRowColors="true" items="">
+									<Table inset="false" alternateRowColors="true" items="{oProductModel>/Promotion}">
 										<headerToolbar>
 											<OverflowToolbar>
 												<content>
 													<Title text="Promotions" level="H3"/>
 													<ToolbarSpacer></ToolbarSpacer>
-													<Button icon="sap-icon://add" text="Promotion"></Button>
+													<Button icon="sap-icon://add" text="Promotion" class="adminbtn"></Button>
 													<SearchField placeholder="Promotion ID" width="40%">
 														<layoutData>
 															<OverflowToolbarLayoutData priority="NeverOverflow"/>
@@ -312,36 +285,33 @@
 										</headerToolbar>
 										<columns>
 											<Column width="12em">
-												<Text text="{i18n>Id}"/>
-											</Column>
-											<Column minScreenWidth="Tablet" demandPopin="true">
-												<Text text="{i18n>Brand}"/>
+												<Text text="Promotion ID"/>
 											</Column>
 											<Column minScreenWidth="Desktop" demandPopin="true">
-												<Text text="{i18n>Category}"/>
+												<Text text="Image"/>
 											</Column>
 											<Column minScreenWidth="Desktop" demandPopin="true">
-												<Text text="Image Url"/>
+												<Text text="Description"/>
 											</Column>
 											<Column minScreenWidth="Desktop" demandPopin="true">
-												<Text text="Offer"/>
+												<Text text="Reference ID"/>
 											</Column>
 											<Column >
 												<Text text="Action"/>
 											</Column>
 										</columns>
 										<items>
-											<ColumnListItem type="Navigation" press="onPress">
+											<ColumnListItem >
 												<cells>
-													<Input value="" editable="false"/>
-													<Input value="" editable="false"></Input>
-													<Input value="" editable="false"/>
-													<Input value="" editable="false"/>
-													<Input value="" editable="false"/>
+													<Input value="{oProductModel>promotionid}" editable="false"/>
+													<Input value="{oProductModel>promotionimage}" editable="false"></Input>
+													<Input value="{oProductModel>promotiondescription}" editable="false"/>
+													<Input value="{oProductModel>referenceid}" editable="false"/>
+												
 													<HBox>
-														<Button icon="sap-icon://edit" class="sapUiSmallMargin" press="for_edit"></Button>
-														<!--<Button text="save" class="sapUiSmallMargin" visible="false" press="fnSave"></Button>-->
-														<Button icon="sap-icon://delete" class="sapUiSmallMargin" press="for_delete"></Button>
+														<Button icon="sap-icon://edit" class="sapUiSmallMargin adminbtn" press="fnPromoEdit"></Button>
+														<Button text="save" class="sapUiSmallMargin" visible="false" press="fnPromoSave"></Button>
+														<Button icon="sap-icon://delete" class="sapUiSmallMargin adminbtn" press="fnPromoDelete"></Button>
 													</HBox>
 												</cells>
 											</ColumnListItem>
@@ -358,21 +328,11 @@
 													<content>
 														<Title text="Categories" level="H3"/>
 														<ToolbarSpacer></ToolbarSpacer>
-														<Button icon="sap-icon://filter" press="filterDialog"/>
-														<Button icon="sap-icon://synchronize" press="onRefreshBrandTable"></Button>
+														
 														<Input width="auto" placeholder="Search Category" id="category" liveChange="onSearchCategory"/>
-														<Button icon="sap-icon://add" text="New Category" press="fnOnNewCate"></Button>
-														<Button icon="sap-icon://delete" text="Delete Category" press="fnOnFragDelCate"></Button>
-														<!--<MenuButton text="Category">
-															<menu>
-																<Menu>
-																	<MenuItem icon="sap-icon://add" text="Category" press="fnOnNewCate"/>
-																	<MenuItem icon="sap-icon://delete" text="Category" press="fnOnFragDelCate"/>
-																</Menu>
-															</menu>
-														</MenuButton>-->
-														<!--	<Button icon="sap-icon://add" text="New Category" press="fnOnNewCate"></Button>
-														<Button text="Delete Category" press="fnOnFragDelCate"></Button>-->
+														<Button icon="sap-icon://add" class="adminbtn" text="New Category" press="fnOnNewCate"></Button>
+														<Button icon="sap-icon://delete" class="adminbtn" text="Delete Category" press="fnOnFragDelCate"></Button>
+														
 													</content>
 												</OverflowToolbar>
 											</headerToolbar>
@@ -389,9 +349,7 @@
 												<Column minScreenWidth="Desktop" demandPopin="true">
 													<Text text="{i18n>Status}"/>
 												</Column>
-												<Column minScreenWidth="Desktop" demandPopin="true">
-													<Text text="Action"/>
-												</Column>
+											
 											</columns>
 											<items>
 												<ColumnListItem type="Inactive" press="onPress">
@@ -401,11 +359,11 @@
 														<Input value="{oProductModel>categoryid}" editable="false"/>
 														<Input value="{oProductModel>categoryname}" editable="false"/>
 														<Input value="{oProductModel>status}" editable="false"></Input>
-														<HBox>
-															<Button icon="sap-icon://edit" class="sapUiSmallMargin" press="fnEditBrandRow"></Button>
-															<Button text="save" class="sapUiSmallMargin" visible="false" press="fnSaveBrandRow"></Button>
-															<Button icon="sap-icon://delete" class="sapUiSmallMargin" press="fnBrandDelConfirm"></Button>
-														</HBox>
+													<!--	<HBox>
+															<Button icon="sap-icon://edit" class="sapUiSmallMargin adminbtn" press="fnEditBrandRow"></Button>
+															<Button text="save" class="sapUiSmallMargin adminbtn" visible="false" press="fnSaveBrandRow"></Button>
+															<Button icon="sap-icon://delete" class="sapUiSmallMargin adminbtn" press="fnBrandDelConfirm"></Button>
+														</HBox>-->
 													</cells>
 												</ColumnListItem>
 											</items>
@@ -423,18 +381,11 @@
 													<content>
 														<Title text="Brands" level="H3"/>
 														<ToolbarSpacer></ToolbarSpacer>
-														<Button icon="sap-icon://filter" press="filterDialog"/>
-														<Button icon="sap-icon://synchronize" press="onRefreshBrandTable"></Button>
+														<Button class="adminbtn" icon="sap-icon://filter" press="filterDialog"/>
+														<Button class="adminbtn" icon="sap-icon://synchronize" press="onRefreshBrandTable"></Button>
 														<Input width="auto" placeholder="Search Brand" id="brand" liveChange="onSearchBrand"/>
-														<Button icon="sap-icon://add" text="New Brand" press="fnOnNewBrand"></Button>
-														<MenuButton text="Category">
-															<menu>
-																<Menu>
-																	<MenuItem icon="sap-icon://add" text="Category" press="fnOnNewCate"/>
-																	<MenuItem icon="sap-icon://delete" text="Category" press="fnOnFragDelCate"/>
-																</Menu>
-															</menu>
-														</MenuButton>
+														<Button class="adminbtn" icon="sap-icon://add" text="New Brand" press="fnOnNewBrand"></Button>
+													 
 														<!--	<Button icon="sap-icon://add" text="New Category" press="fnOnNewCate"></Button>
 														<Button text="Delete Category" press="fnOnFragDelCate"></Button>-->
 													</content>
@@ -454,6 +405,9 @@
 													<Text text="{i18n>Category Name}"/>
 												</Column>
 												<Column minScreenWidth="Desktop" demandPopin="true">
+													<Text text="{i18n>Status}"/>
+												</Column>
+												<Column minScreenWidth="Desktop" demandPopin="true">
 													<Text text="Action"/>
 												</Column>
 											</columns>
@@ -464,10 +418,19 @@
 														<Input value="{oProductModel>brandname}" editable="false"/>
 														<Input value="{oProductModel>categoryid}" editable="false"/>
 														<Input value="{oProductModel>categoryname}" editable="false"></Input>
+														<VBox>
+															<RadioButtonGroup select="fnChangeBrandStatus"  visible="false" >
+															<RadioButton  text="active"    groupName="GroupA"  />
+															<RadioButton text="inactive"  groupName="GroupA" />
+															<RadioButton  text="delete"  groupName="GroupA" />
+																</RadioButtonGroup>
+															<Button  class="adminbtn" text="{oProductModel>status}" type="Emphasized"/>
+														
+														</VBox>
 														<HBox>
-															<Button icon="sap-icon://edit" class="sapUiSmallMargin" press="fnEditBrandRow"></Button>
-															<Button text="save" class="sapUiSmallMargin" visible="false" press="fnSaveBrandRow"></Button>
-															<Button icon="sap-icon://delete" class="sapUiSmallMargin" press="fnBrandDelConfirm"></Button>
+															<Button icon="sap-icon://edit" class="sapUiSmallMargin adminbtn" press="fnEditBrandRow"></Button>
+															<Button text="save" class="sapUiSmallMargin adminbtn" visible="false" press="fnSaveBrandRow"></Button>
+															<Button icon="sap-icon://delete" class="sapUiSmallMargin adminbtn" press="fnBrandDelConfirm"></Button>
 														</HBox>
 													</cells>
 												</ColumnListItem>
@@ -477,6 +440,7 @@
 								</IconTabFilter>
 							</items>
 						</IconTabBar>
+				
 		</ScrollContainer>
 	</App>
 </mvc:View>

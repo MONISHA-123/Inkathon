@@ -134,7 +134,10 @@
 												</f:FormElement>
 													<f:FormElement label="Status">
 													<f:fields>
-														<Input value="{oEmptyModel>/Product/status}"></Input>
+															<ComboBox selectedKey="{oEmptyModel>/Product/status}" >
+															<core:Item key="active" text="active"/>
+																<core:Item key="inactive" text="inactive"/>
+																</ComboBox>
 													</f:fields>
 												</f:FormElement>
 											</f:formElements>
@@ -143,21 +146,21 @@
 											
 												<f:FormElement label="Unit Name">
 													<f:fields>
-														<!--	<ComboBox selectedKey="{oEmptyModel>/Product/unitname}" items="{oProductModel>/Unit}">
+															<ComboBox selectedKey="{oEmptyModel>/Product/unitname}" items="{oProductModel>/Unit}" selectionChange="onNewProUnitDD">
 															<core:Item key="{oProductModel>unitname}" text="{oProductModel>unitname}"/>
-														</ComboBox>-->
-															<Input value="{oEmptyModel>/Product/unitname}"></Input>
+														</ComboBox>
+															
 													</f:fields>
 												</f:FormElement>
 												<f:formElements>
 												<f:FormElement label="Unit ID">
 													<f:fields>
-														<Input value="{oEmptyModel>/Product/unitid}"></Input>
+														<Input value="{oEmptyModel>/Product/unitid}" id="unitid" editable="false"></Input>
 													</f:fields>
 												</f:FormElement>
 												<f:FormElement label="Unit short" >
 													<f:fields>
-														<Input value="{oEmptyModel>/Product/unitshort}"></Input>
+														<Input value="{oEmptyModel>/Product/unitshort}" id="unitshort" editable="false"></Input>
 													</f:fields>
 												</f:FormElement>
 												<f:FormElement label="Size">
@@ -170,14 +173,14 @@
 														<Input value="{oEmptyModel>/Product/price}"></Input>
 													</f:fields>
 												</f:FormElement>
-													<f:FormElement label="offer percentage">
+														<f:FormElement label="offer percentage">
 													<f:fields>
-														<Input value="{oEmptyModel>/Product/offer percentage}"></Input>
+														<Input value="{oEmptyModel>/Product/offerpercentage}" liveChange="fnNewProdOffer"></Input>
 													</f:fields>
 												</f:FormElement>
 												<f:FormElement label="offer price">
 													<f:fields>
-														<Input value="{oEmptyModel>/Product/offerprice}"></Input>
+														<Input value="{oEmptyModel>/Product/offerprice}" editable="false"></Input>
 													</f:fields>
 												</f:FormElement>
 											</f:formElements>
@@ -191,9 +194,9 @@
 			</IconTabBar>
 		</content>
 		<buttons>
-			<Button class="ToolbarIcon" text="{i18n>Previous}" press="fnOnPrevious" id="prevID" visible="false"></Button>
-			<Button  class="ToolbarIcon" text="{i18n>Next}" press="fnOnNext" id="nextID"></Button>
-			<Button class="ToolbarIcon" text="{i18n>Save}" id="saveID" visible="false" press="fnNewProdSave"></Button>
+			<Button class="adminbtn" text="{i18n>Previous}" press="fnOnPrevious" id="prevID" visible="false"></Button>
+			<Button  class="adminbtn" text="{i18n>Next}" press="fnOnNext" id="nextID"></Button>
+			<Button class="adminbtn" text="{i18n>Save}" id="saveID" visible="false" press="fnNewProdSave"></Button>
 		</buttons>
 	</Dialog>
 </core:FragmentDefinition>

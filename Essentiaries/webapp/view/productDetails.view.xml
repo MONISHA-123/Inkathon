@@ -10,6 +10,7 @@
 						<Title id="SelectedProdTitle"/>
 						<ToolbarSpacer/>
 					</Toolbar>
+					
 					<VBox class="sapUiSmallMargin">
 						<!--	<f:SimpleForm id="idSimpleFormDisplay" editable="false" layout="ColumnLayout" title="Products">
 							<f:content>
@@ -43,12 +44,12 @@
 							<f:formContainers>
 								<f:FormContainer title="{i18n>Category}" >
 									<f:formElements>
-										<f:FormElement label="{i18n>CategoryName}">
+										<f:FormElement label="{i18n>CategoryName}" >
 											<f:fields>
 												<Text text="{oProductModel>/oSelectedRow/categoryname}"/>
 											</f:fields>
 										</f:FormElement>
-										<f:FormElement label="{i18n>CategoryID}" id="CategoryID">
+										<f:FormElement label="{i18n>CategoryID}" id="CategoryID" >
 											<f:fields>
 												<Text text="{oProductModel>/oSelectedRow/categoryid}"/>
 											</f:fields>
@@ -124,6 +125,21 @@
 											<f:FormElement label="Status">
 											<f:fields>
 												<Text text="{oProductModel>/oSelectedRow/status}"></Text>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="offerpercentage">
+											<f:fields>
+												<Text text="{oProductModel>/oChangeRow/offerpercentage}"></Text>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="offerprice">
+											<f:fields>
+												<Text text="{oProductModel>/oChangeRow/offerprice}" ></Text>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="size">
+											<f:fields>
+												<Text text="{oProductModel>/oChangeRow/size}" ></Text>
 											</f:fields>
 										</f:FormElement>
 									</f:formElements>
@@ -222,12 +238,27 @@
 												<StepInput value="{oProductModel>/oChangeRow/stock}"></StepInput>
 											</f:fields>
 										</f:FormElement>
+											<f:FormElement label="offerpercentage">
+											<f:fields>
+												<Input value="{oProductModel>/oChangeRow/offerpercentage}" liveChange="OnOfferPerChange"></Input>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="offerprice">
+											<f:fields>
+												<Input value="{oProductModel>/oChangeRow/offerprice}" editable="false"></Input>
+											</f:fields>
+										</f:FormElement>
+										<f:FormElement label="size">
+											<f:fields>
+												<Input value="{oProductModel>/oChangeRow/size}" ></Input>
+											</f:fields>
+										</f:FormElement>
 									</f:formElements>
 								</f:FormContainer>
 							</f:formContainers>
 						</f:Form>
 					</VBox>
-						<footer>
+					
 					<OverflowToolbar active="true">
 						<ToolbarSpacer></ToolbarSpacer>
 						<Button id="idBtnEdit" type="Emphasized" text="Edit" press="onEditBtnPressed"></Button>
@@ -235,7 +266,7 @@
 						<!--<ToolbarSpacer></ToolbarSpacer>-->
 						<Button id="idBtnCancel" type="Emphasized" text="Cancel" visible="false" press="onCancelBtnPressed"></Button>
 					</OverflowToolbar>
-				</footer>
+				
 		</ScrollContainer>
 	</App>
 </mvc:View>
