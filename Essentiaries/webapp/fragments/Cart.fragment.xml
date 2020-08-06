@@ -29,7 +29,7 @@
 					<Text
 						text="{oProductModel>productname}"/>
 					<StepInput
-						value="{value}"
+						value="{oProductModel>quantity}"
 						min="1"
 						max="10"
 						width="80px"
@@ -38,7 +38,7 @@
 						change="onChange"/>
 						
 							<Text
-						text="Rs {oProductModel>price}"/>
+						text="Rs {oProductModel>price} * {oProductModel>quantity}"/>
 						<Button  icon="sap-icon://sys-cancel-2" type="Transparent" press="fnOnDelete" />
 				</cells>
 			</ColumnListItem>

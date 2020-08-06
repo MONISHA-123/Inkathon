@@ -37,8 +37,9 @@
 													<ColumnListItem>
 														<cells>
 															<Text text="{oProductModel>productname}"/>
-															<StepInput value="{value}" min="1" max="10" width="80px" textAlign="Center" validationMode="LiveChange" change="onChange"/>
+															<StepInput value="{oProductModel>quantity}" min="1" max="10" width="80px" textAlign="Center" validationMode="LiveChange" change="onChange"/>
 															<Text text="Rs {oProductModel>price}"/>
+																<Text text="{= ${oProductModel>quantity} * ${oProductModel>price}}"/>
 															<Button icon="sap-icon://sys-cancel-2" type="Transparent" press="fnOnDelete"/>
 														</cells>
 													</ColumnListItem>

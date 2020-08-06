@@ -35,14 +35,17 @@
 								
 												<GenericTile class=" tileLayout" press="press" backgroundImage="{oProductModel>image}"></GenericTile>
 											
-												<VBox   alignItems="Center">
+												<VBox   alignItems="Center" class="grid">
 													<Title text="{oProductModel>productname}" level="H3" class="sapUiTinyMarginTop"></Title>
 													<!--<Text text="{oProductModel>brandname}" class="sapUiTinyMarginTop" ></Text>-->
 													<Text text="{oProductModel>size}{oProductModel>unitshort}" class="sapUiTinyMarginTop"></Text>
 													<RatingIndicator id="RI_XS" maxValue="5" class="sapUiSmallMarginBottom" value="4" iconSize="12px" tooltip="Rating Tooltip"/>
 													<Text text="MRP : RS {oProductModel>price}"></Text>
-													<Button icon="sap-icon://cart" text="Add to Cart" press="fnCart" class="sapUiTinyMarginTop"></Button>
-													<StepInput value="1" width="10%" min="0" visible="false" id="stepinput" class="sapUiTinyMarginTop"></StepInput>
+														<VBox>
+													<Button icon="sap-icon://cart" text="Add to Cart" press="fnCart" class="sapUiTinyMarginTop buttonBg"></Button>
+													<StepInput value="{oProductModel>quantity}"  width="10%" min="1" visible="false" id="stepinput" class="sapUiTinyMarginTop" ></StepInput>
+													</VBox>
+													
 												</VBox>
 										
 					</VBox>

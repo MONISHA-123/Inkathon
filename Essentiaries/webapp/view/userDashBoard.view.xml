@@ -7,12 +7,12 @@
 			<u:headerTitle>
 				<u:ObjectPageDynamicHeaderTitle>
 					<u:expandedHeading>
-						<Title text="Denise Smith"  id="Profilename1" wrapping="true"/>
+						<Title text="{oProductModel>/LoginUser/fname}  {oProductModel>/LoginUser/lname}"  id="Profilename1" wrapping="true"/>
 					</u:expandedHeading>
 					<u:snappedHeading>
 						<FlexBox fitContainer="true" alignItems="Center">
 							<Avatar src="./test-resources/sap/uxap/images/imageID_275314.png" class="sapUiTinyMarginEnd"/>
-							<Title id="Profilename2" text="Denise Smith" wrapping="true"/>
+							<Title id="Profilename2" text="{oProductModel>/LoginUser/fname}  {oProductModel>/LoginUser/lname}" wrapping="true"/>
 						</FlexBox>
 					</u:snappedHeading>
 					<u:expandedContent>
@@ -22,7 +22,7 @@
 						<Text text="Platinum Member"/>
 					</u:snappedContent>
 					<u:snappedTitleOnMobile>
-						<Title id="Profilename3" text="Denise Smith"/>
+						<Title id="Profilename3" text="{oProductModel>/LoginUser/fname}  {oProductModel>/LoginUser/lname}"/>
 					</u:snappedTitleOnMobile>
 				<!--	<u:actions>
 						<OverflowToolbarButton type="Emphasized" icon="sap-icon://edit" tooltip="Edit" text="Edit Info" press="fnEditInfo"/>
@@ -33,8 +33,8 @@
 				<FlexBox wrap="Wrap" fitContainer="true">
 					<Avatar class="sapUiSmallMarginEnd" src="./test-resources/sap/uxap/images/imageID_275314.png" displaySize="L"/>
 					<l:VerticalLayout class="sapUiSmallMarginBeginEnd">
-						<Link id="telLink" text="+33 6 4512 5158"/>
-						<Link text="DeniseSmith@sap.com"/>
+						<Link id="telLink" text="{oProductModel>/LoginUser/phoneno}"/>
+						<Link text="{oProductModel>/LoginUser/email}"/>
 					</l:VerticalLayout>
 					<l:VerticalLayout class="sapUiSmallMarginBeginEnd">
 						<Label text="Hello! 70% to unlock Next Offers"/>
@@ -56,16 +56,17 @@
 							
 							<form:content>
 								<Label text="Name"/>
-								<Input id="personalFormFname" value="Denise" editable="false"/><Input id="personalFormLname" value="Smith" editable="false"/>
-								<Label text="Email"/>
-								<Input type="Email" id="personalFormEmail" value="DeniseSmith@sap.com" editable="false"/>
+								<Input id="personalFormFname" value="{oProductModel>/LoginUser/fname}" editable="false"/><Input id="personalFormLname" value="{oProductModel>/LoginUser/lname}" editable="false"/>
+							
 								<Label text="Mobile"/>
-								<Input type="Tel" value="+33 6 4512 5158" id="personalFormTel" editable="false"/>
+								<Input type="Tel" value="{oProductModel>/LoginUser/phoneno}" id="personalFormTel" editable="false"/>
 							</form:content>
 						</form:SimpleForm>
 					<OverflowToolbar>
+						
 						<Button type="Emphasized" icon="sap-icon://edit" tooltip="Edit" text="Edit" visible="true" id="editProfile" press="fnEditInfo"/>
 						<Button type="Emphasized" visible="false" icon="sap-icon://save" tooltip="Save" text="Save" id="saveProfile" press="fnSaveInfo"/>
+							<Button type="Emphasized" tooltip="Edit" text="Delete Account" visible="true" press="fnDelAccount"/>
 					</OverflowToolbar>
 					</u:ObjectPageSubSection>
 				</u:ObjectPageSection>

@@ -44,32 +44,22 @@
 								</f:fields>
 							</f:FormElement>
 						</f:FormContainer>
-					<!--	<f:FormContainer id="newBrand">
+						<f:FormContainer id="delAccount">
 							<f:formElements>
-								<f:FormElement label="{i18n>BrandName}" id="newBrandFld">
+								<f:FormElement label="Enter Your registered Email">
 									<f:fields>
-										<Input></Input>
+										<Input value="{oEmptyModel>/DelAccount/email}"></Input>
 									</f:fields>
 								</f:FormElement>
-								<f:FormElement label="{i18n>BrandID}" id="NewBrandID">
+								<f:FormElement label="Reason for deleting the Account">
 									<f:fields>
-										<Input/>
-									</f:fields>
-								</f:FormElement>
-								<f:FormElement label="{i18n>CategoryName}">
-									<f:fields>
-										<ComboBox></ComboBox>
-									</f:fields>
-								</f:FormElement>
-								<f:FormElement label="{i18n>CategoryID}">
-									<f:fields>
-										<Input/>
-										<Button class="sapUiSmallMarginTop" text="{i18n>Save}" id="BrandSaveBt" press="fnOnNewBrandSave">
+										<TextArea/>
+										<Button class="sapUiSmallMarginTop" text="delete" press="OnDelAccount">
 											<layoutData>
 												<l:GridData span="XL6 L6 M6 S6"/>
 											</layoutData>
 										</Button>
-										<Button class="sapUiSmallMarginTop" text="{i18n>Cancel}" press="fnOnNewBrandCancel">
+										<Button class="sapUiSmallMarginTop" text="{i18n>Cancel}" press="fnOnCancel">
 											<layoutData>
 												<l:GridData span="XL6 L6 M6 S6"/>
 											</layoutData>
@@ -78,7 +68,7 @@
 								</f:FormElement>
 							</f:formElements>
 						</f:FormContainer>
-						<f:FormContainer  id="newUnit">
+					<!--	<f:FormContainer  id="newUnit">
 							<f:formElements>
 								<f:FormElement label="{i18n>UnitName}">
 									<f:fields>

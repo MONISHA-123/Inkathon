@@ -336,3 +336,6 @@ background-color: #fce66d!important;
     background: #6e1f1f;
     color: #fff;
 }
+.grid{
+	width: min-content;
+}

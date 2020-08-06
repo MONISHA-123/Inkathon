@@ -30,7 +30,7 @@
 							
 							
 							<ToolbarSpacer/>
-							<Button class="ToolbarIcon" icon="sap-icon://cart"   tooltip="{i18n>Cart}" press="fnOnAddToCart" >
+							<Button class="ToolbarIcon" icon="sap-icon://cart"   tooltip="{i18n>Cart}" press="fnOnAddToCart" id="cart" >
 									<layoutData>
 									<OverflowToolbarLayoutData priority="NeverOverflow"/>
 								</layoutData>
@@ -44,6 +44,7 @@
 									<OverflowToolbarLayoutData priority="NeverOverflow"/>
 								</layoutData>
 							</Avatar>
+
 						</tnt:ToolHeader>
 		</tnt:header>
 

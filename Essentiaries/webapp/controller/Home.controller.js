@@ -108,12 +108,12 @@ sap.ui.define([
 				},
 				success: function (data, status, xhr) {
 
-					MessageToast.show("Succussfully consumed destination from CF!");
+
 					that.prodCount = data.length;
 
 					that.getOwnerComponent().getModel("oProductModel").setProperty("/Product", data);
 					
-					//console.log(data);
+					console.log(data);
 
 				},
 				type: "GET"
@@ -206,12 +206,6 @@ sap.ui.define([
 		
 			
 			 //this.fnOnAddToCart();
-		},
-		onCheck1:function(oEvent){
-			
-		//	this.onCheck(oEvent);
-	//	console.log(oEvent.getSource());
-			this.fnOnAddToCart(this.oButton);                  
 		}
 	});
 

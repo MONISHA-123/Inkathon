@@ -274,7 +274,7 @@
 												<content>
 													<Title text="Promotions" level="H3"/>
 													<ToolbarSpacer></ToolbarSpacer>
-													<Button icon="sap-icon://add" text="Promotion" class="adminbtn"></Button>
+													<Button icon="sap-icon://add" text="Promotion" class="adminbtn" press="	fnOnNewPromo"></Button>
 													<SearchField placeholder="Promotion ID" width="40%">
 														<layoutData>
 															<OverflowToolbarLayoutData priority="NeverOverflow"/>

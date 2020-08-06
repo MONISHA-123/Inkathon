@@ -11,7 +11,7 @@
 						<VBox class="bgImage">
 					<VBox class="title">
 					
-					<SearchField class="search_field" width="70%" id="productInput" placeholder="Search for Products,Brands and More" liveChange=".onSuggest"
+					<SearchField class="search_field" width="70%" id="productInput" placeholder="Search for Products,Brands and More"
 						enableSuggestions="true" search="onSearch" suggest=".onSuggest" selectOnFocus="false" 
 						suggestionItems="{oProductModel>/Product}">
 						<SuggestionItem text="{oProductModel>productname}" description="{path:'oProductModel>productid'}"
@@ -46,7 +46,7 @@
 						<HeaderContainer scrollStep="500" id="container2" scrollStepByItem="1" showDividers="false" showOverflowItem="true"
 							content="{oProductModel>/Product}" class="sapUiSmallMargin">
 							<FlexBox alignItems="Center" justifyContent="Center">
-								<l:Grid defaultSpan="XL2 L2 M3 S6">
+								<l:Grid defaultSpan="XL2 L2 M3 S6" class="grid">
 									<l:content >
 										<HBox >
 											<VBox>
@@ -61,7 +61,7 @@
                                                     <Text text="{oProductModel>price}"></Text></HBox>
 													<VBox>
 													<Button icon="sap-icon://cart" text="Add to Cart" press="fnCart" class="sapUiTinyMarginTop buttonBg"></Button>
-													<StepInput value="1"  width="10%" min="0" visible="false" id="stepinput" class="sapUiTinyMarginTop stepMargin" ></StepInput>
+													<StepInput value="{oProductModel>quantity}"  width="10%" min="1" visible="false" id="stepinput" class="sapUiTinyMarginTop stepMargin" ></StepInput>
 													</VBox>
 													
 												</VBox>
@@ -89,7 +89,7 @@
 						<HeaderContainer scrollStep="500" id="container3" scrollStepByItem="1" showDividers="false" showOverflowItem="true"
 							content="{oProductModel>/offers}" class="sapUiSmallMargin">
 							<FlexBox alignItems="Center" justifyContent="Center">
-								<l:Grid defaultSpan="XL2 L2 M3 S6">
+								<l:Grid defaultSpan="XL2 L2 M3 S6" class="grid">
 									<l:content >
 										<HBox >
 											<VBox>

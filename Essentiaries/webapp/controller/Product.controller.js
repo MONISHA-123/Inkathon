@@ -21,7 +21,7 @@ sap.ui.define([
 			oRouter.getRoute("Product").attachMatched(this._onRouteMatched, this);
 				var oEmptyModel = new JSONModel();
 			this.getView().setModel(oEmptyModel, "oEmptyModel");
-			
+		
 
 		},
 		onAfterRendering:function(){
@@ -33,6 +33,7 @@ sap.ui.define([
 		_onRouteMatched: function (oEvent) {
 			
 			this.id = oEvent.getParameter("arguments").CategoryId;
+		
 				this.GETMethod_CATEBYPROD();
 					this.GETMethod_BRAND();
 		/*	this.GETMethod_PROD();
@@ -172,6 +173,9 @@ sap.ui.define([
 				complete: function (xhr, status) {
 						//	that.getOwnerComponent().getModel("oProductModel").refresh();
 							that.byId("gridList").getBinding("items").filter();
+								var len=that.getOwnerComponent("oProductModel").getProperty("/CategoryByProduct").length;
+			console.log(len);
+			console.log(that.getOwnerComponent("oProductModel").getProperty("/CategoryByProduct"));
 					},
 				type: "GET"
 			}).always(function (data, status, xhr) {
@@ -234,6 +238,11 @@ sap.ui.define([
 				that.token = xhr.getResponseHeader("x-CSRF-Token");
 
 			});
+		},
+		fnCart :function(oEvent){
+			MessageToast.show("Product Added To Cart ");
+			oEvent.getSource().getParent().getItems()[0].setVisible(false);
+			oEvent.getSource().getParent().getItems()[1].setVisible(true);
 		}
 	
 
