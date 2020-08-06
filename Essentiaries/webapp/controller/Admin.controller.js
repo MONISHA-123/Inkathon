@@ -250,6 +250,9 @@ sap.ui.define([
 					that.byId("prodResultCount").setText("Products(" + that.prodCount + ")");
 				},
 				type: "GET"
+			}).always(function (data, status, xhr) {
+				that.token = xhr.getResponseHeader("x-CSRF-Token");
+				console.log(that.token);
 			});
 		},
 		GETMethod_BRAND: function () {
@@ -362,16 +365,33 @@ sap.ui.define([
 
 		},
 		fnOnNewProduct: function () {
-			console.log(this.oProductEntity);
-			this.getView().getModel("oEmptyModel").setProperty("/Product", this.oProductEntity);
+		
+		
 			if (!this._oDialog) {
 				this._oDialog = sap.ui.xmlfragment("idNewProduct", "com.ink.Essentiaries.fragments.newProduct", this);
 			}
 			this.getView().addDependent(this._oDialog);
 			this._oDialog.open();
-
-			this.getView().getModel("oEmptyModel").refresh();
-
+				this.getView().getModel("oEmptyModel").setProperty("/Product", {
+				"productid": "",
+				"productname": "",
+				"productdescription": "",
+				"categoryid": "",
+				"categoryname": "",
+				"brandid": "",
+				"brandname": "",
+				"unitid": "",
+				"unitname": "",
+				"unitshort": "",
+				"size":"",
+				"price": "",
+				"offerpercentage":"",
+				"offerprice":"",
+				"image": "",
+				"stock": "",
+				"status":""
+			});
+			
 		},
 		fnOnNewCate: function () {
 			if (!this._oDialog) {
@@ -384,7 +404,13 @@ sap.ui.define([
 			Fragment.byId("fragNewCate", "newItemTitle").setText("Category");
 			this._oDialog.open();
 		
-			this.getView().getModel("oEmptyModel").setProperty("/Category", this.oCateEntity);
+			this.getView().getModel("oEmptyModel").setProperty("/Category", {
+				"categoryid": "",
+				"categoryname": "",
+				"icon":"",
+				"status":""
+				
+			});
 		},
 		fnCategoryIDExist: function (id) {
 			for (var i = 0; i < this.cateCount; i++) {
@@ -465,8 +491,15 @@ sap.ui.define([
 			Fragment.byId("fragNewBrand", "newUnit").setVisible(false);
 			Fragment.byId("fragNewBrand", "newItemTitle").setText("Brand");
 		
-			this.getView().getModel("oEmptyModel").setProperty("/Brand", this.oBrandEntity);
+		
 			this._oDialog.open();
+				this.getView().getModel("oEmptyModel").setProperty("/Brand", {
+				"brandid": "",
+				"brandname": "",
+				"categoryid": "",
+				"categoryname": "",
+				"status":""
+			});
 		},
 		fnOnNewUnit: function () {
 			if (!this._oDialog) {
@@ -697,6 +730,7 @@ sap.ui.define([
 			var that = this;
 			var oData = this.getView().getModel("oEmptyModel").getProperty("/Product");
 			console.log(oData);
+			console.log(that.token);
 			var id = oData.productid;
 			if (id != "")
 				id = parseInt(id, 10);
@@ -711,7 +745,7 @@ sap.ui.define([
 				MessageToast.show("Product ID already exist");
 
 			} else {
-				$.ajax({
+					$.ajax({
 					type: "POST",
 					url: "/AdminModule/api/product/",
 					data: JSON.stringify(oData),
@@ -722,6 +756,7 @@ sap.ui.define([
 					},
 
 					success: function (data) {
+						MessageToast.show("Data saved successfully");
 						that._oDialog.close();
 						that._oDialog.destroy();
 						that._oDialog = null;
@@ -736,11 +771,12 @@ sap.ui.define([
 						console.log(status);
 					},
 					complete: function (xhr, status) {
-						that.GETMethod_PROD();
 
+						that.GETMethod_PROD();
 						that.getOwnerComponent().getModel("oProductModel").refresh();
 					}
 				});
+			
 			}
 		},
 	/*	for_deleteRow: function (oEvent) {

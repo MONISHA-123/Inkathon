@@ -71,6 +71,13 @@
 										<Input value="{oEmptyModel>/Brand/brandid}" />
 									</f:fields>
 								</f:FormElement>
+									<f:FormElement label="status">
+								<f:fields>
+									<ComboBox selectedKey="{oEmptyModel>/Brand/status}" >
+											<core:Item key="true" text="true"/>
+												<core:Item key="false" text="false"/></ComboBox>
+								</f:fields>
+							</f:FormElement>
 								<f:FormElement label="{i18n>CategoryName}">
 									<f:fields>
 											<ComboBox selectedKey="{oEmptyModel>/Brand/categoryname}" items="{oProductModel>/Category}" selectionChange="onNewBrand_CateDD">

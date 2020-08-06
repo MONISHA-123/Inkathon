@@ -37,55 +37,37 @@ sap.ui.define([
 				CategoryId: id
 			});
 		},
-	onSearch: function (event) {
-			var oItem = event.getParameter("searchField");
-			if (oItem) {
-				MessageToast.show("Search for: " + oItem.getText());
-			} else {
-				MessageToast.show("Search is fired!");
-			}
-		},
+	onSearch: function (oEvent) {
 		
-
-		onSuggest: function (event) {
-			this.oSF = this.getView().byId("searchField");
-			var sValue = event.getParameter("suggestValue"),
-				aFilters = [];
-		if (sValue) {
-				aFilters = [
+			var sKey=oEvent.getSource().getSelectedKey();
+			var sName=oEvent.getParameters().value;
+			var pId=oEvent.getSource().getSuggestionItemByKey(sKey).getDescription();
+			console.log(sName, sKey,pId);
+		this.getOwnerComponent().getModel("oProductModel").setProperty("/ProductSearch", pId);
+			this.getRouter().navTo("Product", {
+				CategoryId: sKey,
+			//	Productname: sName
+			});
+		
+		},
+		onSuggest: function (oEvent) {
+			var sTerm = oEvent.getParameter("suggestValue");
+			var aFilters = [];
+			if (sTerm) {
+				/*aFilters.push(new Filter("productname", FilterOperator.StartsWith, sTerm));*/
+					aFilters = [
 					new Filter([
-						new Filter("productid", function (sDes) {
-							return (sDes || "").toUpperCase().indexOf(sValue.toUpperCase()) > -1;
-						}),
 						new Filter("productname", function (sText) {
-							return (sText || "").toUpperCase().indexOf(sValue.toUpperCase()) > -1;
+							return (sText || "").toUpperCase().indexOf(sTerm.toUpperCase()) > -1;
 						}),
-							new Filter("categoryname", function (sText) {
-							return (sText || "").toUpperCase().indexOf(sValue.toUpperCase()) > -1;
-						}),
-							new Filter("brandname", function (sText) {
-							return (sText || "").toUpperCase().indexOf(sValue.toUpperCase()) > -1;
+						new Filter("brandname", function (sDes) {
+							return (sDes || "").toUpperCase().indexOf(sTerm.toUpperCase()) > -1;
 						})
 					], false)
 				];
 			}
-		
-			this.oSF.getBinding("suggestionItems").filter(aFilters);
-			this.oSF.suggest();
-			
-/*			var aFilter = [];
 
-			var sQuery = this.getView().byId("searchField").getValue();
-			if (sQuery) {
-				aFilter.push(new Filter("productname", FilterOperator.Contains, sQuery));
-			}
-
-			// filter binding
-			var oList = this.getView().byId("searchField");
-			var oBinding = oList.getBinding("suggestionItems");
-			oBinding.filter(aFilter);
-			//oBinding.suggest();
-		*/
+			oEvent.getSource().getBinding("suggestionItems").filter(aFilters);
 		},
 		hideBusyIndicator: function () {
 			BusyIndicator.hide();

@@ -24,10 +24,10 @@
 		<ObjectAttribute text="Address Line 1" />
 		<ObjectAttribute text="Address Line 2" />
 		<ObjectAttribute text="State" />
-		<ObjectAttribute
+	<!--	<ObjectAttribute
 			text="www.sap.com"
 			active="true"
-			press="handleLinkObjectAttributePress" />
+			press="handleLinkObjectAttributePress" />-->
 	</ObjectHeader>
 		  
 		

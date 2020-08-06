@@ -46,24 +46,37 @@
 											</Table>
 										</f:content>
 									</f:Card>
-									<f:Card>
-										<f:layoutData>
-											<grid:ResponsiveColumnItemLayoutData columns="4" rows="6"/>
-										</f:layoutData>
-										<f:content>
-											<Title text="Order Summary"/>
-											<Label text="Total Amount"/>
-										</f:content>
-									</f:Card>
+						
+    						 <f:Card >
+                                <f:layoutData>
+                                    <grid:ResponsiveColumnItemLayoutData columns="4" rows="6"/>
+                                </f:layoutData>
+                                <f:header>
+                                    <cards:Header title="ORDER SUMMARY"  />
+                                </f:header>
+                                <f:content>
+                                    <List showSeparators="None" >
+                                        <CustomListItem>
+                                            <HBox alignItems="Center" justifyContent="SpaceBetween">
+                                                <VBox class="sapUiSmallMarginBegin sapUiSmallMarginTopBottom">
+                                                    <Title level="H3" text="Total"/>
+                                                    <Text text=""/>
+                                                </VBox>
+                                                <ObjectStatus class="sapUiTinyMargin sapUiSmallMarginEnd" text="RS 0.00" />
+                                            </HBox>
+                                        </CustomListItem>
+                                    </List>
+                                </f:content>
+                            </f:Card>
+
 								</grid:CSSGrid>
 							</WizardStep>
 							<WizardStep id="Address" nextStep="PaymentTypeStep" title="Delivery address" activate="fnSelectedAddress" icon="sap-icon://map">
+								
+								<Button text="Add new address" press="Address" type="Attention"/>
+								<MessageStrip type="Information" showIcon="true" text="Select the Delivery Address" />
 								<List mode="SingleSelectLeft" enableBusyIndicator="true" items="{oProductModel>/Address}" selectionChange="fnAddressSelectChange">
-									<headerToolbar>
-										<OverflowToolbar>
-											<Button text="Add new address" press="Address" type="Attention"/>
-										</OverflowToolbar>
-									</headerToolbar>
+								
 									<FeedListItem text="{oProductModel>doornumber}, {oProductModel>street}, {oProductModel>city}, {oProductModel>pincode} "
 										icon="sap-icon://map">
 										<FeedListItemAction text="edit" icon="sap-icon://edit" key="edit" press="fnAddressEdit"/>
@@ -76,9 +89,9 @@
 								<HBox alignItems="Center" justifyContent="Center" width="100%">
 									<SegmentedButton selectionChange="fnPaymentMethod" id="paymentMethodSelection" selectedKey="{oEmptyModel>/selectedKey}">
 										<items>
-											<SegmentedButtonItem key="Cash on Delivery" text="Cash on delivery"/>
-											<SegmentedButtonItem key="Credit Card" text="Credit Card"/>
-											<SegmentedButtonItem key="Debit Card" text="Debit Card"/>
+											<SegmentedButtonItem width="auto" key="Cash on Delivery" text="Cash on delivery"/>
+											<SegmentedButtonItem width="auto" key="Credit Card" text="Credit Card"/>
+											<SegmentedButtonItem width="auto" key="Debit Card" text="Debit Card"/>
 										</items>
 									</SegmentedButton>
 								</HBox>

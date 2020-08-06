@@ -319,3 +319,20 @@ background-color: #fce66d!important;
 	    	background-size:  cover;
 }
 */
+
+/* fOR wIZ*/
+.html.sap-desktop .sapMSegBBtn.sapMSegBBtnFocusable.sapMSegBBtnSel:hover .sapMSegBBtnInner, 
+		html.sap-desktop .sapMSegBBtnFocusable.sapMBtnActive:hover .sapMSegBBtnInner {
+    background: #6e1f1f !important;
+}
+
+
+
+.sapMWizardProgressNavStep[data-sap-ui-wpn-step-current="true"]:hover .sapMWizardProgressNavStepCircle {
+    background-color: #6e1f1f;
+    color: #fff;
+}
+.sapMWizardProgressNavStep[data-sap-ui-wpn-step-current="true"] .sapMWizardProgressNavStepCircle {
+    background: #6e1f1f;
+    color: #fff;
+}

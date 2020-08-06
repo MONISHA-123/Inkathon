@@ -11,14 +11,12 @@
 						<VBox class="bgImage">
 					<VBox class="title">
 					
-					<SearchField class="search_field" width="70%" id="searchField" placeholder="Search for Products,Brands and More" liveChange=".onSuggest"
-						enableSuggestions="true" search=".onSearch" suggest=".onSuggest"
-						suggestionItems="{ path: 'oTableModel>/ProductCollection', sorter: { path: 'Name' } }">
-						<SuggestionItem text="{oTableModel>Name}" description="{path:'oTableModel>Price'} {path:'oTableModel>CurrencyCode'}"
-							key="{oTableModel>ProductId}"/>
-						<layoutData>
-							<OverflowToolbarLayoutData priority="NeverOverflow"/>
-						</layoutData>
+					<SearchField class="search_field" width="70%" id="productInput" placeholder="Search for Products,Brands and More" liveChange=".onSuggest"
+						enableSuggestions="true" search="onSearch" suggest=".onSuggest" selectOnFocus="false" 
+						suggestionItems="{oProductModel>/Product}">
+						<SuggestionItem text="{oProductModel>productname}" description="{path:'oProductModel>productid'}"
+								key="{oProductModel>categoryid}"/>
+					
 					</SearchField>
 				</VBox>
 				
@@ -75,6 +73,8 @@
 						</HeaderContainer>
 					</VBox>
 					<Carousel class="carousel" loop="true" height="auto" showPageIndicator="false">
+						<Image src="https://www.bigbasket.com/media/uploads/banner_images/All_PetStore_DT_2_1130x400_25thJuly.jpg"
+							width="100%" height="auto" alt="Example " />
 						<Image src="https://images-eu.ssl-images-amazon.com/images/G/31/img17/Pantry/July_2020/Pantry-storefront_PC-1500x300staysafer.jpg"
 							width="100%" height="auto" alt="Example " />
 						<Image src="https://www.jiomart.com/images/cms/aw_rbslider/slides/1595690676_LifeBuoy_web.jpg" width="100%" height="auto"

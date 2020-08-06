@@ -209,6 +209,11 @@
 												<Input value="{oProductModel>/oChangeRow/image}"></Input>
 											</f:fields>
 										</f:FormElement>
+											<f:FormElement label="Status">
+											<f:fields>
+												<Input value="{oProductModel>/oChangeRow/status}"></Input>
+											</f:fields>
+										</f:FormElement>
 									</f:formElements>
 								</f:FormContainer>
 								<f:FormContainer >
