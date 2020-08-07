@@ -755,11 +755,34 @@ sap.ui.define([
 				var Amount= iAmount.toFixed(2);
 				iAmount=parseFloat(Amount);
 			this.getOwnerComponent().getModel("oProductModel").setProperty(Path+"/amount", iAmount);
+			
 			this.fnTotalCalc();
 
 		},
+		onChangeOther: function(sPath)
+		{
+				var quantity=this.getOwnerComponent().getModel("oProductModel").getProperty(sPath+"/quantity");
+				var price=this.getOwnerComponent().getModel("oProductModel").getProperty(sPath+"/price");
+					var cart=this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
+				var iAmount=quantity * price;
+				var Amount= iAmount.toFixed(2);
+				iAmount=parseFloat(Amount);
+				
+				for (var i=0; i< cart.length; i++)
+				{
+					if(cart[i].productid== this.getOwnerComponent().getModel("oProductModel").getProperty(sPath+"/productid"))
+					{
+						this.getOwnerComponent().getModel("oProductModel").setProperty("/Cart/"+ i +"/amount", iAmount);
+						
+					}
+				}
+		
+			
+			this.fnTotalCalc();
+				
+		},
 		fnTotalCalc: function () {
-		var total = 0;
+			var total = 0;
 			var oEmptyModel = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
 			for (var j = 0; j < oEmptyModel.length; j++){
 			total+=this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart/" + j + "/amount");
@@ -768,7 +791,7 @@ sap.ui.define([
 			
 			this.getOwnerComponent().getModel("oProductModel").setProperty("/Total", total);
 		},
-			fnOnDelete: function (oEvent) {
+		fnOnDelete: function (oEvent) {
 			var sPath = oEvent.getSource().getParent().getBindingContextPath();
 			var index = sPath.lastIndexOf("/");
 			var lastIndexValue = sPath.charAt(index + 1);

@@ -1,4 +1,5 @@
 sap.ui.define([
+"com/ink/Essentiaries/controller/BaseController",
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/routing/History",
 	"sap/ui/core/UIComponent",
@@ -10,18 +11,18 @@ sap.ui.define([
 		"sap/ui/model/Filter",
 	"sap/ui/model/Sorter",
 	"sap/ui/model/FilterOperator"
-], function (Controller, History, UIComponent, JSONModel, MessageToast,BusyIndicator,Fragment,Filter,Sorter,FilterOperator) {
+], function (BaseController,Controller, History, UIComponent, JSONModel, MessageToast,BusyIndicator,Fragment,Filter,Sorter,FilterOperator) {
 	"use strict";
 
 
-	return Controller.extend("com.ink.Essentiaries.controller.Product", {
+	return BaseController.extend("com.ink.Essentiaries.controller.Product", {
 
 		onInit: function () {
 				var oRouter = this.getRouter();
 			oRouter.getRoute("Product").attachMatched(this._onRouteMatched, this);
 				var oEmptyModel = new JSONModel();
 			this.getView().setModel(oEmptyModel, "oEmptyModel");
-		
+			
 
 		},
 		onAfterRendering:function(){
@@ -65,7 +66,7 @@ sap.ui.define([
 				type: "GET"
 			});
 		},
-			GETMethod_CATEBYPROD: function () {
+		GETMethod_CATEBYPROD: function () {
 			var that = this;
 
 			var sUrl = "/AdminModule/api/productbycategory/"+this.id;
@@ -85,8 +86,22 @@ sap.ui.define([
 
 					MessageToast.show("Succussfully consumed destination from CF!");
 					that.cateCount = data.length;
-
+						
 					that.getOwnerComponent().getModel("oProductModel").setProperty("/CategoryByProduct", data);
+					var cartData=that.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
+				
+					console.log(cartData, data);
+					for( var i=0; i<that.cateCount;i++){
+						for( var j= 0; j<cartData.length;j++){
+							if( data[i].productid == cartData[j].productid )
+								{
+									that.getOwnerComponent().getModel("oProductModel").setProperty("/CategoryByProduct/"+ i +"/quantity", cartData[j].quantity);
+									var s=	that.getOwnerComponent().getModel("oProductModel").setProperty("/CategoryByProduct/"+ i +"/quantity", cartData[j].quantity);
+									console.log(s);
+									
+								}
+						}
+					}
 
 				},
 				type: "GET"
@@ -241,8 +256,43 @@ sap.ui.define([
 		},
 		fnCart :function(oEvent){
 			MessageToast.show("Product Added To Cart ");
-			oEvent.getSource().getParent().getItems()[0].setVisible(false);
-			oEvent.getSource().getParent().getItems()[1].setVisible(true);
+		
+		
+			var cartId=this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
+			var Path=oEvent.getSource().getBindingContext("oProductModel").sPath;
+			var oData=this.getOwnerComponent().getModel("oProductModel").getProperty(Path);
+			
+			 for( var i=0 ;i<cartId.length;i++){
+					if(cartId[i].productid == oData.productid)
+					{
+							oEvent.getSource().getParent().getItems()[0].setVisible(false);
+							oEvent.getSource().getParent().getItems()[1].setVisible(true);
+							var iQuantity= this.getOwnerComponent().getModel("oProductModel").getProperty(Path + "/quantity");
+							this.getOwnerComponent().getModel("oProductModel").setProperty("/Cart/"+ i +"/quantity",iQuantity);
+								this.onChangeOther(Path);
+								return;
+					}
+			 }
+					
+							oEvent.getSource().getParent().getItems()[0].setVisible(false);
+							oEvent.getSource().getParent().getItems()[1].setVisible(true);
+							this.getOwnerComponent().getModel("oProductModel").setProperty(Path+"/quantity",1);
+							this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart").unshift(oData);
+							var price=this.getOwnerComponent().getModel("oProductModel").getProperty(Path+"/price");
+							 this.getOwnerComponent().getModel("oProductModel").setProperty(Path+"/amount",price);
+							console.log(this.getOwnerComponent().getModel("oProductModel").getProperty(Path));
+							
+							this.getOwnerComponent().getModel("oProductModel").refresh();
+							this.onChangeOther(Path);
+
+					
+			 
+		
+			
+		
+		
+			
+			 //this.fnOnAddToCart();
 		}
 	
 

@@ -2,11 +2,11 @@
 	xmlns:html="http://www.w3.org/1999/xhtml"  xmlns:l="sap.ui.layout" xmlns:tnt="sap.tnt" xmlns:f="sap.f" 	xmlns:grid="sap.ui.layout.cssgrid">
 
 	<App id="essentiaries">
-		<ScrollContainer
+		<ScrollContainer class="bgImage"
 						horizontal="false"
 						vertical="true"
 						height="100%">
-				<Button text="check" press="onCheck"></Button>
+			
 			<Breadcrumbs currentLocationText="{oProductModel>/CategoryByProduct/0/categoryname}" class="sapUiSmallMargin">
 						<Link press="fnToHome" text="Home"/>
 						<!--<Link press="onPress" text="Category"/>-->
@@ -42,8 +42,8 @@
 													<RatingIndicator id="RI_XS" maxValue="5" class="sapUiSmallMarginBottom" value="4" iconSize="12px" tooltip="Rating Tooltip"/>
 													<Text text="MRP : RS {oProductModel>price}"></Text>
 														<VBox>
-													<Button icon="sap-icon://cart" text="Add to Cart" press="fnCart" class="sapUiTinyMarginTop buttonBg"></Button>
-													<StepInput value="{oProductModel>quantity}"  width="10%" min="1" visible="false" id="stepinput" class="sapUiTinyMarginTop" ></StepInput>
+													<Button icon="sap-icon://cart" text="Add to Cart" press="fnCart" visible="{= ${oProductModel>quantity} >1 ? false : true}" class="sapUiTinyMarginTop buttonBg"></Button>
+													<StepInput value="{oProductModel>quantity}"  width="10%" min="1" visible="{= ${oProductModel>quantity} >1 ? true : false}" id="stepinput" change="fnCart" class="sapUiTinyMarginTop" ></StepInput>
 													</VBox>
 													
 												</VBox>

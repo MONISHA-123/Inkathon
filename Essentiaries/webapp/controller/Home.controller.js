@@ -26,7 +26,7 @@ sap.ui.define([
 				this.GETMethod_CATE();
 			this.GETMethod_Prod();
 			this.GETMethod_ProdOffers();
-			
+			this.GETMethod_PROMO();
 			
 		},
 		
@@ -184,25 +184,79 @@ sap.ui.define([
 
 			});
 		},
+	
+    
+    GETMethod_PROMO:function(){
+                var that = this;
+
+
+            var sUrl = "/AdminModule/api/promotion";
+            $.ajax({
+                url: sUrl,
+                data: null,
+                async: true,
+                dataType: "json",
+                contentType: "application/json; charset=utf-8",
+                headers: {
+                    "x-CSRF-Token": "fetch"
+                },
+                error: function (err) {
+                    MessageToast.show("Category Fetch Destination Failed");
+                },
+                success: function (data, status, xhr) {
+
+
+                    MessageToast.show("Promo");
+                
+                    that.getOwnerComponent().getModel("oProductModel").setProperty("/Promotion", data);
+
+
+                },
+                type: "GET"
+            });
+        },
+
+        
+
 		getRouter: function () {
 			return UIComponent.getRouterFor(this);
 		},
-			fnCart :function(oEvent){
+	fnCart :function(oEvent){
 			MessageToast.show("Product Added To Cart ");
-			oEvent.getSource().getParent().getItems()[0].setVisible(false);
-			oEvent.getSource().getParent().getItems()[1].setVisible(true);
-			
+		
+		
+			var cartId=this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
 			var Path=oEvent.getSource().getBindingContext("oProductModel").sPath;
 			var oData=this.getOwnerComponent().getModel("oProductModel").getProperty(Path);
-			this.getOwnerComponent().getModel("oProductModel").setProperty(Path+"/quantity",1);
-			this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart").unshift(oData);
-			var price=this.getOwnerComponent().getModel("oProductModel").getProperty(Path+"/price");
-			 this.getOwnerComponent().getModel("oProductModel").setProperty(Path+"/amount",price);
-			console.log(this.getOwnerComponent().getModel("oProductModel").getProperty(Path));
 			
+			 for( var i=0 ;i<cartId.length;i++){
+					if(cartId[i].productid == oData.productid)
+					{
+							oEvent.getSource().getParent().getItems()[0].setVisible(false);
+							oEvent.getSource().getParent().getItems()[1].setVisible(true);
+							var iQuantity= this.getOwnerComponent().getModel("oProductModel").getProperty(Path + "/quantity");
+							this.getOwnerComponent().getModel("oProductModel").setProperty("/Cart/"+ i +"/quantity",iQuantity);
+								this.onChangeOther(Path);
+								return;
+					}
+			 }
+					
+							oEvent.getSource().getParent().getItems()[0].setVisible(false);
+							oEvent.getSource().getParent().getItems()[1].setVisible(true);
+							this.getOwnerComponent().getModel("oProductModel").setProperty(Path+"/quantity",1);
+							this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart").unshift(oData);
+							var price=this.getOwnerComponent().getModel("oProductModel").getProperty(Path+"/price");
+							 this.getOwnerComponent().getModel("oProductModel").setProperty(Path+"/amount",price);
+							console.log(this.getOwnerComponent().getModel("oProductModel").getProperty(Path));
+							
+							this.getOwnerComponent().getModel("oProductModel").refresh();
+							this.onChangeOther(Path);
+
+					
+			 
+		
 			
-			this.getOwnerComponent().getModel("oProductModel").refresh();
-		this.fnTotalCalc();
+		
 		
 			
 			 //this.fnOnAddToCart();
