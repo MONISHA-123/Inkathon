@@ -755,7 +755,6 @@ sap.ui.define([
 				var Amount= iAmount.toFixed(2);
 				iAmount=parseFloat(Amount);
 			this.getOwnerComponent().getModel("oProductModel").setProperty(Path+"/amount", iAmount);
-			
 			this.fnTotalCalc();
 
 		},
@@ -772,7 +771,7 @@ sap.ui.define([
 				{
 					if(cart[i].productid== this.getOwnerComponent().getModel("oProductModel").getProperty(sPath+"/productid"))
 					{
-						this.getOwnerComponent().getModel("oProductModel").setProperty("/Cart/"+ i +"/amount", iAmount);
+					this.getOwnerComponent().getModel("oProductModel").setProperty("/Cart/"+ i +"/amount", iAmount);
 						
 					}
 				}
