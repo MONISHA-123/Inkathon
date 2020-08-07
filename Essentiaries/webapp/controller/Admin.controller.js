@@ -11,7 +11,7 @@ sap.ui.define([
 	"sap/viz/ui5/data/FlattenedDataset",
 	"sap/m/MessageBox",
 	"sap/ui/core/BusyIndicator",
-	"sap/ui/core/routing/History"
+	"sap/ui/core/routing/History" 
 
 ], function (Controller, JSONModel, MessageToast, Fragment, formatter, Filter, Sorter, FilterOperator, UIComponent, FlattenedDataset,
 	MessageBox, BusyIndicator, History) {
