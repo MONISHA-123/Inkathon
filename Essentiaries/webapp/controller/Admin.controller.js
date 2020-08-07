@@ -19,21 +19,21 @@ sap.ui.define([
 
 	return Controller.extend("com.ink.Essentiaries.controller.Admin", {
 		formatter: formatter,
-		
+
 		onInit: function () {
-				var oRouter = this.getRouter();
+			var oRouter = this.getRouter();
 			oRouter.getRoute("Admin").attachMatched(this._onRouteMatched, this);
-				this.busyIndicator(1000);
+			this.busyIndicator(1000);
 			this.token = "";
 			this.oCateEntity = {
 				"categoryid": "",
 				"categoryname": "",
-				"icon":"",
-				"status":""
-				
+				"icon": "",
+				"status": ""
+
 			};
 
-				this.oProductEntity = {
+			this.oProductEntity = {
 				"productid": "",
 				"productname": "",
 				"productdescription": "",
@@ -44,20 +44,20 @@ sap.ui.define([
 				"unitid": "",
 				"unitname": "",
 				"unitshort": "",
-				"size":"",
+				"size": "",
 				"price": "",
-				"offerpercentage":"",
-				"offerprice":"",
+				"offerpercentage": "",
+				"offerprice": "",
 				"image": "",
 				"stock": "",
-				"status":""
+				"status": ""
 			};
 			this.oBrandEntity = {
 				"brandid": "",
 				"brandname": "",
 				"categoryid": "",
 				"categoryname": "",
-				"status":""
+				"status": ""
 			};
 			var oUnitEntity = {
 				"unitname": "",
@@ -82,7 +82,7 @@ sap.ui.define([
 			this.GETMethod_CATE();
 			this.GETMethod_PROD();
 			this.GETMethod_BRAND();
-			this.GETMethod_UNIT();
+			this.GETMethod_PROMO();
 
 			var oModel = new JSONModel("model/products.json");
 			this.getView().setModel(oModel, "oTableModel");
@@ -152,13 +152,12 @@ sap.ui.define([
 			oVizFrame.addFeed(feedValueAxis);
 			oVizFrame.addFeed(feedCategoryAxis);
 			// this.byId("BrandTab").setText("Brands " + String.fromCharCode(38) + " Category");
-			
 
 		},
-			getRouter: function () {
+		getRouter: function () {
 			return UIComponent.getRouterFor(this);
 		},
-			onNavBack: function () {
+		onNavBack: function () {
 			// UIComponent.getRouterFor(this).navTo("adminDashboard");
 			var oHistory, sPreviousHash;
 
@@ -169,11 +168,11 @@ sap.ui.define([
 				window.history.go(-1);
 			} else {
 				// this.getOwnerComponent().getRouter().navTo("Home");
-				 this.getRouter().navTo("Home", {}, true);
+				this.getRouter().navTo("Home", {}, true);
 
 			}
 		},
-			GETMethod_CATE: function () {
+		GETMethod_CATE: function () {
 			var that = this;
 
 			var sUrl = "/AdminModule/api/category";
@@ -202,10 +201,10 @@ sap.ui.define([
 				console.log(that.token);
 			});
 		},
-		GETMethod_UNIT:function(){
-				var that = this;
+		GETMethod_PROMO: function () {
+			var that = this;
 
-			var sUrl = "/AdminModule/api/unit";
+			var sUrl = "/AdminModule/api/promotion";
 			$.ajax({
 				url: sUrl,
 				data: null,
@@ -222,7 +221,7 @@ sap.ui.define([
 
 					MessageToast.show("Hi  Congtz! you succussfully consumed destination from CF!");
 					that.unitCount = data.length;
-					that.getOwnerComponent().getModel("oProductModel").setProperty("/Unit", data);
+					that.getOwnerComponent().getModel("oProductModel").setProperty("/Promotion", data);
 
 				},
 				type: "GET"
@@ -279,7 +278,7 @@ sap.ui.define([
 				type: "GET"
 			});
 		},
-	
+
 		onPress: function (oEvent) {
 			var oTable, oTableModel1, oItem, sPath, oSelectedRow;
 			// var oModel = this.getView().getModel("oProductModel");
@@ -289,7 +288,7 @@ sap.ui.define([
 			oItem = oEvent.getSource();
 			sPath = oItem.getBindingContextPath();
 			oSelectedRow = oTableModel1.getProperty(sPath);
-			
+
 			oModel.setProperty("/oSelectedRow", oSelectedRow);
 
 			this.getRouter().navTo("productDetails", {
@@ -301,54 +300,54 @@ sap.ui.define([
 			oEvent.getSource().getParent().getParent().getCells()[6].getItems()[0].setVisible(false);
 			oEvent.getSource().getParent().getParent().getCells()[5].getItems()[0].setVisible(true);
 			oEvent.getSource().getParent().getParent().getCells()[5].getItems()[1].setVisible(false);
-		/*	for(var i=0;i<=2;i++)
-				oEvent.getSource().getParent().getParent().getCells()[4].getItems()[i].setVisible(true);*/
+			/*	for(var i=0;i<=2;i++)
+					oEvent.getSource().getParent().getParent().getCells()[4].getItems()[i].setVisible(true);*/
 
 			for (var i = 1; i <= 4; i++)
 				oEvent.getSource().getParent().getParent().getCells()[i].setEditable(true);
 
 		},
-		fnChangeProdStatus:function(oEvent){
-				var sPath = oEvent.getSource().getBindingContext("oProductModel").getPath();
-				
-		var index=oEvent.getParameter("selectedIndex");
-		if(index===0)
-		this.getOwnerComponent().getModel("oProductModel").setProperty(sPath+"/status","active");
-		else if(index===1)
-			this.getOwnerComponent().getModel("oProductModel").setProperty(sPath+"/status","inactive");
+		fnChangeProdStatus: function (oEvent) {
+			var sPath = oEvent.getSource().getBindingContext("oProductModel").getPath();
 
-		else 
-			this.getOwnerComponent().getModel("oProductModel").setProperty(sPath+"/status","delete");
-	
+			var index = oEvent.getParameter("selectedIndex");
+			if (index === 0)
+				this.getOwnerComponent().getModel("oProductModel").setProperty(sPath + "/status", "active");
+			else if (index === 1)
+				this.getOwnerComponent().getModel("oProductModel").setProperty(sPath + "/status", "inactive");
+
+			else
+				this.getOwnerComponent().getModel("oProductModel").setProperty(sPath + "/status", "delete");
+
 		},
-		fnChangeBrandStatus:function(oEvent){
-				var sPath = oEvent.getSource().getBindingContext("oProductModel").getPath();
-				
-		var index=oEvent.getParameter("selectedIndex");
-		if(index===0)
-		this.getOwnerComponent().getModel("oProductModel").setProperty(sPath+"/status","active");
-		else if(index===1)
-			this.getOwnerComponent().getModel("oProductModel").setProperty(sPath+"/status","inactive");
+		fnChangeBrandStatus: function (oEvent) {
+			var sPath = oEvent.getSource().getBindingContext("oProductModel").getPath();
 
-		else 
-			this.getOwnerComponent().getModel("oProductModel").setProperty(sPath+"/status","delete");
-	
+			var index = oEvent.getParameter("selectedIndex");
+			if (index === 0)
+				this.getOwnerComponent().getModel("oProductModel").setProperty(sPath + "/status", "active");
+			else if (index === 1)
+				this.getOwnerComponent().getModel("oProductModel").setProperty(sPath + "/status", "inactive");
+
+			else
+				this.getOwnerComponent().getModel("oProductModel").setProperty(sPath + "/status", "delete");
+
 		},
 		fnSave: function (oEvent) {
 			var id = oEvent.getSource().getParent().getParent().getCells()[0].getText();
 			var sPath = oEvent.getSource().getParent().getParent().getBindingContextPath();
-		
+
 			var oData = this.getOwnerComponent().getModel("oProductModel").getProperty(sPath);
 			console.log(oData);
 			var sUrl = "/AdminModule/api/product/" + id;
-			
+
 			this.fnPutCall(sUrl, oData);
 			oEvent.getSource().getParent().getParent().getCells()[5].getItems()[0].setVisible(false);
 			oEvent.getSource().getParent().getParent().getCells()[5].getItems()[1].setVisible(true);
-	
+
 			oEvent.getSource().getParent().getParent().getCells()[6].getItems()[1].setVisible(false);
 			oEvent.getSource().getParent().getParent().getCells()[6].getItems()[0].setVisible(true);
-			for ( var i = 1; i <= 4; i++)
+			for (var i = 1; i <= 4; i++)
 				oEvent.getSource().getParent().getParent().getCells()[i].setEditable(false);
 
 		},
@@ -365,14 +364,13 @@ sap.ui.define([
 
 		},
 		fnOnNewProduct: function () {
-		
-		
+
 			if (!this._oDialog) {
 				this._oDialog = sap.ui.xmlfragment("idNewProduct", "com.ink.Essentiaries.fragments.newProduct", this);
 			}
 			this.getView().addDependent(this._oDialog);
 			this._oDialog.open();
-				this.getView().getModel("oEmptyModel").setProperty("/Product", {
+			this.getView().getModel("oEmptyModel").setProperty("/Product", {
 				"productid": "",
 				"productname": "",
 				"productdescription": "",
@@ -383,15 +381,15 @@ sap.ui.define([
 				"unitid": "",
 				"unitname": "",
 				"unitshort": "",
-				"size":"",
+				"size": "",
 				"price": "",
-				"offerpercentage":"",
-				"offerprice":"",
+				"offerpercentage": "",
+				"offerprice": "",
 				"image": "",
 				"stock": "",
-				"status":""
+				"status": ""
 			});
-			
+
 		},
 		fnOnNewCate: function () {
 			if (!this._oDialog) {
@@ -403,13 +401,13 @@ sap.ui.define([
 			Fragment.byId("fragNewCate", "newCate").setVisible(true);
 			Fragment.byId("fragNewCate", "newItemTitle").setText("Category");
 			this._oDialog.open();
-		
+
 			this.getView().getModel("oEmptyModel").setProperty("/Category", {
 				"categoryid": "",
 				"categoryname": "",
-				"icon":"",
-				"status":""
-				
+				"icon": "",
+				"status": ""
+
 			});
 		},
 		fnCategoryIDExist: function (id) {
@@ -434,9 +432,9 @@ sap.ui.define([
 			if (id != "")
 				id = parseInt(id, 10);
 			var name = this.getView().getModel("oEmptyModel").getProperty("/Category/categoryname").trim();
-			var icon=this.getView().getModel("oEmptyModel").getProperty("/Category/icon");
-				var status=this.getView().getModel("oEmptyModel").getProperty("/Category/status");
-			if (id == "" || name == ""||icon==""||status=="")
+			var icon = this.getView().getModel("oEmptyModel").getProperty("/Category/icon");
+			var status = this.getView().getModel("oEmptyModel").getProperty("/Category/status");
+			if (id == "" || name == "" || icon == "" || status == "")
 				MessageToast.show("Fill all the required fields");
 			else if (id < 1)
 				MessageToast.show("Invalid ID");
@@ -450,7 +448,7 @@ sap.ui.define([
 				this.getView().getModel("oEmptyModel").setProperty("/Category/categoryname", name);
 				var oData = this.getView().getModel("oEmptyModel").getProperty("/Category");
 				var sUrl = "/AdminModule/api/category/";
-		
+
 				$.ajax({
 					type: "POST",
 					url: sUrl,
@@ -490,15 +488,14 @@ sap.ui.define([
 			Fragment.byId("fragNewBrand", "newCate").setVisible(false);
 			Fragment.byId("fragNewBrand", "newPromo").setVisible(false);
 			Fragment.byId("fragNewBrand", "newItemTitle").setText("Brand");
-		
-		
+
 			this._oDialog.open();
-				this.getView().getModel("oEmptyModel").setProperty("/Brand", {
+			this.getView().getModel("oEmptyModel").setProperty("/Brand", {
 				"brandid": "",
 				"brandname": "",
 				"categoryid": "",
 				"categoryname": "",
-				"status":""
+				"status": ""
 			});
 		},
 		fnOnNewUnit: function () {
@@ -599,8 +596,8 @@ sap.ui.define([
 				this.getView().getModel("oEmptyModel").setProperty("/Product/brandid", " ");
 			}
 		},
-		onNewProUnitDD:function(oEvent){
-				var sSelectedKey = oEvent.getSource().getValue();
+		onNewProUnitDD: function (oEvent) {
+			var sSelectedKey = oEvent.getSource().getValue();
 			for (var i = 0; i < this.unitCount; i++) {
 				if (sSelectedKey == this.getOwnerComponent().getModel("oProductModel").getProperty("/Unit/" + i + "/unitname")) {
 					break;
@@ -608,7 +605,7 @@ sap.ui.define([
 			}
 			if (i < this.unitCount) {
 				var id = this.getOwnerComponent().getModel("oProductModel").getProperty("/Unit/" + i + "/unitid");
-				var unitShort=this.getOwnerComponent().getModel("oProductModel").getProperty("/Unit/" + i + "/unitshort");
+				var unitShort = this.getOwnerComponent().getModel("oProductModel").getProperty("/Unit/" + i + "/unitshort");
 				this.getView().getModel("oEmptyModel").setProperty("/Product/unitid", id);
 				this.getView().getModel("oEmptyModel").setProperty("/Product/unitshort", unitShort);
 
@@ -731,16 +728,16 @@ sap.ui.define([
 		fnNewProdSave: function () {
 			var that = this;
 			var oData = this.getView().getModel("oEmptyModel").getProperty("/Product");
-			
+
 			console.log(that.token);
 			var id = oData.productid;
 			id = parseInt(id, 10);
-		/*	if (id != "")
-				id = parseInt(id, 10);
-			this.getView().getModel("oEmptyModel").setProperty("/Product/productid", id);*/
-			if(oData.productid == "" || oData.productname == "" || oData.productdescription == "" || oData.brandname == "" || oData.categoryname ==
+			/*	if (id != "")
+					id = parseInt(id, 10);
+				this.getView().getModel("oEmptyModel").setProperty("/Product/productid", id);*/
+			if (oData.productid == "" || oData.productname == "" || oData.productdescription == "" || oData.brandname == "" || oData.categoryname ==
 				"" || oData.unitid == "" || oData.unitname == "" || oData.unitshort == "" || oData.image == "" || oData.price == "" || oData.stock ==
-				""|| oData.size == "" || oData.offerprice == "" || oData.offerpercentage =="")
+				"" || oData.size == "" || oData.offerprice == "" || oData.offerpercentage == "")
 				MessageToast.show("Fill all the fields");
 			else if (id < 1)
 				MessageToast.show("Invalid ID");
@@ -748,9 +745,9 @@ sap.ui.define([
 				MessageToast.show("Product ID already exist");
 
 			} else {
-					this.getView().getModel("oEmptyModel").setProperty("/Product/productid", id);
+				this.getView().getModel("oEmptyModel").setProperty("/Product/productid", id);
 				console.log(oData);
-					$.ajax({
+				$.ajax({
 					type: "POST",
 					url: "/AdminModule/api/product/",
 					data: JSON.stringify(oData),
@@ -781,34 +778,34 @@ sap.ui.define([
 						that.getOwnerComponent().getModel("oProductModel").refresh();
 					}
 				});
-			
+
 			}
 		},
-	/*	for_deleteRow: function (oEvent) {
-			var that = this;
-			var id = oEvent.getSource().getParent().getParent().getCells()[0].getValue();
-			var sUrl = "/AdminModule/api/product/" + id;
-			$.ajax({
-				type: "DELETE",
-				url: sUrl,
-				dataType: "json",
-				"headers": {
-					"Content-Type": "application/json",
-					"x-CSRF-Token": that.token
-				},
-				success: function (data) {
-					MessageToast.show("Product Deleted Successfully");
-				},
-				error: function (xhr, status) {
+		/*	for_deleteRow: function (oEvent) {
+				var that = this;
+				var id = oEvent.getSource().getParent().getParent().getCells()[0].getValue();
+				var sUrl = "/AdminModule/api/product/" + id;
+				$.ajax({
+					type: "DELETE",
+					url: sUrl,
+					dataType: "json",
+					"headers": {
+						"Content-Type": "application/json",
+						"x-CSRF-Token": that.token
+					},
+					success: function (data) {
+						MessageToast.show("Product Deleted Successfully");
+					},
+					error: function (xhr, status) {
 
-					console.log("ERROR");
-				},
-				complete: function (xhr, status) {
-					that.GETMethod_PROD();
-					that.getOwnerComponent().getModel("oProductModel").refresh();
-				}
-			});
-		},*/
+						console.log("ERROR");
+					},
+					complete: function (xhr, status) {
+						that.GETMethod_PROD();
+						that.getOwnerComponent().getModel("oProductModel").refresh();
+					}
+				});
+			},*/
 		fnOnCancel: function () {
 			this._oDialog.close();
 			this._oDialog.destroy();
@@ -881,7 +878,7 @@ sap.ui.define([
 		},
 		onRefreshBrandTable: function () {
 			this.byId("brandtable").getBinding("items").filter();
-				this.byId("categorytable").getBinding("items").filter();
+			this.byId("categorytable").getBinding("items").filter();
 
 		},
 		onSearchID: function (event) {
@@ -927,7 +924,7 @@ sap.ui.define([
 			var oBinding = oList.getBinding("items");
 			oBinding.filter(aFilter);
 
-		}, 
+		},
 		fnBrandDelConfirm: function (oEvent) {
 			var that = this;
 			var id = oEvent.getSource().getParent().getParent().getCells()[0].getValue();
@@ -974,13 +971,13 @@ sap.ui.define([
 
 			var id = oEvent.getSource().getParent().getParent().getCells()[0].getValue();
 			var sPath = oEvent.getSource().getParent().getParent().getBindingContextPath();
-			var oData = this.getView().getModel("oProductModel").getProperty(sPath);
+			var oData = this.getOwnerComponent().getModel("oProductModel").getProperty(sPath);
 			var sUrl = "/AdminModule/api/brand/" + id;
-				if(oData.brandid==""||oData.brandname==""||oData.categoryname==""||oData.categoryid==""||oData.status=="")
-					MessageToast.show("Fill all the fields");
-				else{
-					this.fnPutCall(sUrl, oData);
-				}
+			if (oData.brandid == "" || oData.brandname == "" || oData.categoryname == "" || oData.categoryid == "" || oData.status == "")
+				MessageToast.show("Fill all the fields");
+			else {
+				this.fnPutCall(sUrl, oData);
+			}
 			oEvent.getSource().getParent().getParent().getCells()[5].getItems()[1].setVisible(false);
 			oEvent.getSource().getParent().getParent().getCells()[5].getItems()[0].setVisible(true);
 			for (var i = 1; i <= 4; i++)
@@ -1056,18 +1053,18 @@ sap.ui.define([
 		busyIndicator: function (sec) {
 			this.showBusyIndicator(sec);
 		},
-		fnNewProdOffer:function(oEvent){
-			var per=oEvent.getParameters().value;
-			var price=this.getView().getModel("oEmptyModel").getProperty("/Product/price");
-			var offerprice=price-(price*(per/100));
-			this.getView().getModel("oEmptyModel").setProperty("/Product/offerprice",offerprice);
+		fnNewProdOffer: function (oEvent) {
+			var per = oEvent.getParameters().value;
+			var price = this.getView().getModel("oEmptyModel").getProperty("/Product/price");
+			var offerprice = price - (price * (per / 100));
+			this.getView().getModel("oEmptyModel").setProperty("/Product/offerprice", offerprice);
 		},
-		OnOfferRowChange:function(oEvent){
-	var per=oEvent.getParameters().value;
-		var sPath = oEvent.getSource().getBindingContext("oProductModel").getPath();
-			var price=this.getOwnerComponent().getModel("oProductModel").getProperty(sPath+"/price");
-						var offerprice=price-(price*(per/100));
-			this.getOwnerComponent().getModel("oProductModel").setProperty(sPath+"/offerprice",offerprice);
+		OnOfferRowChange: function (oEvent) {
+			var per = oEvent.getParameters().value;
+			var sPath = oEvent.getSource().getBindingContext("oProductModel").getPath();
+			var price = this.getOwnerComponent().getModel("oProductModel").getProperty(sPath + "/price");
+			var offerprice = price - (price * (per / 100));
+			this.getOwnerComponent().getModel("oProductModel").setProperty(sPath + "/offerprice", offerprice);
 
 		},
 		fnOnNewPromo: function () {
@@ -1079,26 +1076,33 @@ sap.ui.define([
 			Fragment.byId("fragNewPromo", "newCate").setVisible(false);
 			Fragment.byId("fragNewPromo", "newPromo").setVisible(true);
 			Fragment.byId("fragNewPromo", "newItemTitle").setText("Promotions");
+
+			this.getView().getModel("oEmptyModel").setProperty("/Promotion", {
+				"promotionid": "",
+				"promotionimage": "",
+				"promotiondescription": "",
+				"referenceid": ""
+			});
 			this._oDialog.open();
 		},
 		fnOnNewPromoSave: function () {
 			var that = this;
 			var id = this.getView().getModel("oEmptyModel").getProperty("/Promotion/promotionid");
-				var refId = this.getView().getModel("oEmptyModel").getProperty("/Promotion/referenceid");
+			var refId = this.getView().getModel("oEmptyModel").getProperty("/Promotion/referenceid");
 			if (id != "")
 				id = parseInt(id, 10);
-			var des = this.getView().getModel("oEmptyModel").getProperty("/Promotion/description").trim();
-			var icon=this.getView().getModel("oEmptyModel").getProperty("/Promotion/image");
-			if (id == "" || refId == ""||icon==""||des=="")
+			var des = this.getView().getModel("oEmptyModel").getProperty("/Promotion/promotiondescription").trim();
+			var icon = this.getView().getModel("oEmptyModel").getProperty("/Promotion/promotionimage");
+			if (id == "" || refId == "" || icon == "" || des == "")
 				MessageToast.show("Fill all the required fields");
 			else if (id < 1)
 				MessageToast.show("Invalid ID");
-		else {
+			else {
 				this.getView().getModel("oEmptyModel").setProperty("/Promotion/promotionid", id);
-			
+
 				var oData = this.getView().getModel("oEmptyModel").getProperty("/Promotion");
-				var sUrl = "/AdminModule/api/promotion/";
-		
+				var sUrl = "/AdminModule/api/promotion";
+
 				$.ajax({
 					type: "POST",
 					url: sUrl,
@@ -1124,11 +1128,64 @@ sap.ui.define([
 
 					},
 					complete: function (xhr, status) {
-			
+						that.getOwnerComponent().getModel("oProductModel").refresh();
 					}
 				});
 			}
 		},
+		fnOnPromoDel: function (oEvent) {
+			var that = this;
+			var Path = oEvent.getSource().getParent().getBindingContext("oProductModel").sPath;
+			var id = this.getOwnerComponent().getModel("oProductModel").getProperty(Path + "/promotionid");
+			var surl = "/AdminModule/api/promotion/" + id;
+			MessageBox.confirm("Are you sure you want to delete Promotion ID " + id + " ?", {
+				actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+				emphasizedAction: MessageBox.Action.OK,
+				onClose: function (sAction) {
+					if (sAction == "YES") {
+
+						$.ajax({
+							type: "DELETE",
+							url: surl,
+							dataType: "json",
+							"headers": {
+								"Content-Type": "application/json",
+								"x-CSRF-Token": that.token
+							},
+							success: function (data) {
+								MessageToast.show("Deleted Successfully");
+							},
+							error: function (xhr, status) {
+								MessageToast.show("Error");
+
+							},
+							complete: function (xhr, status) {
+								that.getOwnerComponent().getModel("oProductModel").refresh();
+							}
+						});
+					}
+
+				}
+			});
+
+		},
+		fnOnEditPromo: function (oEvent) {
+			oEvent.getSource().getParent().getParent().getCells()[4].getItems()[1].setVisible(true);
+			oEvent.getSource().getParent().getParent().getCells()[4].getItems()[0].setVisible(false);
+				for (var i = 1; i <= 3; i++)
+				oEvent.getSource().getParent().getParent().getCells()[i].setEditable(true);
+		},
+		fnOnPromoSave: function (oEvent) {
+			var id = oEvent.getSource().getParent().getParent().getCells()[0].getValue();
+			var sPath = oEvent.getSource().getBindingContext("oProductModel").getPath();
+			var oData = this.getOwnerComponent().getModel("oProductModel").getProperty(sPath);
+			var sUrl = "/AdminModule/api/promotion/" + id;
+			this.fnPutCall(sUrl, oData);
+			oEvent.getSource().getParent().getParent().getCells()[4].getItems()[0].setVisible(true);
+			oEvent.getSource().getParent().getParent().getCells()[4].getItems()[1].setVisible(false);
+				for (var i = 1; i <= 3; i++)
+				oEvent.getSource().getParent().getParent().getCells()[i].setEditable(false);
+		}
 	});
 
 });
