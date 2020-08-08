@@ -27,6 +27,7 @@ sap.ui.define([
 			this.GETMethod_Prod();
 			this.GETMethod_ProdOffers();
 			this.GETMethod_PROMO();
+		
 			
 		},
 		

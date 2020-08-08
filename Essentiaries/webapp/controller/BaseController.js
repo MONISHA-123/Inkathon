@@ -11,36 +11,36 @@ sap.ui.define([
 	"sap/ui/core/Popup",
 	"sap/ui/core/routing/History"
 
-], function (Controller, UIComponent, MessageToast, BusyIndicator, JSONModel, Fragment, Filter, FilterOperator, Device, Popup,History) {
+], function (Controller, UIComponent, MessageToast, BusyIndicator, JSONModel, Fragment, Filter, FilterOperator, Device, Popup, History) {
 	"use strict";
- 
-  return Controller.extend("com.ink.Essentiaries.controller.BaseController", {
-    getRouter: function () {
-   
-      return UIComponent.getRouterFor(this);
- 
-    },
-    	fnTotalCalc: function () {
-		var total = 0;
+
+	return Controller.extend("com.ink.Essentiaries.controller.BaseController", {
+		getRouter: function () {
+
+			return UIComponent.getRouterFor(this);
+
+		},
+		fnTotalCalc: function () {
+			var total = 0;
 			var oEmptyModel = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
-			for (var j = 0; j < oEmptyModel.length; j++){
-			total+=this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart/" + j + "/amount");
-				
+			for (var j = 0; j < oEmptyModel.length; j++) {
+				total += this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart/" + j + "/amount");
+
 			}
-			
+
 			this.getOwnerComponent().getModel("oProductModel").setProperty("/Total", total);
 		},
-	fnOnAddToCart: function (oEvent ) {
-		
-		 //var oButton=this.byId("cart");
-		 this.oButton=oEvent.getSource();
-		// console.log(this.oButton);
+		fnOnAddToCart: function (oEvent) {
+
+			//var oButton=this.byId("cart");
+			this.oButton = oEvent.getSource();
+			// console.log(this.oButton);
 			if (!this._oPopover) {
 
 				Fragment.load({
 
 					name: "com.ink.Essentiaries.fragments.Cart",
-					id:"cartFragment",
+					id: "cartFragment",
 					controller: this
 
 				}).then(function (oPopover) {
@@ -56,15 +56,14 @@ sap.ui.define([
 			} else {
 
 				this._oPopover.openBy(this.oButton);
-			
+
 				console.log(this.oButton);
 			}
 
 		},
-			fnPopCloseButton: function (oEvent) {
-				
+		fnPopCloseButton: function (oEvent) {
+
 			this._oPopover.close();
-			
 
 		},
 		//fragment for user
@@ -80,8 +79,6 @@ sap.ui.define([
 
 			}
 
-		
-
 			this.getView().getModel("oEmptyModel").setProperty("/oList", []);
 
 			if (!this._oDialog) {
@@ -91,7 +88,7 @@ sap.ui.define([
 			}
 
 			this.getView().addDependent(this._oDialog);
-				this.getView().getModel("oEmptyModel").setProperty("/ForgotPassword",{});
+			this.getView().getModel("oEmptyModel").setProperty("/ForgotPassword", {});
 			// Fragment.byId("idUserLogin", "idContent").addStyleClass("bgDialog"); 
 
 			this._oDialog.open();
@@ -119,8 +116,8 @@ sap.ui.define([
 			Fragment.byId("idForgetPass", "fogetPass").setVisible(true);
 			Fragment.byId("idForgetPass", "forgetPassOTP").setVisible(false);
 			Fragment.byId("idForgetPass", "resetPassPage").setVisible(false);
-			Fragment.byId("idForgetPass", "NavBackFP").setVisible(false); 
-			Fragment.byId("idForgetPass", "NavBack").setVisible(true); 
+			Fragment.byId("idForgetPass", "NavBackFP").setVisible(false);
+			Fragment.byId("idForgetPass", "NavBack").setVisible(true);
 			this._oDialog.open();
 		},
 
@@ -130,150 +127,10 @@ sap.ui.define([
 			var that = this;
 
 			var sUrl = "/AdminModule/api/forgotpassword?email=" + sEmail;
-		
 
+			if (mailregex.test(sEmail)) {
+				this.busyIndicator(4000);
 
-				if (mailregex.test(sEmail)) {
-					this.busyIndicator(4000);
-
-					$.ajax({
-						url: sUrl,
-						data: null,
-						async: true,
-						dataType: "json",
-						contentType: "application/json; charset=utf-8",
-						headers: {
-							"x-CSRF-Token": "fetch"
-						},
-						error: function (err) {
-							MessageToast.show("Category Fetch Destination Failed");
-						},
-						success: function (data, status, xhr) {
-
-							that.forgotOTP = data;
-
-						},
-						complete: function (xhr, status) {
-							that._oDialog.close();
-
-							that._oDialog.destroy();
-
-							that._oDialog = null;
-
-							if (!that._oDialog) {
-
-								that._oDialog = sap.ui.xmlfragment("idForgetPass", "com.ink.Essentiaries.fragments.ResetPassword", that);
-
-							}
-
-							that.getView().addDependent(that._oDialog);
-
-							Fragment.byId("idForgetPass", "fogetPass").setVisible(false);
-
-							Fragment.byId("idForgetPass", "forgetPassOTP").setVisible(true);
-
-							Fragment.byId("idForgetPass", "resetPassPage").setVisible(false);
-
-						 Fragment.byId("idForgetPass", "NavBack").setVisible(false);
-						Fragment.byId("idForgetPass", "NavBackFP").setVisible(true);
-						
-							that._oDialog.open();
-
-							var time = Fragment.byId("idForgetPass", "timer");
-
-							var fiveMinutesLater = new Date();
-
-							var scs = fiveMinutesLater.setMinutes(fiveMinutesLater.getMinutes() + 3);
-
-							var countdowntime = scs;
-
-							var x = setInterval(function () {
-
-								var now = new Date().getTime();
-
-								var cTime = countdowntime - now;
-
-								var minutes = Math.floor((cTime % (1000 * 60 * 60)) / (1000 * 60));
-
-								var second = Math.floor((cTime % (1000 * 60)) / 1000);
-
-								time.setText("OTP Expires in " + minutes + ":" + second + " Minutes");
-
-								if (cTime < 0) {
-
-									clearInterval(x);
-
-									time.setText("OTP Expires in 0:0 Minutes");
-									// Fragment.byId("idForgetPass", "resend").setEnabled(true);
-
-								}
-
-							});
-
-						},
-						type: "GET"
-					});
-
-				} else
-					MessageToast.show("Invalid Email ID");
-		},
-
-		fnOTP: function (oEvent) {
-		
-			// this.otp = oEvent.getSource().getValue();
-			
-		},
-		fnResetPassLogin: function () {
-				var temp = "";
-				this.otp=this.getView().getModel("oEmptyModel").getProperty("/ForgotPassword/otp");
-					for (var i = 0; i <= 10; i = i + 2) {
-					temp += this.otp[i];
-				}
-			if (this.otp) {
-			if (this.forgotOTP === parseInt(temp, 10)) {
-			this._oDialog.close();
-			this._oDialog.destroy();
-			this._oDialog = null;
-			if (!this._oDialog) {
-				this._oDialog = sap.ui.xmlfragment("ForgetPass", "com.ink.Essentiaries.fragments.ResetPassword", this);
-			}
-			this.getView().addDependent(this._oDialog);
-			Fragment.byId("ForgetPass", "fogetPass").setVisible(false);
-			Fragment.byId("ForgetPass", "forgetPassOTP").setVisible(false);
-			Fragment.byId("ForgetPass", "resetPassPage").setVisible(true);
-			Fragment.byId("ForgetPass", "NavBack").setVisible(false);
-			Fragment.byId("ForgetPass", "NavBackFP").setVisible(false);
-			this._oDialog.open();
-				} else {
-				MessageToast.show("Incorrect OTP");
-			}
-
-			}
-		
-		},
-		fnOnLoginValidation: function () {
-	
-	
-			var sEmail = this.getView().getModel("oEmptyModel").getProperty("/oList/Email");
-
-			var sPassword = this.getView().getModel("oEmptyModel").getProperty("/oList/password");
-
-			var mailregex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
-
-			if (sPassword == undefined || sEmail == undefined)
-
-				MessageToast.show("Mandatory fields cannot be blank");
-
-			else if (!(mailregex.test(sEmail)))
-
-				MessageToast.show("Invalid Email");
-
-			else {
-				var sCredentials = "email=" + sEmail + "&password=" + sPassword;
-
-				var that = this;
-				this.busyIndicator(2000);
-				var sUrl = "/AdminModule/api/login?" + sCredentials;
 				$.ajax({
 					url: sUrl,
 					data: null,
@@ -288,43 +145,110 @@ sap.ui.define([
 					},
 					success: function (data, status, xhr) {
 
-						if (data.email == "")
-							MessageToast.show("Email ID does not exist");
-						else if (data.email == sEmail && data.password != sPassword)
-							MessageToast.show("Password does not match with the id provided");
-						else {
-							if (data.email == sEmail && data.password == sPassword && data.role == "user") {
-								that.getOwnerComponent().getModel("oProductModel").setProperty("/LoginUser", data);
-								var sInitial = (data.fname).charAt(0) + (data.lname).charAt(0);
+						that.forgotOTP = data;
 
-								that.getView().byId("accountMenu").setInitials(sInitial);
-								that.getView().byId("accountMenu").setVisible(true);
+					},
+					complete: function (xhr, status) {
+						that._oDialog.close();
 
-								that.getView().byId("signIn").setVisible(false);
-								that._oDialog.close();
+						that._oDialog.destroy();
 
-								that._oDialog.destroy();
+						that._oDialog = null;
 
-								that._oDialog = null;
+						if (!that._oDialog) {
+
+							that._oDialog = sap.ui.xmlfragment("idForgetPass", "com.ink.Essentiaries.fragments.ResetPassword", that);
+
+						}
+
+						that.getView().addDependent(that._oDialog);
+
+						Fragment.byId("idForgetPass", "fogetPass").setVisible(false);
+
+						Fragment.byId("idForgetPass", "forgetPassOTP").setVisible(true);
+
+						Fragment.byId("idForgetPass", "resetPassPage").setVisible(false);
+
+						Fragment.byId("idForgetPass", "NavBack").setVisible(false);
+						Fragment.byId("idForgetPass", "NavBackFP").setVisible(true);
+
+						that._oDialog.open();
+
+						var time = Fragment.byId("idForgetPass", "timer");
+
+						var fiveMinutesLater = new Date();
+
+						var scs = fiveMinutesLater.setMinutes(fiveMinutesLater.getMinutes() + 3);
+
+						var countdowntime = scs;
+
+						var x = setInterval(function () {
+
+							var now = new Date().getTime();
+
+							var cTime = countdowntime - now;
+
+							var minutes = Math.floor((cTime % (1000 * 60 * 60)) / (1000 * 60));
+
+							var second = Math.floor((cTime % (1000 * 60)) / 1000);
+
+							time.setText("OTP Expires in " + minutes + ":" + second + " Minutes");
+
+							if (cTime < 0) {
+
+								clearInterval(x);
+
+								time.setText("OTP Expires in 0:0 Minutes");
+								// Fragment.byId("idForgetPass", "resend").setEnabled(true);
+
 							}
-							if (data.email == sEmail && data.password == sPassword && data.role == "admin"){
-							that.getView().byId("cart").setVisible(false);
-							that.getView().byId("signIn").setVisible(false);
-								that.getRouter().navTo("Admin");
-						}}
+
+						});
 
 					},
 					type: "GET"
-				}).always(function (data, status, xhr) {
-					that.token = xhr.getResponseHeader("x-CSRF-Token");
-
 				});
+
+			} else
+				MessageToast.show("Invalid Email ID");
+		},
+
+		fnOTP: function (oEvent) {
+
+			// this.otp = oEvent.getSource().getValue();
+
+		},
+		fnResetPassLogin: function () {
+			var temp = "";
+			this.otp = this.getView().getModel("oEmptyModel").getProperty("/ForgotPassword/otp");
+			for (var i = 0; i <= 10; i = i + 2) {
+				temp += this.otp[i];
+			}
+			if (this.otp) {
+				if (this.forgotOTP === parseInt(temp, 10)) {
+					this._oDialog.close();
+					this._oDialog.destroy();
+					this._oDialog = null;
+					if (!this._oDialog) {
+						this._oDialog = sap.ui.xmlfragment("ForgetPass", "com.ink.Essentiaries.fragments.ResetPassword", this);
+					}
+					this.getView().addDependent(this._oDialog);
+					Fragment.byId("ForgetPass", "fogetPass").setVisible(false);
+					Fragment.byId("ForgetPass", "forgetPassOTP").setVisible(false);
+					Fragment.byId("ForgetPass", "resetPassPage").setVisible(true);
+					Fragment.byId("ForgetPass", "NavBack").setVisible(false);
+					Fragment.byId("ForgetPass", "NavBackFP").setVisible(false);
+					this._oDialog.open();
+				} else {
+					MessageToast.show("Incorrect OTP");
+				}
 
 			}
 
 		},
-		fnToOrderPage:function(){
-				this.getRouter().navTo("Order");
+
+		fnToOrderPage: function () {
+			this.getRouter().navTo("Order");
 		},
 		fnLogOut: function () {
 			this.busyIndicator(2000);
@@ -333,7 +257,7 @@ sap.ui.define([
 
 			this.getView().byId("signIn").setVisible(true);
 		},
-		fnUserDashBoard:function(){
+		fnUserDashBoard: function () {
 			this.getRouter().navTo("userDashBoard");
 		},
 		fnGuestLogin: function () {
@@ -693,7 +617,7 @@ sap.ui.define([
 					},
 					success: function (data, status, xhr) {
 						that.getOwnerComponent().getModel("oProductModel").setProperty("/LoginUser", data);
-						data.password=oData.np;
+						data.password = oData.np;
 						console.log(data);
 						var sInitial = (data.fname).charAt(0) + (data.lname).charAt(0);
 						that.getView().byId("accountMenu").setInitials(sInitial);
@@ -713,7 +637,7 @@ sap.ui.define([
 								MessageToast.show("Data saved successfully");
 
 							},
-						
+
 						});
 
 						that._oDialog.close();
@@ -728,66 +652,60 @@ sap.ui.define([
 			}
 
 		},
-		fnCart :function(oEvent){
+		fnCart: function (oEvent) {
 			MessageToast.show("Product Added To Cart ");
 			oEvent.getSource().getParent().getItems()[0].setVisible(false);
 			oEvent.getSource().getParent().getItems()[1].setVisible(true);
-			
-			var Path=oEvent.getSource().getBindingContext("oProductModel").sPath;
-			var oData=this.getOwnerComponent().getModel("oProductModel").getProperty(Path);
-			this.getOwnerComponent().getModel("oProductModel").setProperty(Path+"/quantity",1);
+
+			var Path = oEvent.getSource().getBindingContext("oProductModel").sPath;
+			var oData = this.getOwnerComponent().getModel("oProductModel").getProperty(Path);
+			this.getOwnerComponent().getModel("oProductModel").setProperty(Path + "/quantity", 1);
 			this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart").unshift(oData);
-			var price=this.getOwnerComponent().getModel("oProductModel").getProperty(Path+"/price");
-			 this.getOwnerComponent().getModel("oProductModel").setProperty(Path+"/amount",price);
+			var price = this.getOwnerComponent().getModel("oProductModel").getProperty(Path + "/price");
+			this.getOwnerComponent().getModel("oProductModel").setProperty(Path + "/amount", price);
 			console.log(this.getOwnerComponent().getModel("oProductModel").getProperty(Path));
-			
-			
+
 			this.getOwnerComponent().getModel("oProductModel").refresh();
-		this.fnTotalCalc();
-		
-			
-			 this.fnOnAddToCart();
+			this.fnTotalCalc();
+
+			this.fnOnAddToCart();
 		},
 		onChange: function (oEvent) {
 			var iQuantity = oEvent.getParameters().value;
 			var Path = oEvent.getSource().getParent().getBindingContextPath();
-			var iAmount = iQuantity * (this.getOwnerComponent().getModel("oProductModel").getProperty(Path+"/price"));
-				var Amount= iAmount.toFixed(2);
-				iAmount=parseFloat(Amount);
-			this.getOwnerComponent().getModel("oProductModel").setProperty(Path+"/amount", iAmount);
+			var iAmount = iQuantity * (this.getOwnerComponent().getModel("oProductModel").getProperty(Path + "/price"));
+			var Amount = iAmount.toFixed(2);
+			iAmount = parseFloat(Amount);
+			this.getOwnerComponent().getModel("oProductModel").setProperty(Path + "/amount", iAmount);
 			this.fnTotalCalc();
 
 		},
-		onChangeOther: function(sPath)
-		{
-				var quantity=this.getOwnerComponent().getModel("oProductModel").getProperty(sPath+"/quantity");
-				var price=this.getOwnerComponent().getModel("oProductModel").getProperty(sPath+"/price");
-					var cart=this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
-				var iAmount=quantity * price;
-				var Amount= iAmount.toFixed(2);
-				iAmount=parseFloat(Amount);
-				
-				for (var i=0; i< cart.length; i++)
-				{
-					if(cart[i].productid== this.getOwnerComponent().getModel("oProductModel").getProperty(sPath+"/productid"))
-					{
-					this.getOwnerComponent().getModel("oProductModel").setProperty("/Cart/"+ i +"/amount", iAmount);
-						
-					}
+		onChangeOther: function (sPath) {
+			var quantity = this.getOwnerComponent().getModel("oProductModel").getProperty(sPath + "/quantity");
+			var price = this.getOwnerComponent().getModel("oProductModel").getProperty(sPath + "/price");
+			var cart = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
+			var iAmount = quantity * price;
+			var Amount = iAmount.toFixed(2);
+			iAmount = parseFloat(Amount);
+
+			for (var i = 0; i < cart.length; i++) {
+				if (cart[i].productid == this.getOwnerComponent().getModel("oProductModel").getProperty(sPath + "/productid")) {
+					this.getOwnerComponent().getModel("oProductModel").setProperty("/Cart/" + i + "/amount", iAmount);
+
 				}
-		
-			
+			}
+
 			this.fnTotalCalc();
-				
+
 		},
 		fnTotalCalc: function () {
 			var total = 0;
 			var oEmptyModel = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
-			for (var j = 0; j < oEmptyModel.length; j++){
-			total+=this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart/" + j + "/amount");
-				
+			for (var j = 0; j < oEmptyModel.length; j++) {
+				total += this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart/" + j + "/amount");
+
 			}
-			
+
 			this.getOwnerComponent().getModel("oProductModel").setProperty("/Total", total);
 		},
 		fnOnDelete: function (oEvent) {
@@ -798,10 +716,11 @@ sap.ui.define([
 			aList.splice(lastIndexValue, 1);
 			this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart", aList);
 			this.getOwnerComponent().getModel("oProductModel").refresh();
-			 this.fnTotalCalc();
+			this.fnTotalCalc();
 
 		},
-			fnNewAddressSave: function () {
+		fnNewAddressSave: function () {
+			var that = this;
 			var regex_pincode = /^[1-8][0-9]{5}$/;
 			var oData = this.getView().getModel("oEmptyModel").getProperty("/Address");
 			if (oData.houseno.trim() == "" || oData.street.trim() == "" || oData.city.trim() == "" || oData.state.trim() == "" || oData.pincode
@@ -810,14 +729,38 @@ sap.ui.define([
 			} else if (!(regex_pincode.test(oData.pincode))) {
 				MessageToast.show("Enter a valid pincode");
 			} else {
-				var oAddress = this.getOwnerComponent().getModel("oProductModel").getProperty("/Address");
-				oAddress.push(oData);
-				this.getOwnerComponent().getModel("oProductModel").refresh();
-				this._oDialog.close();
 
-				this._oDialog.destroy();
+				var userid = this.getOwnerComponent().getModel("oProductModel").getProperty("/LoginUser/userid");
 
-				this._oDialog = null;
+				var sUrl = "/AdminModule/addaddress/" + userid
+				$.ajax({
+					type: "POST",
+					url: sUrl,
+					data: JSON.stringify(oData),
+					dataType: "json",
+					"headers": {
+						"Content-Type": "application/json",
+						"x-CSRF-Token": that.token
+					},
+
+					success: function (data) {
+						that._oDialog.close();
+						that._oDialog.destroy();
+						that._oDialog = null;
+						MessageToast.show("address added successfully");
+
+					},
+					error: function (xhr, status) {
+						that._oDialog.close();
+						that._oDialog.destroy();
+						that._oDialog = null;
+						MessageToast.show("failed");
+					},
+					complete: function (xhr, status) {
+						that.GETMethod_ADDRESS();
+					}
+				});
+
 			}
 		},
 		fnAddressEdit: function (oEvent) {
@@ -832,7 +775,71 @@ sap.ui.define([
 			Fragment.byId("address", "oldAddress").setVisible(true);
 			this._oDialog.open();
 		},
- 
-  });
- 
+		GETMethod_ADDRESS: function () {
+			var userid = this.getOwnerComponent().getModel("oProductModel").getProperty("/LoginUser/userid");
+			var that = this;
+
+			var sUrl = "/AdminModule/getaddress/" + userid;
+			$.ajax({
+				url: sUrl,
+				data: null,
+				async: true,
+				dataType: "json",
+				contentType: "application/json; charset=utf-8",
+				headers: {
+					"x-CSRF-Token": "fetch"
+				},
+				error: function (err) {
+					MessageToast.show(" address Failed");
+				},
+				success: function (data, status, xhr) {
+
+					that.addressCount = data.length;
+
+					that.getOwnerComponent().getModel("oProductModel").setProperty("/Address", data);
+					that.getOwnerComponent().getModel("oProductModel").refresh();
+					console.log(data);
+
+				},
+				type: "GET"
+			});
+		},
+		fnEditAddressSave: function () {
+			var that = this;
+			var userid = this.getOwnerComponent().getModel("oProductModel").getProperty("/LoginUser/userid");
+			var sUrl = "/AdminModule/updateaddress/";
+			var oData = this.getView().getModel("oEmptyModel").getProperty("/Address");
+			$.ajax({
+				type: "PUT",
+				url: sUrl,
+				data: JSON.stringify(oData),
+				dataType: "json",
+				"headers": {
+					"Content-Type": "application/json",
+					"x-CSRF-Token": that.token
+				},
+
+				success: function (data) {
+					MessageToast.show("Address saved successfully");
+
+				},
+				error: function (xhr, status) {
+
+					MessageToast.show("Action Failed");
+
+				},
+				complete: function (xhr, status) {
+					that._oDialog.close();
+						that._oDialog.destroy();
+						that._oDialog = null;
+							that.GETMethod_ADDRESS();
+				}
+			});
+
+		},
+		fnAddressDel: function () {
+
+		}
+	});
+
 });

@@ -16,7 +16,7 @@ sap.ui.define([
 	onInit: function () {
 				var oEmptyModel = new JSONModel();
 			this.getView().setModel(oEmptyModel, "oEmptyModel");
-				this.getOwnerComponent().getModel("oProductModel").setProperty("/Address",[]);
+				
 				this.getOwnerComponent().getModel("oProductModel").setProperty("/Placeorder",{"Address":""});
 		},
 			fnAddress: function () {

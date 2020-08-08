@@ -11,7 +11,7 @@
 						height="100%">
 				<VBox>
 						<Wizard id="ShoppingCartWizard" complete="fnPlaceOrder" finishButtonText="Place Order" enableBranching="true" class="bgtopwiz">
-							<WizardStep id="cartContent" nextStep="Address" title="Shopping cart contents" icon="sap-icon://cart">
+							<WizardStep id="cartContent" complete="fnLogin"  title="Shopping cart contents" icon="sap-icon://cart">
 								<grid:CSSGrid id="grid1">
 									<grid:customLayout>
 										<grid:ResponsiveColumnLayout/>
@@ -71,6 +71,7 @@
                             </f:Card>
 
 								</grid:CSSGrid>
+								<Button press="NextButton" text="step2" id="next" visible="false"/>
 							</WizardStep>
 							<WizardStep id="Address" nextStep="PaymentTypeStep" title="Delivery address" activate="fnSelectedAddress" icon="sap-icon://map">
 								
