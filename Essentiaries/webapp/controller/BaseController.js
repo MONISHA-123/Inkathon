@@ -800,7 +800,38 @@ sap.ui.define([
 			this.getOwnerComponent().getModel("oProductModel").refresh();
 			 this.fnTotalCalc();
 
-		}
+		},
+			fnNewAddressSave: function () {
+			var regex_pincode = /^[1-8][0-9]{5}$/;
+			var oData = this.getView().getModel("oEmptyModel").getProperty("/Address");
+			if (oData.houseno.trim() == "" || oData.street.trim() == "" || oData.city.trim() == "" || oData.state.trim() == "" || oData.pincode
+				.trim() == "") {
+				MessageToast.show("Fill all the required fields");
+			} else if (!(regex_pincode.test(oData.pincode))) {
+				MessageToast.show("Enter a valid pincode");
+			} else {
+				var oAddress = this.getOwnerComponent().getModel("oProductModel").getProperty("/Address");
+				oAddress.push(oData);
+				this.getOwnerComponent().getModel("oProductModel").refresh();
+				this._oDialog.close();
+
+				this._oDialog.destroy();
+
+				this._oDialog = null;
+			}
+		},
+		fnAddressEdit: function (oEvent) {
+			var sPath = oEvent.getSource().getBindingContext("oProductModel").getPath();
+			var oData = this.getOwnerComponent().getModel("oProductModel").getProperty(sPath);
+			this.getView().getModel("oEmptyModel").setProperty("/Address", oData);
+			if (!this._oDialog) {
+				this._oDialog = sap.ui.xmlfragment("address", "com.ink.Essentiaries.fragments.Address", this);
+			}
+			this.getView().addDependent(this._oDialog);
+			Fragment.byId("address", "newAddress").setVisible(false);
+			Fragment.byId("address", "oldAddress").setVisible(true);
+			this._oDialog.open();
+		},
  
   });
  

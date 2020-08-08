@@ -111,12 +111,12 @@
 								</f:FormElement>
 								<f:FormElement label="Image">
 									<f:fields>
-										<Input value="{oEmptyModel>/Promotion/image}"/>
+										<Input value="{oEmptyModel>/Promotion/promotionimage}"/>
 									</f:fields>
 								</f:FormElement>
 								<f:FormElement label="Description">
 									<f:fields>
-										<Input value="{oEmptyModel>/Promotion/description}"/>
+										<Input value="{oEmptyModel>/Promotion/promotiondescription}"/>
 									</f:fields>
 								</f:FormElement>
 								<f:FormElement label="Reference ID">

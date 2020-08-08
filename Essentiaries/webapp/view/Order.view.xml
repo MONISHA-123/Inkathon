@@ -78,7 +78,7 @@
 								<MessageStrip type="Information" showIcon="true" text="Select the Delivery Address" />
 								<List mode="SingleSelectLeft" enableBusyIndicator="true" items="{oProductModel>/Address}" selectionChange="fnAddressSelectChange">
 								
-									<FeedListItem text="{oProductModel>doornumber}, {oProductModel>street}, {oProductModel>city}, {oProductModel>pincode} "
+									<FeedListItem text="{oProductModel>houseno}, {oProductModel>street}, {oProductModel>city}, {oProductModel>pincode} "
 										icon="sap-icon://map">
 										<FeedListItemAction text="edit" icon="sap-icon://edit" key="edit" press="fnAddressEdit"/>
 										<FeedListItemAction text="delete" icon="sap-icon://delete" key="delete" press="fnAddressDel"/>

@@ -25,7 +25,7 @@
 			<f:content>
 			
 				<Label text="Flat/House/Office No" required="true"/>
-				<Input value="{oEmptyModel>/Address/doornumber}"/>
+				<Input value="{oEmptyModel>/Address/houseno}"/>
 					<Label text="Street/Office Name" required="true"/>
 				<Input value="{oEmptyModel>/Address/street}"/>
 			

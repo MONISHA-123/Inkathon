@@ -1,4 +1,5 @@
 sap.ui.define([
+	"com/ink/Essentiaries/controller/BaseController",
 	"sap/ui/core/mvc/Controller",
 	"sap/ui/core/routing/History",
 	"sap/ui/core/UIComponent",
@@ -8,10 +9,10 @@ sap.ui.define([
 	"sap/uxap/BlockBase",
 	"sap/ui/core/Fragment"
 	
-], function (Controller, History, UIComponent, JSONModel, MessageToast,BusyIndicator,BlockBase,Fragment) {
+], function (BaseController,Controller, History, UIComponent, JSONModel, MessageToast,BusyIndicator,BlockBase,Fragment) {
 	"use strict";
 
-	return Controller.extend("com.ink.Essentiaries.controller.Address", {
+	return BaseController.extend("com.ink.Essentiaries.controller.Address", {
 	onInit: function () {
 				var oEmptyModel = new JSONModel();
 			this.getView().setModel(oEmptyModel, "oEmptyModel");
@@ -35,7 +36,7 @@ sap.ui.define([
 			this._oDialog.open();
 			
 		},
-		fnNewAddressSave: function () {
+	/*	fnNewAddressSave: function () {
 			var regex_pincode = /^[1-8][0-9]{5}$/;
 			var oData = this.getView().getModel("oEmptyModel").getProperty("/Address");
 			if (oData.doornumber.trim() == "" || oData.street.trim() == "" || oData.city.trim() == "" || oData.state.trim() == "" || oData.pincode
@@ -54,7 +55,7 @@ sap.ui.define([
 
 				this._oDialog = null;
 			}
-		},
+		},*/
 			fnOnCancel: function () {
 
 			this._oDialog.close();
@@ -64,7 +65,7 @@ sap.ui.define([
 			this._oDialog = null;
 
 			},
-			fnAddressEdit:function(oEvent){
+			/*fnAddressEdit:function(oEvent){
 			var sPath=	oEvent.getSource().getBindingContext("oProductModel").getPath();
 			var oData=this.getOwnerComponent().getModel("oProductModel").getProperty(sPath);
 			this.getView().getModel("oEmptyModel").setProperty("/Address",oData);
@@ -75,7 +76,7 @@ sap.ui.define([
 				Fragment.byId("address","newAddress").setVisible(false);
 			Fragment.byId("address","oldAddress").setVisible(true);
 			this._oDialog.open();
-			},
+			},*/
 		fnAddressSelectChange:function(oEvent){
 		var sPath=oEvent.getSource().getSelectedContextPaths("oProductModel")[0];
 		var oAddress=this.getOwnerComponent().getModel("oProductModel").getProperty(sPath);

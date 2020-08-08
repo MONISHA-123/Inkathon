@@ -83,6 +83,7 @@ sap.ui.define([
 			this.GETMethod_PROD();
 			this.GETMethod_BRAND();
 			this.GETMethod_PROMO();
+				this.GETMethod_UNIT();
 
 			var oModel = new JSONModel("model/products.json");
 			this.getView().setModel(oModel, "oTableModel");
@@ -220,8 +221,34 @@ sap.ui.define([
 				success: function (data, status, xhr) {
 
 					MessageToast.show("Hi  Congtz! you succussfully consumed destination from CF!");
-					that.unitCount = data.length;
+					that.promoCount = data.length;
 					that.getOwnerComponent().getModel("oProductModel").setProperty("/Promotion", data);
+
+				},
+				type: "GET"
+			});
+		},
+			GETMethod_UNIT: function () {
+			var that = this;
+
+			var sUrl = "/AdminModule/api/unit";
+			$.ajax({
+				url: sUrl,
+				data: null,
+				async: true,
+				dataType: "json",
+				contentType: "application/json; charset=utf-8",
+				headers: {
+					"x-CSRF-Token": "fetch"
+				},
+				error: function (err) {
+					MessageToast.show("Destination Failed");
+				},
+				success: function (data, status, xhr) {
+
+					MessageToast.show("Hi  Congtz! you succussfully consumed destination from CF!");
+					that.unitCount = data.length;
+					that.getOwnerComponent().getModel("oProductModel").setProperty("/Unit", data);
 
 				},
 				type: "GET"
@@ -533,7 +560,7 @@ sap.ui.define([
 
 		},
 		onCateDDChanges: function (sSelectedKey) {
-			console.log(this.cateCount);
+			
 			for (var i = 0; i < this.cateCount; i++) {
 				if (sSelectedKey == this.getOwnerComponent().getModel("oProductModel").getProperty("/Category/" + i + "/categoryname")) {
 					break;
@@ -1119,6 +1146,7 @@ sap.ui.define([
 						that._oDialog = null;
 						MessageToast.show("Data saved Successfully");
 
+
 					},
 					error: function (xhr, status) {
 						that._oDialog.close();
@@ -1128,7 +1156,7 @@ sap.ui.define([
 
 					},
 					complete: function (xhr, status) {
-						that.getOwnerComponent().getModel("oProductModel").refresh();
+					that.GETMethod_PROMO();
 					}
 				});
 			}
@@ -1154,13 +1182,14 @@ sap.ui.define([
 							},
 							success: function (data) {
 								MessageToast.show("Deleted Successfully");
+								
 							},
 							error: function (xhr, status) {
 								MessageToast.show("Error");
 
 							},
 							complete: function (xhr, status) {
-								that.getOwnerComponent().getModel("oProductModel").refresh();
+								that.GETMethod_PROMO();
 							}
 						});
 					}

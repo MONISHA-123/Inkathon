@@ -1,5 +1,6 @@
 sap.ui.define([
-"sap/ui/core/mvc/Controller",
+	"com/ink/Essentiaries/controller/BaseController",
+	"sap/ui/core/mvc/Controller",
 	"sap/ui/model/json/JSONModel",
 	"sap/m/MessageToast",
 	"sap/ui/core/Fragment",
@@ -13,11 +14,11 @@ sap.ui.define([
 	"sap/ui/core/BusyIndicator",
 	"sap/ui/core/routing/History"
 
-], function (Controller, JSONModel, MessageToast, Fragment, formatter, Filter, Sorter, FilterOperator, UIComponent, FlattenedDataset,
-	MessageBox, BusyIndicator, History)  {
+], function (BaseController,Controller, JSONModel, MessageToast, Fragment, formatter, Filter, Sorter, FilterOperator, UIComponent, FlattenedDataset,
+	MessageBox, BusyIndicator, History) {
 	"use strict";
 
-	return Controller.extend("com.ink.Essentiaries.controller.userDashBoard", {
+	return BaseController.extend("com.ink.Essentiaries.controller.userDashBoard", {
 
 		onInit: function () {
 			var oRouter = this.getRouter();
@@ -74,39 +75,37 @@ sap.ui.define([
 			this.getView().addDependent(this._oDialog);
 			this._oDialog.open();
 		},
-		OnDelAccount:function(){
-			var	email=	this.getView().getModel("oEmptyModel").getProperty("/DelAccount/email");
+		OnDelAccount: function () {
+			var email = this.getView().getModel("oEmptyModel").getProperty("/DelAccount/email");
 			var that = this;
-		
-			var sUrl = "/AdminModule/api/delete/"+email;
-			if(email!=""){
-					$.ajax({
-				url: sUrl,
-				data: null,
-				async: true,
-				dataType: "json",
-				contentType: "application/json; charset=utf-8",
-				headers: {
-					"x-CSRF-Token": "fetch"
-				},
-				error: function (err) {
-					MessageToast.show("Category Fetch Destination Failed");
-				},
-				success: function (data, status, xhr) {
 
-					MessageToast.show("Hi  Congtz! you succussfully consumed destination from CF!");
-					that.cateCount = data.length;
-					that.getOwnerComponent().getModel("oProductModel").setProperty("/Category", data);
+			var sUrl = "/AdminModule/api/delete/" + email;
+			if (email != "") {
+				$.ajax({
+					url: sUrl,
+					data: null,
+					async: true,
+					dataType: "json",
+					contentType: "application/json; charset=utf-8",
+					headers: {
+						"x-CSRF-Token": "fetch"
+					},
+					error: function (err) {
+						MessageToast.show("Category Fetch Destination Failed");
+					},
+					success: function (data, status, xhr) {
 
-				},
-				type: "DELETE"
-			});
+						MessageToast.show("Hi  Congtz! you succussfully consumed destination from CF!");
+						that.cateCount = data.length;
+						that.getOwnerComponent().getModel("oProductModel").setProperty("/Category", data);
+
+					},
+					type: "DELETE"
+				});
 			}
-		
-
 
 		},
-			fnOnCancel: function () {
+		fnOnCancel: function () {
 			this._oDialog.close();
 			this._oDialog.destroy();
 			this._oDialog = null;
