@@ -141,7 +141,7 @@ sap.ui.define([
 				},
 				success: function (data, status, xhr) {
 
-					MessageToast.show("Succussfully consumed destination from CF!");
+				
 					that.offerCount = data.length;
 
 					that.getOwnerComponent().getModel("oProductModel").setProperty("/offers", data);
@@ -157,7 +157,6 @@ sap.ui.define([
 		},
 		GETMethod_CATE: function () {
 			var that = this;
-
 			var sUrl = "/AdminModule/api/category";
 			$.ajax({
 				url: sUrl,
@@ -173,7 +172,7 @@ sap.ui.define([
 				},
 				success: function (data, status, xhr) {
 
-					MessageToast.show("Succussfully consumed destination from CF!");
+				
 					that.cateCount = data.length;
 
 					that.getOwnerComponent().getModel("oProductModel").setProperty("/Category", data);
@@ -207,7 +206,7 @@ sap.ui.define([
                 success: function (data, status, xhr) {
 
 
-                    MessageToast.show("Promo");
+                
                 
                     that.getOwnerComponent().getModel("oProductModel").setProperty("/Promotion", data);
 

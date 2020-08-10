@@ -44,7 +44,7 @@
 					</VBox>
 					</VBox>
 					<VBox class=" bgtop">
-						<Title class="sapUiSmallMarginBegin text" text="Shop by categories" level="H3"/>
+						<Title class="sapUiSmallMarginBegin" text="Shop by categories" level="H3"/>
 						
 						<HeaderContainer scrollStep="500" id="container1" scrollStepByItem="1" showOverflowItem="true" content="{oProductModel>/Category}"
 							class="sapUiSmallMargin">
@@ -54,7 +54,7 @@
 										<HBox >
 											<VBox alignItems="Center">
 												<Avatar src="{oProductModel>icon}" displaySize="L" displayShape="Square" press="fnCategorySelect" backgroundColor="Transparent"/>
-												<Text textAlign="Center" text="{oProductModel>categoryname}" class="sapUiSmallMarginTop text"/>
+												<Text textAlign="Center" text="{oProductModel>categoryname}" class="sapUiSmallMarginTop"/>
 											</VBox>
 										</HBox>
 									</l:content>
@@ -65,7 +65,7 @@
 				
 					<VBox>
 						
-						<Title class="sapUiSmallMarginBegin sapUiSmallMarginTop text" text="Top Sellers" level="H3"/>
+						<Title class="sapUiSmallMarginBegin sapUiSmallMarginTop" text="Top Sellers" level="H3"/>
 						<HeaderContainer scrollStep="500" id="container2" scrollStepByItem="1" showDividers="false" showOverflowItem="true"
 							content="{oProductModel>/Product}" class="sapUiSmallMargin">
 							<FlexBox alignItems="Center" justifyContent="Center">
@@ -99,7 +99,7 @@
 				
 					
 					<VBox >
-						<Title class="sapUiSmallMarginBegin sapUiSmallMarginTop text" text="On Offers" level="H3"/>
+						<Title class="sapUiSmallMarginBegin sapUiSmallMarginTop" text="On Offers" level="H3"/>
 						<HeaderContainer scrollStep="500" id="container3" scrollStepByItem="1" showDividers="false" showOverflowItem="true"
 							content="{oProductModel>/offers}" class="sapUiSmallMargin">
 							<FlexBox alignItems="Center" justifyContent="Center">

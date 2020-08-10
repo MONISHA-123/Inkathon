@@ -95,7 +95,7 @@ sap.ui.define([
 					},
 					success: function (data, status, xhr) {
 
-						MessageToast.show("Hi  Congtz! you succussfully consumed destination from CF!");
+						// MessageToast.show("Hi  Congtz! you succussfully consumed destination from CF!");
 						that.cateCount = data.length;
 						that.getOwnerComponent().getModel("oProductModel").setProperty("/Category", data);
 

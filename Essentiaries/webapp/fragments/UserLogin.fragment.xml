@@ -3,7 +3,7 @@
 		<customHeader class="headerbg">
 			<Bar>
 				<contentMiddle>
-					<Image src="./Images/Logo.jpg"></Image>
+				
 					<Title text="{i18n>ShopName}" class="headertitle"/>
 				</contentMiddle>
 				<contentRight>
@@ -27,7 +27,7 @@
 				<HBox><Button  class="frgamentbtn" press="fnOnLoginValidation" icon="sap-icon://paper-plane" text="{i18n>submit}"/>
 					<!--<Button class="sapUiTinyMarginBegin" text="{i18n>OTP}" press="fnOnOTP"/>-->
 				</HBox>
-				<Button class="frgamentbtn" text="{i18n>Login with OTP}" press="fnGuestLogin" type="Transparent"/>
+				<Button class="frgamentbtn" text="{i18n>Login with OTP}" press="fnOnGuestLogin" type="Transparent"/>
 				<HBox class="sapUiSmallMargin">
 					<!--<core:Icon  size="1.5rem" color="white" src="sap-icon://request"/>-->
 					<Link text="Create an account-->" press="fnOnCreateAcc" class=" whiteLinks"></Link>

@@ -3,7 +3,7 @@
 		<customHeader>
 			<Bar>
 				<contentMiddle>
-					<Image src="./Images/Logo.jpg"></Image>
+				
 					<Title text="{i18n>ShopName}"/>
 				</contentMiddle>
 				<contentRight>

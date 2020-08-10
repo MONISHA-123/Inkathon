@@ -2,7 +2,7 @@
 	<tnt:ToolPage id="toolPage">
 		<tnt:header>
 		<tnt:ToolHeader class="header">
-					<Title  text="Essentiaries">
+					<Title class="sapUiSmallMarginBegin" text="Essentiaries">
 					<layoutData>
 									<OverflowToolbarLayoutData priority="NeverOverflow"/>
 						</layoutData>

@@ -6,7 +6,7 @@
 					<Button class="ToolbarIcon" icon="sap-icon://nav-back" press="fnOnUser"/>
 				</contentLeft>
 				<contentMiddle>
-					<Image src="./Images/Logo.jpg"></Image>
+				
 					<Title text="{i18n>ShopName}"/>
 				</contentMiddle>
 				<contentRight>

@@ -10,7 +10,6 @@ sap.ui.define([
 	"sap/ui/Device",
 	"sap/ui/core/Popup",
 	"sap/ui/core/routing/History"
-
 ], function (Controller, UIComponent, MessageToast, BusyIndicator, JSONModel, Fragment, Filter, FilterOperator, Device, Popup, History) {
 	"use strict";
 
@@ -20,7 +19,7 @@ sap.ui.define([
 			return UIComponent.getRouterFor(this);
 
 		},
-		fnTotalCalc: function () {
+	/*	fnTotalCalc: function () {
 			var total = 0;
 			var oEmptyModel = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
 			for (var j = 0; j < oEmptyModel.length; j++) {
@@ -29,10 +28,11 @@ sap.ui.define([
 			}
 
 			this.getOwnerComponent().getModel("oProductModel").setProperty("/Total", total);
-		},
+		},*/
 		fnOnAddToCart: function (oEvent) {
 
 			//var oButton=this.byId("cart");
+
 			this.oButton = oEvent.getSource();
 			// console.log(this.oButton);
 			if (!this._oPopover) {
@@ -89,9 +89,86 @@ sap.ui.define([
 
 			this.getView().addDependent(this._oDialog);
 			this.getView().getModel("oEmptyModel").setProperty("/ForgotPassword", {});
+				this.getView().getModel("oEmptyModel").setProperty("/GuestLogin", {});
 			// Fragment.byId("idUserLogin", "idContent").addStyleClass("bgDialog"); 
 
 			this._oDialog.open();
+
+		},
+		fnOnLoginValidation: function () {
+
+			var sEmail = this.getView().getModel("oEmptyModel").getProperty("/oList/Email");
+
+			var sPassword = this.getView().getModel("oEmptyModel").getProperty("/oList/password");
+
+			var mailregex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+
+			if (sPassword == undefined || sEmail == undefined)
+
+				MessageToast.show("Mandatory fields cannot be blank");
+
+			else if (!(mailregex.test(sEmail)))
+
+				MessageToast.show("Invalid Email");
+
+			else {
+				var sCredentials = "email=" + sEmail + "&password=" + sPassword;
+
+				var that = this;
+				this.busyIndicator(2000);
+				var sUrl = "/AdminModule/login?" + sCredentials;
+				$.ajax({
+					url: sUrl,
+					data: null,
+					async: true,
+					dataType: "json",
+					contentType: "application/json; charset=utf-8",
+					headers: {
+						"x-CSRF-Token": "fetch"
+					},
+					error: function (err) {
+						MessageToast.show("Category Fetch Destination Failed");
+					},
+					success: function (data, status, xhr) {
+
+						if (data.email == "")
+							MessageToast.show("Email ID does not exist");
+						else if (data.email == sEmail && data.password != sPassword)
+							MessageToast.show("Password does not match with the id provided");
+						else {
+							if (data.email == sEmail && data.password == sPassword && data.role == "user") {
+								that.getOwnerComponent().getModel("oProductModel").setProperty("/LoginUser", data);
+								var accountMenu = that.getOwnerComponent().getModel("oProductModel").getProperty("/accountMenu");
+								var signIn = that.getOwnerComponent().getModel("oProductModel").getProperty("/signIn");
+								var sInitial = (data.fname).charAt(0) + (data.lname).charAt(0);
+
+								accountMenu.setInitials(sInitial);
+								accountMenu.setVisible(true);
+
+								signIn.setVisible(false);
+
+								that._oDialog.close();
+
+								that._oDialog.destroy();
+
+								that._oDialog = null;
+								that.GETMethod_ADDRESS();
+							}
+							if (data.email == sEmail && data.password == sPassword && data.role == "admin") {
+								that.getView().byId("cart").setVisible(false);
+								that.getView().byId("signIn").setVisible(false);
+								that.getRouter().navTo("Admin");
+							}
+						}
+
+					},
+					type: "GET"
+				}).always(function (data, status, xhr) {
+					that.token = xhr.getResponseHeader("x-CSRF-Token");
+
+				});
+
+			}
 
 		},
 
@@ -104,6 +181,69 @@ sap.ui.define([
 			this._oDialog = null;
 
 		},
+		//GuestLogin
+		fnGuestOTPReq: function () {
+			var that=this;
+			Fragment.byId("idGuestLogin", "2ndPart").setVisible(true);
+			var phoneno = this.getView().getModel("oEmptyModel").getProperty("/GuestLogin/phoneno");
+			var sUrl = "/AdminModule/guestlogin";
+			var oData={
+				"email": "",
+				"fname": "",
+				"lname": "",
+				"phoneno": phoneno,
+				"password": "",
+				"role": "user"
+			};
+			$.ajax({
+				type: "POST",
+				url: sUrl,
+				data: JSON.stringify(oData),
+				dataType: "json",
+				"headers": {
+					"Content-Type": "application/json",
+					"x-CSRF-Token": that.token
+				},
+
+				success: function (data) {
+						console.log(data);
+					
+						MessageToast.show("Welcome");
+						
+					
+
+				},
+				error: function (xhr, status) {
+				
+				
+				},
+				complete: function (xhr, status) {
+
+				}
+			});
+
+		},
+		fnOnGuestLogin: function () {
+			this._oDialog.close();
+			this._oDialog.destroy();
+			this._oDialog = null;
+			if (!this._oDialog) {
+				this._oDialog = sap.ui.xmlfragment("idGuestLogin", "com.ink.Essentiaries.fragments.ResetPassword", this);
+			}
+			this.getView().addDependent(this._oDialog);
+			 this.getView().getModel("oEmptyModel").setProperty("/GuestLogin/phoneno","");
+			Fragment.byId("idGuestLogin", "guestLogin").setVisible(true);
+			Fragment.byId("idGuestLogin", "fogetPass").setVisible(false);
+			Fragment.byId("idGuestLogin", "2ndPart").setVisible(false);
+			Fragment.byId("idGuestLogin", "forgetPassOTP").setVisible(false);
+			Fragment.byId("idGuestLogin", "resetPassPage").setVisible(false);
+			Fragment.byId("idGuestLogin", "NavBackFP").setVisible(false);
+			Fragment.byId("idGuestLogin", "NavBack").setVisible(true);
+			this._oDialog.open();
+		},
+		fnOTPLogin: function () {
+
+		},
 		//fragment for reset password
 		fnOnResetPass: function () {
 			this._oDialog.close();
@@ -113,6 +253,7 @@ sap.ui.define([
 				this._oDialog = sap.ui.xmlfragment("idForgetPass", "com.ink.Essentiaries.fragments.ResetPassword", this);
 			}
 			this.getView().addDependent(this._oDialog);
+			Fragment.byId("idForgetPass", "guestLogin").setVisible(false);
 			Fragment.byId("idForgetPass", "fogetPass").setVisible(true);
 			Fragment.byId("idForgetPass", "forgetPassOTP").setVisible(false);
 			Fragment.byId("idForgetPass", "resetPassPage").setVisible(false);
@@ -126,7 +267,7 @@ sap.ui.define([
 			var mailregex = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
 			var that = this;
 
-			var sUrl = "/AdminModule/api/forgotpassword?email=" + sEmail;
+			var sUrl = "/AdminModule/forgotpassword?email=" + sEmail;
 
 			if (mailregex.test(sEmail)) {
 				this.busyIndicator(4000);
@@ -162,7 +303,7 @@ sap.ui.define([
 						}
 
 						that.getView().addDependent(that._oDialog);
-
+						Fragment.byId("idForgetPass", "guestLogin").setVisible(false);
 						Fragment.byId("idForgetPass", "fogetPass").setVisible(false);
 
 						Fragment.byId("idForgetPass", "forgetPassOTP").setVisible(true);
@@ -233,6 +374,7 @@ sap.ui.define([
 						this._oDialog = sap.ui.xmlfragment("ForgetPass", "com.ink.Essentiaries.fragments.ResetPassword", this);
 					}
 					this.getView().addDependent(this._oDialog);
+					Fragment.byId("ForgetPass", "guestLogin").setVisible(false);
 					Fragment.byId("ForgetPass", "fogetPass").setVisible(false);
 					Fragment.byId("ForgetPass", "forgetPassOTP").setVisible(false);
 					Fragment.byId("ForgetPass", "resetPassPage").setVisible(true);
@@ -260,9 +402,7 @@ sap.ui.define([
 		fnUserDashBoard: function () {
 			this.getRouter().navTo("userDashBoard");
 		},
-		fnGuestLogin: function () {
 
-		},
 		fnOnCreateAcc: function () {
 
 			this.count = 0;
@@ -484,7 +624,7 @@ sap.ui.define([
 
 				// this.getView().byId("idConfirmation").setVisible(true);
 				this.busyIndicator(2000);
-				var sUrl = "/AdminModule/api/signup/";
+				var sUrl = "/AdminModule/signup/";
 
 				$.ajax({
 					type: "POST",
@@ -602,7 +742,7 @@ sap.ui.define([
 			var oData = this.getView().getModel("oEmptyModel").getProperty("/ForgotPassword");
 			var sCredentials = "email=" + oData.email + "&password=" + oData.np;
 			if (oData.np === oData.cp) {
-				var sUrl = "/AdminModule/api/login?" + sCredentials;
+				var sUrl = "/AdminModule/login?" + sCredentials;
 				$.ajax({
 					url: sUrl,
 					data: null,
@@ -625,7 +765,7 @@ sap.ui.define([
 						that.getView().byId("signIn").setVisible(false);
 						$.ajax({
 							type: "PUT",
-							url: "/AdminModule/api/update",
+							url: "/AdminModule/update",
 							data: JSON.stringify(data),
 							dataType: "json",
 							"headers": {
@@ -656,7 +796,6 @@ sap.ui.define([
 			MessageToast.show("Product Added To Cart ");
 			oEvent.getSource().getParent().getItems()[0].setVisible(false);
 			oEvent.getSource().getParent().getItems()[1].setVisible(true);
-
 			var Path = oEvent.getSource().getBindingContext("oProductModel").sPath;
 			var oData = this.getOwnerComponent().getModel("oProductModel").getProperty(Path);
 			this.getOwnerComponent().getModel("oProductModel").setProperty(Path + "/quantity", 1);
@@ -712,10 +851,20 @@ sap.ui.define([
 			var sPath = oEvent.getSource().getParent().getBindingContextPath();
 			var index = sPath.lastIndexOf("/");
 			var lastIndexValue = sPath.charAt(index + 1);
+				var id=this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart/"+lastIndexValue+"/productid");
+					var product=this.getOwnerComponent().getModel("oProductModel").getProperty("/Product");
+				for(var i=0;i<product.length;i++)
+				{
+					if(id==product[i].productid){
+						this.getOwnerComponent().getModel("oProductModel").setProperty("/Product/"+i+"/quantity",0);
+							this.getOwnerComponent().getModel("oProductModel").refresh();
+					}
+				}
 			var aList = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
 			aList.splice(lastIndexValue, 1);
 			this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart", aList);
 			this.getOwnerComponent().getModel("oProductModel").refresh();
+		
 			this.fnTotalCalc();
 
 		},
@@ -830,15 +979,36 @@ sap.ui.define([
 				},
 				complete: function (xhr, status) {
 					that._oDialog.close();
-						that._oDialog.destroy();
-						that._oDialog = null;
-							that.GETMethod_ADDRESS();
+					that._oDialog.destroy();
+					that._oDialog = null;
+					that.GETMethod_ADDRESS();
 				}
 			});
 
 		},
 		fnAddressDel: function () {
-
+			var that=this;
+				var surl = "/AdminModule/deleteaddress/";
+				$.ajax({
+				type: "DELETE",
+				url: surl,
+				dataType: "json",
+				"headers": {
+					"Content-Type": "application/json",
+					"x-CSRF-Token": that.token
+				},
+				success: function (data) {
+					that._oDialog.close();
+					that._oDialog.destroy();
+					that._oDialog = null;
+				},
+				error: function (xhr, status) {
+					console.log("ERROR");
+				},
+				complete: function (xhr, status) {
+					that.GETMethod_ADDRESS();
+				}
+			});
 		}
 	});
 

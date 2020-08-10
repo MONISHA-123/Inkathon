@@ -44,7 +44,7 @@
 						</VBox>
 					</l:VerticalLayout>
 					<l:VerticalLayout class="sapUiSmallMarginBeginEnd">
-						<Label text="San Jose, USA"/>
+						<Label text="{oProductModel>/Address/0/city},{oProductModel>/Address/0/state}"/>
 					</l:VerticalLayout>
 				</FlexBox>
 			</u:headerContent>

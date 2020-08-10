@@ -130,7 +130,40 @@ sap.ui.define([
 				this.fnOnUser();
 					oWizard.discardProgress(oFirstStep);
 			} else {
+				var that=this;
 				this.byId("cartContent").setNextStep(this.getView().byId("Address"));
+				var id=this.getOwnerComponent().getModel("oProductModel").getProperty("/LoginUser/userid");                        
+				var sUrl="/AdminModule/addtocart/"+id;
+				var cart=this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
+			/*	for(var i=0;i<cart.length;i++){
+						
+				}
+					$.ajax({
+				type: "POST",
+				url: sUrl,
+				data: JSON.stringify(oData),
+				dataType: "json",
+				"headers": {
+					"Content-Type": "application/json",
+					"x-CSRF-Token": that.token
+				},
+
+				success: function (data) {
+						console.log(data);
+					
+						MessageToast.show("Welcome");
+						
+					
+
+				},
+				error: function (xhr, status) {
+				
+				
+				},
+				complete: function (xhr, status) {
+
+				}
+			});*/
 			}
 
 		},

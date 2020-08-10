@@ -63,7 +63,7 @@
                                                     <Title level="H3" text="Total"/>
                                                     <Text text=""/>
                                                 </VBox>
-                                                <ObjectStatus class="sapUiTinyMargin sapUiSmallMarginEnd" text="RS 0.00" />
+                                                <ObjectStatus class="sapUiTinyMargin sapUiSmallMarginEnd" text="RS: {oProductModel>/Total}" />
                                             </HBox>
                                         </CustomListItem>
                                     </List>

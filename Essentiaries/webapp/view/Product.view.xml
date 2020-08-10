@@ -2,7 +2,7 @@
 	xmlns:html="http://www.w3.org/1999/xhtml"  xmlns:l="sap.ui.layout" xmlns:tnt="sap.tnt" xmlns:f="sap.f" 	xmlns:grid="sap.ui.layout.cssgrid">
 
 	<App id="essentiaries">
-		<ScrollContainer class="bgImage"
+		<ScrollContainer
 						horizontal="false"
 						vertical="true"
 						height="100%">

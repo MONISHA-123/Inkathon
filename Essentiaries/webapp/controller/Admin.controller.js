@@ -191,7 +191,7 @@ sap.ui.define([
 				},
 				success: function (data, status, xhr) {
 
-					MessageToast.show("Hi  Congtz! you succussfully consumed destination from CF!");
+					// MessageToast.show("Hi  Congtz! you succussfully consumed destination from CF!");
 					that.cateCount = data.length;
 					that.getOwnerComponent().getModel("oProductModel").setProperty("/Category", data);
 
@@ -220,7 +220,7 @@ sap.ui.define([
 				},
 				success: function (data, status, xhr) {
 
-					MessageToast.show("Hi  Congtz! you succussfully consumed destination from CF!");
+					// MessageToast.show("Hi  Congtz! you succussfully consumed destination from CF!");
 					that.promoCount = data.length;
 					that.getOwnerComponent().getModel("oProductModel").setProperty("/Promotion", data);
 
@@ -246,7 +246,7 @@ sap.ui.define([
 				},
 				success: function (data, status, xhr) {
 
-					MessageToast.show("Hi  Congtz! you succussfully consumed destination from CF!");
+					// MessageToast.show("Hi  Congtz! you succussfully consumed destination from CF!");
 					that.unitCount = data.length;
 					that.getOwnerComponent().getModel("oProductModel").setProperty("/Unit", data);
 
@@ -270,7 +270,7 @@ sap.ui.define([
 				},
 				success: function (data, status, xhr) {
 
-					sap.m.MessageToast.show("Hi  Congtz! you succussfully consumed destination from CF!");
+					// sap.m.MessageToast.show("Hi  Congtz! you succussfully consumed destination / CF!");
 					that.prodCount = data.length;
 					that.getOwnerComponent().getModel("oProductModel").setProperty("/Product", data);
 					that.byId("prodResultCount").setText("Products(" + that.prodCount + ")");
@@ -297,7 +297,7 @@ sap.ui.define([
 				},
 				success: function (data, status, xhr) {
 
-					sap.m.MessageToast.show("Hi  Congtz! you succussfully consumed destination from CF!");
+					// sap.m.MessageToast.show("Hi  Congtz! you succussfully consumed destination from CF!");
 					that.brandCount = data.length;
 					that.getOwnerComponent().getModel("oProductModel").setProperty("/Brand", data);
 
