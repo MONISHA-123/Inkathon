@@ -26,7 +26,7 @@ sap.ui.define([
 				"password": "",
 				"role": "user"
 			};
-
+			this.GETMethod_CATE();
 			var oEmptyModel = new JSONModel();
 			oEmptyModel.setProperty("/ForgotPassword", {
 				"email": ""

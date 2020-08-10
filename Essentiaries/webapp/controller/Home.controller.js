@@ -155,35 +155,7 @@ sap.ui.define([
 				//console.log(that.token);
 			});
 		},
-		GETMethod_CATE: function () {
-			var that = this;
-			var sUrl = "/AdminModule/api/category";
-			$.ajax({
-				url: sUrl,
-				data: null,
-				async: true,
-				dataType: "json",
-				contentType: "application/json; charset=utf-8",
-				headers: {
-					"x-CSRF-Token": "fetch"
-				},
-				error: function (err) {
-					MessageToast.show("Category Fetch Destination Failed");
-				},
-				success: function (data, status, xhr) {
-
-				
-					that.cateCount = data.length;
-
-					that.getOwnerComponent().getModel("oProductModel").setProperty("/Category", data);
-
-				},
-				type: "GET"
-			}).always(function (data, status, xhr) {
-				that.token = xhr.getResponseHeader("x-CSRF-Token");
-
-			});
-		},
+	
 	
     
     GETMethod_PROMO:function(){
@@ -213,7 +185,10 @@ sap.ui.define([
 
                 },
                 type: "GET"
-            });
+            }).always(function (data, status, xhr) {
+				that.token = xhr.getResponseHeader("x-CSRF-Token");
+
+			});
         },
 
         

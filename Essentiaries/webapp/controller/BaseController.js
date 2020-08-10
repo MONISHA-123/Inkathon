@@ -19,16 +19,16 @@ sap.ui.define([
 			return UIComponent.getRouterFor(this);
 
 		},
-	/*	fnTotalCalc: function () {
-			var total = 0;
-			var oEmptyModel = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
-			for (var j = 0; j < oEmptyModel.length; j++) {
-				total += this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart/" + j + "/amount");
+		/*	fnTotalCalc: function () {
+				var total = 0;
+				var oEmptyModel = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
+				for (var j = 0; j < oEmptyModel.length; j++) {
+					total += this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart/" + j + "/amount");
 
-			}
+				}
 
-			this.getOwnerComponent().getModel("oProductModel").setProperty("/Total", total);
-		},*/
+				this.getOwnerComponent().getModel("oProductModel").setProperty("/Total", total);
+			},*/
 		fnOnAddToCart: function (oEvent) {
 
 			//var oButton=this.byId("cart");
@@ -89,7 +89,7 @@ sap.ui.define([
 
 			this.getView().addDependent(this._oDialog);
 			this.getView().getModel("oEmptyModel").setProperty("/ForgotPassword", {});
-				this.getView().getModel("oEmptyModel").setProperty("/GuestLogin", {});
+			this.getView().getModel("oEmptyModel").setProperty("/GuestLogin", {});
 			// Fragment.byId("idUserLogin", "idContent").addStyleClass("bgDialog"); 
 
 			this._oDialog.open();
@@ -141,13 +141,13 @@ sap.ui.define([
 								var accountMenu = that.getOwnerComponent().getModel("oProductModel").getProperty("/accountMenu");
 								var signIn = that.getOwnerComponent().getModel("oProductModel").getProperty("/signIn");
 								var sInitial = (data.fname).charAt(0) + (data.lname).charAt(0);
-								
+
 								accountMenu.setInitials(sInitial);
 								accountMenu.setVisible(true);
 
 								signIn.setVisible(false);
-								
-								that.getOwnerComponent().getModel("oProductModel").setProperty("/userCart",[]);
+
+								that.getOwnerComponent().getModel("oProductModel").setProperty("/userCart", []);
 								that._oDialog.close();
 
 								that._oDialog.destroy();
@@ -183,13 +183,42 @@ sap.ui.define([
 			this._oDialog = null;
 
 		},
+		GETMethod_CATE: function () {
+			var that = this;
+			var sUrl = "/AdminModule/api/category";
+			$.ajax({
+				url: sUrl,
+				data: null,
+				async: true,
+				dataType: "json",
+				contentType: "application/json; charset=utf-8",
+				headers: {
+					"x-CSRF-Token": "fetch"
+				},
+				error: function (err) {
+					MessageToast.show("Category Fetch Destination Failed");
+				},
+				success: function (data, status, xhr) {
+
+					that.cateCount = data.length;
+
+					that.getOwnerComponent().getModel("oProductModel").setProperty("/Category", data);
+
+				},
+				type: "GET"
+			}).always(function (data, status, xhr) {
+				that.token = xhr.getResponseHeader("x-CSRF-Token");
+
+			});
+		},
 		//GuestLogin
 		fnGuestOTPReq: function () {
-			var that=this;
+			var that = this;
+			console.log(this.token);
 			Fragment.byId("idGuestLogin", "2ndPart").setVisible(true);
 			var phoneno = this.getView().getModel("oEmptyModel").getProperty("/GuestLogin/phoneno");
 			var sUrl = "/AdminModule/guestlogin";
-			var oData={
+			var oData = {
 				"email": "",
 				"fname": "",
 				"lname": "",
@@ -208,16 +237,13 @@ sap.ui.define([
 				},
 
 				success: function (data) {
-						console.log(data);
-					
-						MessageToast.show("Welcome");
-						
-					
+					console.log(data);
+
+					MessageToast.show("Welcome");
 
 				},
 				error: function (xhr, status) {
-				
-				
+
 				},
 				complete: function (xhr, status) {
 
@@ -233,7 +259,7 @@ sap.ui.define([
 				this._oDialog = sap.ui.xmlfragment("idGuestLogin", "com.ink.Essentiaries.fragments.ResetPassword", this);
 			}
 			this.getView().addDependent(this._oDialog);
-			 this.getView().getModel("oEmptyModel").setProperty("/GuestLogin/phoneno","");
+			this.getView().getModel("oEmptyModel").setProperty("/GuestLogin/phoneno", "");
 			Fragment.byId("idGuestLogin", "guestLogin").setVisible(true);
 			Fragment.byId("idGuestLogin", "fogetPass").setVisible(false);
 			Fragment.byId("idGuestLogin", "2ndPart").setVisible(false);
@@ -853,20 +879,19 @@ sap.ui.define([
 			var sPath = oEvent.getSource().getParent().getBindingContextPath();
 			var index = sPath.lastIndexOf("/");
 			var lastIndexValue = sPath.charAt(index + 1);
-				var id=this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart/"+lastIndexValue+"/productid");
-					var product=this.getOwnerComponent().getModel("oProductModel").getProperty("/Product");
-				for(var i=0;i<product.length;i++)
-				{
-					if(id==product[i].productid){
-						this.getOwnerComponent().getModel("oProductModel").setProperty("/Product/"+i+"/quantity",0);
-							this.getOwnerComponent().getModel("oProductModel").refresh();
-					}
+			var id = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart/" + lastIndexValue + "/productid");
+			var product = this.getOwnerComponent().getModel("oProductModel").getProperty("/Product");
+			for (var i = 0; i < product.length; i++) {
+				if (id == product[i].productid) {
+					this.getOwnerComponent().getModel("oProductModel").setProperty("/Product/" + i + "/quantity", 0);
+					this.getOwnerComponent().getModel("oProductModel").refresh();
 				}
+			}
 			var aList = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
 			aList.splice(lastIndexValue, 1);
 			this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart", aList);
 			this.getOwnerComponent().getModel("oProductModel").refresh();
-		
+
 			this.fnTotalCalc();
 
 		},
@@ -989,9 +1014,9 @@ sap.ui.define([
 
 		},
 		fnAddressDel: function () {
-			var that=this;
-				var surl = "/AdminModule/deleteaddress/";
-				$.ajax({
+			var that = this;
+			var surl = "/AdminModule/deleteaddress/";
+			$.ajax({
 				type: "DELETE",
 				url: surl,
 				dataType: "json",
@@ -1012,7 +1037,7 @@ sap.ui.define([
 				}
 			});
 		},
-		GETCart :function(){
+		GETCart: function () {
 			var userid = this.getOwnerComponent().getModel("oProductModel").getProperty("/LoginUser/userid");
 			var that = this;
 
@@ -1032,7 +1057,7 @@ sap.ui.define([
 				success: function (data, status, xhr) {
 
 					that.cartCount = data.length;
-						
+
 					that.getOwnerComponent().getModel("oProductModel").setProperty("/Cart", data);
 					that.getOwnerComponent().getModel("oProductModel").refresh();
 					console.log(data);
@@ -1041,10 +1066,10 @@ sap.ui.define([
 				type: "GET"
 			});
 		},
-		fnPostCart :function(oData){
-					var that=this;
-					var sUrl="/AdminModule/addtocart/"+this.id;
-				$.ajax({
+		fnPostCart: function (oData) {
+			var that = this;
+			var sUrl = "/AdminModule/addtocart/" + this.id;
+			$.ajax({
 				type: "POST",
 				url: sUrl,
 				data: JSON.stringify(oData),
@@ -1055,16 +1080,14 @@ sap.ui.define([
 				},
 
 				success: function (data) {
-						console.log(data);
-					
-						MessageToast.show("Added to user cart");
-						that.GETCart();
-					
+					console.log(data);
+
+					MessageToast.show("Added to user cart");
+					that.GETCart();
 
 				},
 				error: function (xhr, status) {
-				
-				
+
 				},
 				complete: function (xhr, status) {
 

@@ -120,11 +120,11 @@
 							<WizardStep id="CashOnDeliveryInfo" title="Delivery info" icon="sap-icon://money-bills">
 								<form:SimpleForm editable="true">
 									<Label text="First Name" required="true"/>
-									<Input value="{/CashOnDelivery/FirstName}" liveChange="checkCashOnDeliveryStep" valueLiveUpdate="true"/>
+									<Input value="{oProductModel>/OrderDetails/invoicefirstname}" liveChange="checkCashOnDeliveryStep" valueLiveUpdate="true"/>
 									<Label text="Last Name" required="true"/>
-									<Input value="{/CashOnDelivery/LastName}"/>
+									<Input value="{oProductModel>/OrderDetails/invoicelastname}"/>
 									<Label text="Phone Number" required="true"/>
-									<Input value="{/CashOnDelivery/Phone Number}"/>
+									<Input value="{oProductModel>/OrderDetails/phoneno}"/>
 								</form:SimpleForm>
 							</WizardStep>
 							
