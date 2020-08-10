@@ -141,18 +141,20 @@ sap.ui.define([
 								var accountMenu = that.getOwnerComponent().getModel("oProductModel").getProperty("/accountMenu");
 								var signIn = that.getOwnerComponent().getModel("oProductModel").getProperty("/signIn");
 								var sInitial = (data.fname).charAt(0) + (data.lname).charAt(0);
-
+								
 								accountMenu.setInitials(sInitial);
 								accountMenu.setVisible(true);
 
 								signIn.setVisible(false);
-
+								
+								that.getOwnerComponent().getModel("oProductModel").setProperty("/userCart",[]);
 								that._oDialog.close();
 
 								that._oDialog.destroy();
 
 								that._oDialog = null;
 								that.GETMethod_ADDRESS();
+								that.GETCart();
 							}
 							if (data.email == sEmail && data.password == sPassword && data.role == "admin") {
 								that.getView().byId("cart").setVisible(false);
@@ -1007,6 +1009,65 @@ sap.ui.define([
 				},
 				complete: function (xhr, status) {
 					that.GETMethod_ADDRESS();
+				}
+			});
+		},
+		GETCart :function(){
+			var userid = this.getOwnerComponent().getModel("oProductModel").getProperty("/LoginUser/userid");
+			var that = this;
+
+			var sUrl = "/AdminModule/cart/" + userid;
+			$.ajax({
+				url: sUrl,
+				data: null,
+				async: true,
+				dataType: "json",
+				contentType: "application/json; charset=utf-8",
+				headers: {
+					"x-CSRF-Token": "fetch"
+				},
+				error: function (err) {
+					MessageToast.show(" address Failed");
+				},
+				success: function (data, status, xhr) {
+
+					that.cartCount = data.length;
+						
+					that.getOwnerComponent().getModel("oProductModel").setProperty("/Cart", data);
+					that.getOwnerComponent().getModel("oProductModel").refresh();
+					console.log(data);
+
+				},
+				type: "GET"
+			});
+		},
+		fnPostCart :function(oData){
+					var that=this;
+					var sUrl="/AdminModule/addtocart/"+this.id;
+				$.ajax({
+				type: "POST",
+				url: sUrl,
+				data: JSON.stringify(oData),
+				dataType: "json",
+				"headers": {
+					"Content-Type": "application/json",
+					"x-CSRF-Token": that.token
+				},
+
+				success: function (data) {
+						console.log(data);
+					
+						MessageToast.show("Added to user cart");
+						that.GETCart();
+					
+
+				},
+				error: function (xhr, status) {
+				
+				
+				},
+				complete: function (xhr, status) {
+
 				}
 			});
 		}

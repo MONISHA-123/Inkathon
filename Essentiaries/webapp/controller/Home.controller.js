@@ -224,7 +224,7 @@ sap.ui.define([
 	fnCart :function(oEvent){
 			MessageToast.show("Product Added To Cart ");
 		
-		
+			 this.id=this.getOwnerComponent().getModel("oProductModel").getProperty("/LoginUser/userid"); 
 			var cartId=this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
 			var Path=oEvent.getSource().getBindingContext("oProductModel").sPath;
 			var oData=this.getOwnerComponent().getModel("oProductModel").getProperty(Path);
@@ -240,7 +240,20 @@ sap.ui.define([
 								return;
 					}
 			 }
-					
+							if(this.id){
+							oEvent.getSource().getParent().getItems()[0].setVisible(false);
+							oEvent.getSource().getParent().getItems()[1].setVisible(true);
+							this.getOwnerComponent().getModel("oProductModel").setProperty(Path+"/quantity",1);
+						//	this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart").unshift(oData);
+							var price=this.getOwnerComponent().getModel("oProductModel").getProperty(Path+"/price");
+							 this.getOwnerComponent().getModel("oProductModel").setProperty(Path+"/amount",price);
+							console.log(this.getOwnerComponent().getModel("oProductModel").getProperty(Path));
+							this.getOwnerComponent().getModel("oProductModel").refresh();
+							this.onChangeOther(Path);
+							console.log(oData);
+							this.fnPostCart(oData);
+								
+							}
 							oEvent.getSource().getParent().getItems()[0].setVisible(false);
 							oEvent.getSource().getParent().getItems()[1].setVisible(true);
 							this.getOwnerComponent().getModel("oProductModel").setProperty(Path+"/quantity",1);

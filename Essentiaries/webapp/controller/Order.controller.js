@@ -124,21 +124,43 @@ sap.ui.define([
 		},*/
 		fnLogin: function () {
 			var oWizard = this.byId("ShoppingCartWizard");
+			var oData={
+				"amount":"",
+				"product_name":"",
+				"productid":"",
+				"quantity":""
+			};
+		
 			var oFirstStep = oWizard.getSteps()[0];
 			var user = this.getOwnerComponent().getModel("oProductModel").getProperty("/LoginUser");
 			if (user == undefined) {
 				this.fnOnUser();
 					oWizard.discardProgress(oFirstStep);
 			} else {
-				var that=this;
+				
+			
 				this.byId("cartContent").setNextStep(this.getView().byId("Address"));
-				var id=this.getOwnerComponent().getModel("oProductModel").getProperty("/LoginUser/userid");                        
-				var sUrl="/AdminModule/addtocart/"+id;
+				
+				var userCart=this.getOwnerComponent().getModel("oProductModel").getProperty("/userCart");
+				 this.id=this.getOwnerComponent().getModel("oProductModel").getProperty("/LoginUser/userid");                        
+			
 				var cart=this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
-			/*	for(var i=0;i<cart.length;i++){
-						
+				for(var i=0;i<cart.length;i++){
+						oData.amount=cart[i].amount;
+						oData.product_name=cart[i].productname;
+						oData.productid=cart[i].productid;
+						oData.quantity=cart[i].quantity;
+						userCart.push(oData);
+						this.fnPostCart(oData);
 				}
-					$.ajax({
+				
+			}
+
+		},
+		fnPostCart :function(oData){
+					var that=this;
+					var sUrl="/AdminModule/addtocart/"+this.id;
+				$.ajax({
 				type: "POST",
 				url: sUrl,
 				data: JSON.stringify(oData),
@@ -151,7 +173,7 @@ sap.ui.define([
 				success: function (data) {
 						console.log(data);
 					
-						MessageToast.show("Welcome");
+						MessageToast.show("Added to user cart");
 						
 					
 
@@ -163,10 +185,8 @@ sap.ui.define([
 				complete: function (xhr, status) {
 
 				}
-			});*/
-			}
-
-		},
+			});
+		}
 		/*	NextButton:function(){
 					var user = this.getOwnerComponent().getModel("oProductModel").getProperty("/LoginUser");
 					if(user==undefined){
