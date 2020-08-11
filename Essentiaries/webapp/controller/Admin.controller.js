@@ -11,7 +11,7 @@ sap.ui.define([
 	"sap/viz/ui5/data/FlattenedDataset",
 	"sap/m/MessageBox",
 	"sap/ui/core/BusyIndicator",
-	"sap/ui/core/routing/History" 
+	"sap/ui/core/routing/History"
 
 ], function (Controller, JSONModel, MessageToast, Fragment, formatter, Filter, Sorter, FilterOperator, UIComponent, FlattenedDataset,
 	MessageBox, BusyIndicator, History) {
@@ -84,7 +84,7 @@ sap.ui.define([
 			this.GETMethod_BRAND();
 			this.GETMethod_PROMO();
 			this.GETMethod_UNIT();
-				this.GETMasterOrder();
+			this.GETMasterOrder();
 
 			var oModel = new JSONModel("model/products.json");
 			this.getView().setModel(oModel, "oTableModel");
@@ -158,7 +158,7 @@ sap.ui.define([
 		},
 		GETMasterOrder: function () {
 			var that = this;
-			var sUrl = "/AdminModule/order/";
+			var sUrl = "/AdminModule/api/order/";
 			$.ajax({
 				url: sUrl,
 				data: null,
@@ -253,7 +253,7 @@ sap.ui.define([
 				type: "GET"
 			});
 		},
-			GETMethod_UNIT: function () {
+		GETMethod_UNIT: function () {
 			var that = this;
 
 			var sUrl = "/AdminModule/api/unit";
@@ -330,7 +330,14 @@ sap.ui.define([
 				type: "GET"
 			});
 		},
+		onOrderDetail: function (oEvent) {
+			var sPath = oEvent.getSource().getBindingContext("oProductModel").getPath();
+			var id = this.getOwnerComponent().getModel("oProductModel").getProperty(sPath + "/orderid");
 
+			this.getRouter().navTo("AdminOrderDetail", {
+				Orderid: id
+			});
+		},
 		onPress: function (oEvent) {
 			var oTable, oTableModel1, oItem, sPath, oSelectedRow;
 			// var oModel = this.getView().getModel("oProductModel");
@@ -585,7 +592,7 @@ sap.ui.define([
 
 		},
 		onCateDDChanges: function (sSelectedKey) {
-			
+
 			for (var i = 0; i < this.cateCount; i++) {
 				if (sSelectedKey == this.getOwnerComponent().getModel("oProductModel").getProperty("/Category/" + i + "/categoryname")) {
 					break;
@@ -1171,7 +1178,6 @@ sap.ui.define([
 						that._oDialog = null;
 						MessageToast.show("Data saved Successfully");
 
-
 					},
 					error: function (xhr, status) {
 						that._oDialog.close();
@@ -1181,7 +1187,7 @@ sap.ui.define([
 
 					},
 					complete: function (xhr, status) {
-					that.GETMethod_PROMO();
+						that.GETMethod_PROMO();
 					}
 				});
 			}
@@ -1207,7 +1213,7 @@ sap.ui.define([
 							},
 							success: function (data) {
 								MessageToast.show("Deleted Successfully");
-								
+
 							},
 							error: function (xhr, status) {
 								MessageToast.show("Error");
@@ -1226,7 +1232,7 @@ sap.ui.define([
 		fnOnEditPromo: function (oEvent) {
 			oEvent.getSource().getParent().getParent().getCells()[4].getItems()[1].setVisible(true);
 			oEvent.getSource().getParent().getParent().getCells()[4].getItems()[0].setVisible(false);
-				for (var i = 1; i <= 3; i++)
+			for (var i = 1; i <= 3; i++)
 				oEvent.getSource().getParent().getParent().getCells()[i].setEditable(true);
 		},
 		fnOnPromoSave: function (oEvent) {
@@ -1237,8 +1243,64 @@ sap.ui.define([
 			this.fnPutCall(sUrl, oData);
 			oEvent.getSource().getParent().getParent().getCells()[4].getItems()[0].setVisible(true);
 			oEvent.getSource().getParent().getParent().getCells()[4].getItems()[1].setVisible(false);
-				for (var i = 1; i <= 3; i++)
+			for (var i = 1; i <= 3; i++)
 				oEvent.getSource().getParent().getParent().getCells()[i].setEditable(false);
+		},
+		fnOrderDelete: function (oEvent) {
+			var that = this;
+			var sPath = oEvent.getSource().getBindingContext("oProductModel").getPath();
+			var id = this.getOwnerComponent().getModel("oProductModel").getProperty(sPath + "/orderid");
+			var surl = "/AdminModule/api/delete/order/" + id;
+			MessageBox.confirm("Are you sure you want to delete Order Id " + id + "?", {
+				actions: [MessageBox.Action.YES, MessageBox.Action.NO],
+				emphasizedAction: MessageBox.Action.OK,
+				onClose: function (sAction) {
+					if (sAction == "YES") {
+
+						$.ajax({
+							type: "DELETE",
+							url: surl,
+							dataType: "json",
+							"headers": {
+								"Content-Type": "application/json",
+								"x-CSRF-Token": that.token
+							},
+							success: function (data) {
+
+							},
+							error: function (xhr, status) {
+
+								console.log("ERROR");
+							},
+							complete: function (xhr, status) {
+								that.GETMasterOrder();
+
+							}
+						});
+					}
+
+				}
+			});
+
+		},
+		fnOrderEdit: function (oEvent) {
+			oEvent.getSource().getParent().getParent().getCells()[5].getItems()[1].setVisible(true);
+			oEvent.getSource().getParent().getParent().getCells()[5].getItems()[0].setVisible(false);
+
+			oEvent.getSource().getParent().getParent().getCells()[4].setEditable(true);
+		},
+		fnOrderEditSave: function (oEvent) {
+			oEvent.getSource().getParent().getParent().getCells()[5].getItems()[1].setVisible(false);
+			oEvent.getSource().getParent().getParent().getCells()[5].getItems()[0].setVisible(true);
+
+			oEvent.getSource().getParent().getParent().getCells()[4].setEditable(false);
+			var id=oEvent.getSource().getParent().getParent().getCells()[0].getText();
+			var key=oEvent.getSource().getParent().getParent().getCells()[4].getSelectedKey();
+				var sUrl = "/AdminModule/api/order/"+id;
+				var oData={
+				"status":key	
+				};
+					this.fnPutCall(sUrl, oData);
 		}
 	});
 

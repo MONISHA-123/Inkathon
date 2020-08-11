@@ -4,24 +4,25 @@ sap.ui.define([
 	"sap/ui/core/UIComponent",
 	"sap/ui/model/json/JSONModel",
 	"sap/m/MessageToast",
-	"sap/ui/core/BusyIndicator",
-	"sap/ui/core/Fragment"
-], function (Controller, History, UIComponent, JSONModel, MessageToast, BusyIndicator, Fragment) {
+	"sap/ui/core/BusyIndicator"
+
+], function (Controller, History, UIComponent, JSONModel, MessageToast, BusyIndicator) {
 	"use strict";
 
-	return Controller.extend("com.ink.Essentiaries.controller.Invoice", {
+	return Controller.extend("com.ink.Essentiaries.controller.AdminOrderDetail", {
 
 		/**
 		 * Called when a controller is instantiated and its View controls (if available) are already created.
 		 * Can be used to modify the View before it is displayed, to bind event handlers and do other one-time initialization.
-		 * @memberOf com.ink.Essentiaries.view.Invoice
+		 * @memberOf com.ink.Essentiaries.view.AdminOrderDetail
 		 */
 		onInit: function () {
 			var oRouter = this.getRouter();
-			oRouter.getRoute("Invoice").attachMatched(this._onRouteMatched, this);
-		},
-		getRouter: function () {
+			oRouter.getRoute("AdminOrderDetail").attachMatched(this._onRouteMatched, this);
 
+		},
+
+		getRouter: function () {
 			return UIComponent.getRouterFor(this);
 		},
 		_onRouteMatched: function (oEvent) {
@@ -29,21 +30,6 @@ sap.ui.define([
 			this.id = oEvent.getParameter("arguments").Orderid;
 			this.GETMasterOrder();
 			this.GETSlaveOrder();
-		},
-		onNavBack: function () {
-			// UIComponent.getRouterFor(this).navTo("adminDashboard");
-			var oHistory, sPreviousHash;
-
-			oHistory = History.getInstance();
-			sPreviousHash = oHistory.getPreviousHash();
-
-			if (sPreviousHash !== undefined) {
-				window.history.go(-1);
-			} else {
-				// this.getOwnerComponent().getRouter().navTo("Home");
-				this.getRouter().navTo("Home", {}, true);
-
-			}
 		},
 		GETMasterOrder: function () {
 			var that = this;
@@ -113,37 +99,15 @@ sap.ui.define([
 
 			});
 		},
-		fnCancelOrder: function () {
-			if (!this._oDialog) {
-				this._oDialog = sap.ui.xmlfragment("CancelOrder", "com.ink.Essentiaries.fragments.cancelOrder", this);
-			}
-			this.getView().addDependent(this._oDialog);
-			this._oDialog.open();
-		},
-		fnReasonChange: function (oEvent) {
+		fnUpdateStatus: function (oEvent) {
 			var key = oEvent.getSource().getSelectedKey();
-			if (key === "Others") {
-				Fragment.byId("CancelOrder", "fnReasonOthers").setVisible(true);
-			} else {
-				Fragment.byId("CancelOrder", "fnReasonOthers").setVisible(false);
-			}
-		},
-		fnOnCancel: function () {
-
-			this._oDialog.close();
-
-			this._oDialog.destroy();
-
-			this._oDialog = null;
-
-		},
-		fnCancelOrderSubmit: function () {
+			var oData = {
+				"status": key
+			};
 			var id = this.getOwnerComponent().getModel("oProductModel").getProperty("/MasterOrderDetail/orderid");
 			var sUrl = "/AdminModule/api/order/" + id;
-			var oData = {
-				"status": "Cancelled"
-			};
 			this.fnPutCall(sUrl, oData);
+
 		},
 		fnPutCall: function (sUrl, oData) {
 			var that = this;
@@ -167,11 +131,7 @@ sap.ui.define([
 
 				},
 				complete: function (xhr, status) {
-					that._oDialog.close();
 
-					that._oDialog.destroy();
-
-					that._oDialog = null;
 				}
 			});
 		}

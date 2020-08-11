@@ -1,0 +1,27 @@
+<core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core" xmlns:f="sap.ui.layout.form" xmlns:l="sap.ui.layout">
+	<Dialog contentWidth="40%">
+		<customHeader>
+			<Bar>
+				<contentMiddle>
+					<Title text="{i18n>ShopName}"/>
+				</contentMiddle>
+				<contentRight>
+					<Button class="ToolbarIcon" icon="sap-icon://decline" tooltip="Close" press="fnOnCancel" type="Transparent"/>
+				</contentRight>
+			</Bar>
+		</customHeader>
+		<VBox class="white sapUiTinyMargin" fitContainer="true" justifyContent="Center" alignItems="Center" alignContent="Center">
+			<ComboBox selectionChange="fnReasonChange">
+				<core:Item key="Recipient not available at the estimated time/day of delivery."
+					text="Recipient not available at the estimated time/day of delivery."/>
+				<core:Item key="Delay in shipping" text="Delay in shipping"/>
+				<core:Item key="Others" text="Others"/>
+			</ComboBox>
+			<TextArea visible="false" id="fnReasonOthers"/>
+		</VBox>
+		<buttons>
+			<Button text="{i18n>Save}" press="fnCancelOrderSubmit"></Button>
+			<Button text="{i18n>Cancel}" press="fnOnCancel"></Button>
+		</buttons>
+	</Dialog>
+</core:FragmentDefinition>

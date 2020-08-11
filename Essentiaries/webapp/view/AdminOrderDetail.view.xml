@@ -1,16 +1,15 @@
-<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="com.ink.Essentiaries.controller.Invoice" xmlns:form="sap.ui.layout.form" 
-	xmlns:html="http://www.w3.org/1999/xhtml" >
-
-			<App id="essentiaries">
+<mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m"
+	controllerName="com.ink.Essentiaries.controller.AdminOrderDetail" xmlns:html="http://www.w3.org/1999/xhtml" xmlns:form="sap.ui.layout.form">
+	<App id="essentiaries">
 		<ScrollContainer horizontal="false" vertical="true" height="100%">
 			<ObjectHeader binding="{/ProductCollection/0}" title="Invoice"
 				number="{ parts:[{path:'Price'},{path:'CurrencyCode'}], type: 'sap.ui.model.type.Currency', formatOptions: {showMeasure: false} }"
 				numberUnit="{CurrencyCode}" class="sapUiResponsivePadding--header">
 				<statuses>
-						<ObjectStatus text="Order Id: {oProductModel>/MasterOrderDetail/orderid}" />
+					<ObjectStatus text="Order Id: {oProductModel>/MasterOrderDetail/orderid}" />
 					<ObjectStatus text="{oProductModel>/MasterOrderDetail/status}" state="Success"/>
 				</statuses>
-				<ObjectAttribute text="Date and Time : {oProductModel>/MasterOrderDetail/datetime}"/>
+					<ObjectAttribute text="Date and Time : {oProductModel>/MasterOrderDetail/datetime}"/>
 				<ObjectAttribute text="{oProductModel>/MasterOrderDetail/houseno}, {oProductModel>/MasterOrderDetail/street}"/>
 				<ObjectAttribute text="{oProductModel>/MasterOrderDetail/city}"/>
 				<ObjectAttribute text="{oProductModel>/MasterOrderDetail/state}"/>
@@ -43,13 +42,13 @@
 				</items>
 			</Table>
 			<VBox class="sapUiSmallMargin">
-					<MessageStrip
-				text="Order Can be Cancelled only before Shipment stage"
-				showIcon="true"
-				
-				visible="{= ${oProductModel>/MasterOrderDetail/status}==='Pending'?false:true }">
-			</MessageStrip>
-				<Button type="Reject" text="Cancel Order" enabled="{= ${oProductModel>/MasterOrderDetail/status}==='Pending' }" press="fnCancelOrder"/>
+				<Title text="Update Status"/>
+				<ComboBox selectedKey="{oProductModel>/MasterOrderDetail/status}" selectionChange="fnUpdateStatus">
+					<core:Item key="Pending" text="Pending"/>
+					<core:Item key="Shipped" text="Shipped"/>
+					<core:Item key="Completed" text="Completed"/>
+					<core:Item key="Cancelled" text="Cancelled"/>
+				</ComboBox>
 				
 			</VBox>
 		</ScrollContainer>

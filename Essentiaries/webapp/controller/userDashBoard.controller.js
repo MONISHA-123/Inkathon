@@ -35,7 +35,7 @@ sap.ui.define([
 			return UIComponent.getRouterFor(this);
 		},
 		_onRouteMatched: function (oEvent) {
-
+			this.GetUserMasterOrder();
 		},
 		fnToTrackOrder: function () {
 			MessageToast.show("Inside Order");

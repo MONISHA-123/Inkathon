@@ -159,27 +159,38 @@ sap.ui.define([
 
 				// var userCart = this.getOwnerComponent().getModel("oProductModel").getProperty("/userCart");
 				this.id = this.getOwnerComponent().getModel("oProductModel").getProperty("/LoginUser/userid");
-
+				var Presentcart = this.presentItems;
 				var cart = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
-				for (var j = 0; j < cart.length; j++) {
-					var id = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart/" + j + "/cart_id");
-					this.fnOnDeleteCart(id);
+				
+
+				for (var i = 0; i < Presentcart.length; i++) {
+					for (var j = 0; j < cart.length; j++) {
+					var id = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart/" + j + "/productid");
+					if(Presentcart[i].productid==id)
+					break;
+					else continue;
 				}
-				if (this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart").length == 0) {
-					this.getOwnerComponent().getModel("oProductModel").setProperty("/Cart", this.presentItems);
-					var Presentcart = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
-					for (var i = 0; i < Presentcart.length; i++) {
-						oData.amount = Presentcart[i].amount;
-						oData.productname = Presentcart[i].productname;
-						oData.productid = Presentcart[i].productid;
-						oData.quantity = Presentcart[i].quantity;
-						oData.image = Presentcart[i].image;
-						oData.price = Presentcart[i].price;
-						oData.size = Presentcart[i].size;
-						oData.offerpercentage = Presentcart[i].offerpercentage;
-						// userCart.push(oData);
-						this.fnPostCart(oData);
-					}
+				if(j==cart.length){
+					oData.amount = Presentcart[i].amount;
+					oData.productname = Presentcart[i].productname;
+					oData.productid = Presentcart[i].productid;
+					oData.quantity = Presentcart[i].quantity;
+					oData.image = Presentcart[i].image;
+					oData.price = Presentcart[i].price;
+					oData.size = Presentcart[i].size;
+					oData.offerpercentage = Presentcart[i].offerpercentage;
+					// userCart.push(oData);
+					this.fnPostCart(oData);
+				}
+				else
+				{
+					// update cart
+					var iQuantity=Presentcart[i].quantity;
+				this.getOwnerComponent().getModel("oProductModel").setProperty("/Cart/" + j+"/quantity",iQuantity);
+				var oData=	this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart/" + j);
+				console.log(oData);
+				 this.fnUpdateCart(oData);
+				}
 				}
 
 			}
@@ -216,22 +227,22 @@ sap.ui.define([
 				oOrder.setProperty("/OrderDetails/userid", this.getOwnerComponent().getModel("oProductModel").getProperty("/LoginUser/userid"));
 
 				oOrder.setProperty("/OrderDetails/datetime", arr[0]);
-				oOrder.setProperty("/OrderDetails/houseno", this.getOwnerComponent().getModel("oProductModel").getProperty(
-					"/Placeorder/Address/houseno"));
+				oOrder.setProperty("/OrderDetails/houseno", parseInt(this.getOwnerComponent().getModel("oProductModel").getProperty(
+					"/Placeorder/Address/houseno"), 10));
 				oOrder.setProperty("/OrderDetails/street", this.getOwnerComponent().getModel("oProductModel").getProperty(
 					"/Placeorder/Address/street"));
 				oOrder.setProperty("/OrderDetails/city", this.getOwnerComponent().getModel("oProductModel").getProperty(
 					"/Placeorder/Address/city"));
 				oOrder.setProperty("/OrderDetails/state", this.getOwnerComponent().getModel("oProductModel").getProperty(
 					"/Placeorder/Address/state"));
-				oOrder.setProperty("/OrderDetails/pincode", this.getOwnerComponent().getModel("oProductModel").getProperty(
-					"/Placeorder/Address/pincode"));
+				oOrder.setProperty("/OrderDetails/pincode", parseInt(this.getOwnerComponent().getModel("oProductModel").getProperty(
+					"/Placeorder/Address/pincode"), 10));
 				oOrder.setProperty("/OrderDetails/invoicefirstname", firstname);
 				oOrder.setProperty("/OrderDetails/invoicelastname", lastname);
-				oOrder.setProperty("/OrderDetails/phoneno", phoneno);
+				oOrder.setProperty("/OrderDetails/phoneno", parseInt(phoneno, 10));
 				oOrder.setProperty("/OrderDetails/modeofpayment", modeofpayment);
-				oOrder.setProperty("/OrderDetails/amount", this.getOwnerComponent().getModel("oProductModel").getProperty(
-					"/Total"));
+				oOrder.setProperty("/OrderDetails/amount", parseInt(this.getOwnerComponent().getModel("oProductModel").getProperty(
+					"/Total"), 10));
 				console.log(oOrder.getProperty("/OrderDetails"));
 				this.fnPostMasterOrder(oOrder.getProperty("/OrderDetails"));
 			}

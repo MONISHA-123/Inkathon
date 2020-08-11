@@ -33,8 +33,15 @@ sap.ui.define([
 			}
 		},
 		
-	fnToTrackOrder: function(){
-			this.getRouter().navTo("Invoice");
+	fnToTrackOrder: function(oEvent){
+			var sPath=oEvent.getSource().getBindingContext("oProductModel").getPath();
+			var id=this.getOwnerComponent().getModel("oProductModel").getProperty(sPath+"/orderid");
+			
+			this.getRouter().navTo("Invoice",
+			 {
+				Orderid: id
+			});
+			
 		}
 	});
 });

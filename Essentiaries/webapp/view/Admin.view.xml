@@ -145,23 +145,28 @@
 									<Column minScreenWidth="Desktop" demandPopin="true">
 										<Text text="Status"/>
 									</Column>
-									<Column minScreenWidth="Desktop">
+									<Column minScreenWidth="Desktop" demandPopin="true">
 										<Text text="Edit Status" class="sapUiMediumMarginTop"/>
 									</Column>
 								</columns>
 								<items>
-									<ColumnListItem type="Navigation" press="onPress">
+									<ColumnListItem type="Navigation" press="onOrderDetail">
 										<cells>
-												<Text text="{oProductModel>orderid}"/>
-													<Text text="{oProductModel>datetime}" />
-													<Text text="{oProductModel>houseno} {oProductModel>street} {oProductModel>city} {oProductModel>state} {oProductModel>pincode}"/>
-													<Text text="{oProductModel>amount}"/>
-													<Input value="{oProductModel>status}" editable="false"/>
-										
+											<Text text="{oProductModel>orderid}"/>
+											<Text text="{oProductModel>datetime}"/>
+											<Text text="{oProductModel>houseno} {oProductModel>street} {oProductModel>city} {oProductModel>state} {oProductModel>pincode}"/>
+											<Text text="{oProductModel>amount}"/>
+											<!--<Input value="{oProductModel>status}" editable="false"/>-->
+											<ComboBox selectedKey="{oProductModel>status}">
+												<core:Item key="Pending" text="Pending"/>
+												<core:Item key="Shipped" text="Shipped"/>
+												<core:Item key="Completed" text="Completed"/>
+												<core:Item key="Cancelled" text="Cancelled"/>
+											</ComboBox>
 											<HBox>
-												<Button icon="sap-icon://edit" class="sapUiSmallMargin adminbtn" id="rowEditId1" press="for_edit_status"></Button>
-												<Button text="save" class="sapUiSmallMargin adminbtn" visible="false" press="fnSave"></Button>
-												<Button icon="sap-icon://delete" class="sapUiSmallMargin adminbtn" press="for_delete"></Button>
+												<Button icon="sap-icon://edit" class="sapUiSmallMargin adminbtn" press="fnOrderEdit"></Button>
+												<Button text="save" class="sapUiSmallMargin adminbtn" visible="false" press="fnOrderEditSave"></Button>
+												<Button icon="sap-icon://delete" class="sapUiSmallMargin adminbtn" press="fnOrderDelete"></Button>
 											</HBox>
 										</cells>
 									</ColumnListItem>
@@ -283,7 +288,7 @@
 										<Input value="{oProductModel>promotiondescription}" editable="false"/>
 										<Input value="{oProductModel>referenceid}" editable="false"/>
 										<HBox>
-											<Button icon="sap-icon://edit" class="sapUiSmallMargin adminbtn" press=" fnOnEditPromo"></Button>
+											<Button icon="sap-icon://edit" class="sapUiSmallMargin adminbtn" press="fnOnEditPromo"></Button>
 											<Button text="save" class="sapUiSmallMargin" visible="false" press="fnOnPromoSave"></Button>
 											<Button icon="sap-icon://delete" class="sapUiSmallMargin adminbtn" press="fnOnPromoDel"></Button>
 										</HBox>
