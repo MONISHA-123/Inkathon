@@ -1,6 +1,6 @@
 <mvc:View xmlns:mvc="sap.ui.core.mvc" xmlns:core="sap.ui.core"
 		  xmlns:forms="sap.ui.layout.form" xmlns="sap.m" controllerName="com.ink.Essentiaries.controller.OrderDetail">
-					<Table inset="false" alternateRowColors="true">
+					<Table inset="false" alternateRowColors="true" items="{oProductModel>/UserMasterOrder}">
 										<columns>
 											<Column width="12em">
 												<Text text="Order Id"/>
@@ -21,11 +21,11 @@
 										<items>
 											<ColumnListItem type="Navigation" press="fnToTrackOrder">
 												<cells>
-													<Text/>
-													<Text/>
-													<Text/>
-													<Text/>
-													<Text/>
+													<Text text="{oProductModel>orderid}"/>
+													<Text text="{oProductModel>datetime}" />
+													<Text text="{oProductModel>houseno} {oProductModel>street} {oProductModel>city} {oProductModel>state} {oProductModel>pincode}"/>
+													<Text text="{oProductModel>amount}"/>
+													<Text text="{oProductModel>status}"/>
 												</cells>
 											</ColumnListItem>
 										</items>

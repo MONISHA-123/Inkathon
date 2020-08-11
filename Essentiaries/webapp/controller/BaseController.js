@@ -881,6 +881,7 @@ sap.ui.define([
 			var lastIndexValue = sPath.charAt(index + 1);
 			var id = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart/" + lastIndexValue + "/productid");
 			var product = this.getOwnerComponent().getModel("oProductModel").getProperty("/Product");
+			var cartid=this.getOwnerComponent().getModel("oProductModel").getProperty(sPath+"/cart_id");
 			for (var i = 0; i < product.length; i++) {
 				if (id == product[i].productid) {
 					this.getOwnerComponent().getModel("oProductModel").setProperty("/Product/" + i + "/quantity", 0);
@@ -891,7 +892,10 @@ sap.ui.define([
 			aList.splice(lastIndexValue, 1);
 			this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart", aList);
 			this.getOwnerComponent().getModel("oProductModel").refresh();
-
+				var user = this.getOwnerComponent().getModel("oProductModel").getProperty("/LoginUser");
+				if(user!=undefined){
+				this.fnOnDeleteCart(cartid);
+				}
 			this.fnTotalCalc();
 
 		},
@@ -982,8 +986,8 @@ sap.ui.define([
 		},
 		fnEditAddressSave: function () {
 			var that = this;
-			var userid = this.getOwnerComponent().getModel("oProductModel").getProperty("/LoginUser/userid");
-			var sUrl = "/AdminModule/updateaddress/";
+			var id = this.getView().getModel("oEmptyModel").getProperty("/Address/address_id");
+			var sUrl = "/AdminModule/updateaddress/"+id;
 			var oData = this.getView().getModel("oEmptyModel").getProperty("/Address");
 			$.ajax({
 				type: "PUT",
@@ -1015,7 +1019,8 @@ sap.ui.define([
 		},
 		fnAddressDel: function () {
 			var that = this;
-			var surl = "/AdminModule/deleteaddress/";
+				var id = this.getView().getModel("oEmptyModel").getProperty("/Address/address_id");
+			var surl = "/AdminModule/deleteaddress/"+id;
 			$.ajax({
 				type: "DELETE",
 				url: surl,
@@ -1025,15 +1030,13 @@ sap.ui.define([
 					"x-CSRF-Token": that.token
 				},
 				success: function (data) {
-					that._oDialog.close();
-					that._oDialog.destroy();
-					that._oDialog = null;
+				MessageToast.show("Address Deleted");
 				},
 				error: function (xhr, status) {
 					console.log("ERROR");
 				},
 				complete: function (xhr, status) {
-					that.GETMethod_ADDRESS();
+				that.GETMethod_ADDRESS();
 				}
 			});
 		},
@@ -1093,7 +1096,87 @@ sap.ui.define([
 
 				}
 			});
+		},
+		fnOnDeleteCart:function(id){
+				var that = this;
+			var surl = "/AdminModule/deleteitem/"+id;
+			$.ajax({
+				type: "DELETE",
+				url: surl,
+				dataType: "json",
+				"headers": {
+					"Content-Type": "application/json",
+					"x-CSRF-Token": that.token
+				},
+				success: function (data) {
+				MessageToast.show(" Deleted");
+				},
+				error: function (xhr, status) {
+					console.log("ERROR");
+				},
+				complete: function (xhr, status) {
+				that.GETCart();
+				}
+			});
+		},
+		fnPostMasterOrder: function (oData) {
+			var that = this;
+			var sUrl = "/AdminModule/order/";
+			$.ajax({
+				type: "POST",
+				url: sUrl,
+				data: JSON.stringify(oData),
+				dataType: "json",
+				"headers": {
+					"Content-Type": "application/json",
+					"x-CSRF-Token": that.token
+				},
+
+				success: function (data) {
+					
+
+					MessageToast.show("Order Placed");
+				
+
+				},
+				error: function (xhr, status) {
+
+				},
+				complete: function (xhr, status) {
+
+				}
+			});
+		},
+			GetUserMasterOrder: function () {
+			var userid = this.getOwnerComponent().getModel("oProductModel").getProperty("/LoginUser/userid");
+			var that = this;
+
+			var sUrl = "/AdminModule/api/order/" + userid;
+			$.ajax({
+				url: sUrl,
+				data: null,
+				async: true,
+				dataType: "json",
+				contentType: "application/json; charset=utf-8",
+				headers: {
+					"x-CSRF-Token": "fetch"
+				},
+				error: function (err) {
+					MessageToast.show("Failed");
+				},
+				success: function (data, status, xhr) {
+
+					that.UserOrderCount = data.length;
+
+					that.getOwnerComponent().getModel("oProductModel").setProperty("/UserMasterOrder", data);
+					that.getOwnerComponent().getModel("oProductModel").refresh();
+					
+
+				},
+				type: "GET"
+			});
 		}
+			
 	});
 
 });

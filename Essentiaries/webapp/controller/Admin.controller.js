@@ -83,7 +83,8 @@ sap.ui.define([
 			this.GETMethod_PROD();
 			this.GETMethod_BRAND();
 			this.GETMethod_PROMO();
-				this.GETMethod_UNIT();
+			this.GETMethod_UNIT();
+				this.GETMasterOrder();
 
 			var oModel = new JSONModel("model/products.json");
 			this.getView().setModel(oModel, "oTableModel");
@@ -154,6 +155,30 @@ sap.ui.define([
 			oVizFrame.addFeed(feedCategoryAxis);
 			// this.byId("BrandTab").setText("Brands " + String.fromCharCode(38) + " Category");
 
+		},
+		GETMasterOrder: function () {
+			var that = this;
+			var sUrl = "/AdminModule/order/";
+			$.ajax({
+				url: sUrl,
+				data: null,
+				async: true,
+				dataType: "json",
+				contentType: "application/json; charset=utf-8",
+				headers: {
+					"x-CSRF-Token": "fetch"
+				},
+				error: function (err) {
+					MessageToast.show("Failed");
+				},
+				success: function (data, status, xhr) {
+					that.order = data.length;
+					that.getOwnerComponent().getModel("oProductModel").setProperty("/MasterOrder", data);
+					that.getOwnerComponent().getModel("oProductModel").refresh();
+					console.log(data);
+				},
+				type: "GET"
+			});
 		},
 		getRouter: function () {
 			return UIComponent.getRouterFor(this);

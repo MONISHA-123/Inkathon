@@ -103,7 +103,7 @@
 					<IconTabSeparator/>
 					<IconTabFilter icon="sap-icon://order-status" text="Orders" key="Orders">
 						<VBox>
-							<Table id="idOrderTable1" inset="false" alternateRowColors="true" items="">
+							<Table id="idOrderTable1" inset="false" alternateRowColors="true" items="{oProductModel>/MasterOrder}">
 								<headerToolbar>
 									<OverflowToolbar>
 										<content>
@@ -152,12 +152,12 @@
 								<items>
 									<ColumnListItem type="Navigation" press="onPress">
 										<cells>
-											<Text/>
-											<!--<Text/>-->
-											<Text/>
-											<Text/>
-											<Text/>
-											<Input editable="false"/>
+												<Text text="{oProductModel>orderid}"/>
+													<Text text="{oProductModel>datetime}" />
+													<Text text="{oProductModel>houseno} {oProductModel>street} {oProductModel>city} {oProductModel>state} {oProductModel>pincode}"/>
+													<Text text="{oProductModel>amount}"/>
+													<Input value="{oProductModel>status}" editable="false"/>
+										
 											<HBox>
 												<Button icon="sap-icon://edit" class="sapUiSmallMargin adminbtn" id="rowEditId1" press="for_edit_status"></Button>
 												<Button text="save" class="sapUiSmallMargin adminbtn" visible="false" press="fnSave"></Button>
