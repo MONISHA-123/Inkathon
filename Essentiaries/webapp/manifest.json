@@ -65,9 +65,11 @@
 			}
 		},
 		"resources": {
-			"css": [{
-				"uri": "css/style.css"
-			}]
+			"css": [
+				{
+					"uri": "css/style.css"
+				}
+			]
 		},
 		"routing": {
 			"config": {
@@ -79,59 +81,96 @@
 				"controlId": "essentiaries",
 				"clearControlAggregation": false
 			},
-			"routes": [{
-				"name": "App",
-				"pattern": "App",
-				"target": ["Home"]
-			}, {
-				"name": "Home",
-				"pattern": "",
-				"titleTarget": "",
-				"greedy": false,
-				"target": ["Home"]
-			}, {
-				"name": "Admin",
-				"pattern": "Admin",
-				"titleTarget": "",
-				"greedy": false,
-				"target": ["Admin"]
-			}, {
-				"name": "Order",
-				"pattern": "Order",
-				"titleTarget": "",
-				"greedy": false,
-				"target": ["Order"]
-			}, {
-				"name": "Product",
-				"pattern": "Product/{CategoryId}",
-				"titleTarget": "",
-				"greedy": false,
-				"target": ["Product"]
-			}, {
-				"name": "productDetails",
-				"pattern": "productDetails/{ProductId}",
-				"titleTarget": "",
-				"greedy": false,
-				"target": ["productDetails"]
-			}, {
-				"name": "userDashBoard",
-				"pattern": "userDashBoard",
-				"titleTarget": "",
-				"greedy": false,
-				"target": ["userDashBoard"]
-			}, {
-				"name": "Invoice",
-				"pattern": "Invoice/{Orderid}",
-				"titleTarget": "",
-				"greedy": false,
-				"target": ["Invoice"]
-			}, {
-				"name": "AdminOrderDetail",
-				"pattern": "AdminOrderDetail/{Orderid}",
-				"titleTarget": "",
-				"greedy": false,
-				"target": ["AdminOrderDetail"]
-			}],
+			"routes": [
+				{
+					"name": "App",
+					"pattern": "App",
+					"target": [
+						"Home"
+					]
+				},
+				{
+					"name": "Home",
+					"pattern": "",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"Home"
+					]
+				},
+				{
+					"name": "Admin",
+					"pattern": "Admin",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"Admin"
+					]
+				},
+				{
+					"name": "Order",
+					"pattern": "Order",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"Order"
+					]
+				},
+				{
+					"name": "Product",
+					"pattern": "Product/{CategoryId}",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"Product"
+					]
+				},
+				{
+					"name": "productDetails",
+					"pattern": "productDetails/{ProductId}",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"productDetails"
+					]
+				},
+				{
+					"name": "userDashBoard",
+					"pattern": "userDashBoard",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"userDashBoard"
+					]
+				},
+				{
+					"name": "Invoice",
+					"pattern": "Invoice/{Orderid}",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"Invoice"
+					]
+				},
+				{
+					"name": "AdminOrderDetail",
+					"pattern": "AdminOrderDetail/{Orderid}",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"AdminOrderDetail"
+					]
+				},
+					{
+					"name": "offers",
+					"pattern": "offers",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"offers"
+					]
+				}
+			],
 			"targets": {
 				"TargetApp": {
 					"viewType": "XML",
@@ -175,6 +214,10 @@
 				"AdminOrderDetail": {
 					"viewType": "XML",
 					"viewName": "AdminOrderDetail"
+				},
+				"offers": {
+					"viewType": "XML",
+					"viewName": "offers"
 				}
 			}
 		}

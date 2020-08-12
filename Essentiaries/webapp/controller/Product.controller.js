@@ -7,7 +7,6 @@ sap.ui.define([
 	"sap/m/MessageToast",
 	"sap/ui/core/BusyIndicator",
 	"sap/ui/core/Fragment",
-	"sap/ui/core/Fragment",
 	"sap/ui/model/Filter",
 	"sap/ui/model/Sorter",
 	"sap/ui/model/FilterOperator"
@@ -36,9 +35,41 @@ sap.ui.define([
 
 			this.GETMethod_CATEBYPROD();
 			this.GETMethod_BRAND();
-			/*	this.GETMethod_PROD();
-					this.GETMethod_CATE();
+				this.GETMethod_PROD();
+			/*		this.GETMethod_CATE();
 				this.GETMethod_BRAND();*/
+		},
+		GETMethod_PROD: function () {
+			var that = this;
+
+			var sUrl = "/AdminModule/api/product";
+			$.ajax({
+				url: sUrl,
+				data: null,
+				async: true,
+				dataType: "json",
+				contentType: "application/json; charset=utf-8",
+				headers: {
+					"x-CSRF-Token": "fetch"
+				},
+				error: function (err) {
+					MessageToast.show("Product Fetch Destination Failed");
+				},
+				success: function (data, status, xhr) {
+
+
+					that.prodCount = data.length;
+
+					that.getOwnerComponent().getModel("oProductModel").setProperty("/Product", data);
+					
+					console.log(data);
+
+				},
+				type: "GET"
+			}).always(function (data, status, xhr) {
+				that.token = xhr.getResponseHeader("x-CSRF-Token");
+				//console.log(that.token);
+			});
 		},
 		GETMethod_BRAND: function () {
 			var that = this;

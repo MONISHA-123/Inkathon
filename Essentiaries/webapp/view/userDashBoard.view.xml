@@ -70,7 +70,7 @@
 					</OverflowToolbar>
 					</u:ObjectPageSubSection>
 				</u:ObjectPageSection>
-				<u:ObjectPageSection id="Order" title="Order Information">
+				<u:ObjectPageSection id="Order" title="Past Orders">
 					<u:ObjectPageSubSection>
 						<u:blocks>
 							<Order:OrderDetail id="order"/>

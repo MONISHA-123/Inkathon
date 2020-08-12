@@ -1250,7 +1250,7 @@ sap.ui.define([
 			var that = this;
 			var sPath = oEvent.getSource().getBindingContext("oProductModel").getPath();
 			var id = this.getOwnerComponent().getModel("oProductModel").getProperty(sPath + "/orderid");
-			var surl = "/AdminModule/api/delete/order/" + id;
+			var surl = "/AdminModule/api/order/" + id;
 			MessageBox.confirm("Are you sure you want to delete Order Id " + id + "?", {
 				actions: [MessageBox.Action.YES, MessageBox.Action.NO],
 				emphasizedAction: MessageBox.Action.OK,

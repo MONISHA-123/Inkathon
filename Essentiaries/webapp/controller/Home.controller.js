@@ -46,7 +46,7 @@ sap.ui.define([
 			console.log(sName, sKey,pId);
 		this.getOwnerComponent().getModel("oProductModel").setProperty("/ProductSearch", pId);
 			this.getRouter().navTo("Product", {
-				CategoryId: sKey,
+				CategoryId: sKey
 			//	Productname: sName
 			});
 		
@@ -240,14 +240,16 @@ sap.ui.define([
 							this.getOwnerComponent().getModel("oProductModel").refresh();
 							this.onChangeOther(Path);
 
-					
-			 
-		
-			
-		
-		
-			
-			 //this.fnOnAddToCart();
+					 //this.fnOnAddToCart();
+		},
+		onPressPromotion :function(oEvent){
+			var sPath=oEvent.getSource().getBindingContext("oProductModel").getPath();
+			var refID=this.getOwnerComponent().getModel("oProductModel").getProperty(sPath +"/referenceid" );
+			//console.log(refID);
+			this.byId("homePage").scrollTo(0,1000);
+		},
+		OnPressOffers :function(){
+				this.getRouter().navTo("offers");
 		}
 	});
 

@@ -1164,70 +1164,95 @@ sap.ui.define([
 				}
 			});
 		},
-		fnPostMasterOrder: function (oData) {
-			var that = this;
-			var sUrl = "/AdminModule/api/order/";
-			$.ajax({
-				type: "POST",
-				url: sUrl,
-				data: JSON.stringify(oData),
-				dataType: "json",
-				"headers": {
-					"Content-Type": "application/json",
-					"x-CSRF-Token": that.token
-				},
+	
+    
+    fnPostMasterOrder: function (oData) {
+            var that = this;
+            var sUrl = "/AdminModule/api/order/";
+            $.ajax({
+                type: "POST",
+                url: sUrl,
+                data: JSON.stringify(oData),
+                dataType: "json",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "x-CSRF-Token": that.token
+                },
 
-				success: function (data) {
-					var oDataSlave = {
-						"orderid": data.orderid,
-						"productid": "",
-						"productname": "",
-						"quantity": "",
-						"amount": ""
-					};
-					var cart = that.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
-					for (var i = 0; i < cart.length; i++) {
-						oDataSlave.productid = cart[i].productid;
-						oDataSlave.productname = cart[i].productname;
-						oDataSlave.quantity = cart[i].quantity;
-						oDataSlave.amount = cart[i].amount;
-						that.fnPostSlaveOrder(oDataSlave);
-					}
-					MessageToast.show("Order Placed");
 
-				},
-				error: function (xhr, status) {
+                success: function (data) {
+                    that.GetUserMasterOrder();
+                    var oDataSlave = {
+                        "orderid": data.orderid,
+                        "productid": "",
+                        "productname": "",
+                        "quantity": "",
+                        "amount": ""
+                    };
+                    var cart = that.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
+                    for (var i = 0; i < cart.length; i++) {
+                        oDataSlave.productid = cart[i].productid;
+                        oDataSlave.productname = cart[i].productname;
+                        oDataSlave.quantity = cart[i].quantity;
+                        oDataSlave.amount = cart[i].amount;
+                        that.fnPostSlaveOrder(oDataSlave);
+                    }
+                    MessageToast.show("Order Placed");
+                    if (!that._oDialog) {
+                        that._oDialog = sap.ui.xmlfragment("AfterPlaceOrder", "com.ink.Essentiaries.fragments.AfterPlaceOrder", this);
+                    }
+                    that.getView().addDependent(that._oDialog);
+                    that._oDialog.open();
 
-				},
-				complete: function (xhr, status) {
 
-				}
-			});
-		},
-		fnPostSlaveOrder: function (oData) {
-			var that = this;
-			var sUrl = "/AdminModule/api/orderslave/";
-			$.ajax({
-				type: "POST",
-				url: sUrl,
-				data: JSON.stringify(oData),
-				dataType: "json",
-				"headers": {
-					"Content-Type": "application/json",
-					"x-CSRF-Token": that.token
-				},
-				success: function (data) {
-					console.log(data);
+                },
+                error: function (xhr, status) {
 
-				},
-				error: function (xhr, status) {
 
-				},
-				complete: function (xhr, status) {
+                },
+                complete: function (xhr, status) {
 
-				}
-			});
-		},
+
+                }
+            });
+        },
+
+   fnPostSlaveOrder: function (oData) {
+            var that = this;
+            var sUrl = "/AdminModule/api/orderslave/";
+            $.ajax({
+                type: "POST",
+                url: sUrl,
+                data: JSON.stringify(oData),
+                dataType: "json",
+                "headers": {
+                    "Content-Type": "application/json",
+                    "x-CSRF-Token": that.token
+                },
+                success: function (data) {
+                    var cart = that.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
+                    for(var i=0;i<cart.length;i++){
+                        that.fnOnDeleteCart(cart[i].cart_id);
+                    }
+
+
+                },
+                error: function (xhr, status) {
+
+
+                },
+                complete: function (xhr, status) {
+
+
+                }
+            });
+        },
+
+
+
+
+
+
 		GetUserMasterOrder: function () {
 			var userid = this.getOwnerComponent().getModel("oProductModel").getProperty("/LoginUser/userid");
 			var that = this;
@@ -1255,7 +1280,22 @@ sap.ui.define([
 				},
 				type: "GET"
 			});
-		}
+		},
+		fnToHome:function(){
+                this._oDialog.close();
+
+ 
+
+            this._oDialog.destroy();
+
+ 
+
+            this._oDialog = null;
+
+ 
+
+               // this.getRouter().navTo("Home");
+        }
 
 	});
 
