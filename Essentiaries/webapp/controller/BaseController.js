@@ -836,7 +836,7 @@ sap.ui.define([
 			}
 
 		},
-		fnCart: function (oEvent) {
+	/*	fnCart: function (oEvent) {
 			MessageToast.show("Product Added To Cart ");
 			oEvent.getSource().getParent().getItems()[0].setVisible(false);
 			oEvent.getSource().getParent().getItems()[1].setVisible(true);
@@ -852,7 +852,7 @@ sap.ui.define([
 			this.fnTotalCalc();
 
 			this.fnOnAddToCart();
-		},
+		},*/
 		onChange: function (oEvent) {
 			var iQuantity = oEvent.getParameters().value;
 			var Path = oEvent.getSource().getParent().getBindingContextPath();
@@ -1295,6 +1295,21 @@ sap.ui.define([
  
 
                // this.getRouter().navTo("Home");
+        },
+        fnProductUpdate:function(){
+        	var that=this;
+        	var cartData = that.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
+			var data = that.getOwnerComponent().getModel("oProductModel").getProperty("/Product");
+				
+					for (var i = 0; i < data.length; i++) {
+						for (var j = 0; j < cartData.length; j++) {
+							if (data[i].productid == cartData[j].productid) {
+								that.getOwnerComponent().getModel("oProductModel").setProperty("/Product" + i + "/quantity", cartData[j].quantity);
+								that.getOwnerComponent().getModel("oProductModel").refresh();
+
+							}
+						}
+					}
         }
 
 	});

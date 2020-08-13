@@ -166,7 +166,7 @@
 											<HBox>
 												<Button icon="sap-icon://edit" class="sapUiSmallMargin adminbtn" press="fnOrderEdit"></Button>
 												<Button text="save" class="sapUiSmallMargin adminbtn" visible="false" press="fnOrderEditSave"></Button>
-												<Button icon="sap-icon://delete" class="sapUiSmallMargin adminbtn" press="fnOrderDelete"></Button>
+												<!--<Button icon="sap-icon://delete" class="sapUiSmallMargin adminbtn" press="fnOrderDelete"></Button>-->
 											</HBox>
 										</cells>
 									</ColumnListItem>

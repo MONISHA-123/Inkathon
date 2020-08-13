@@ -48,9 +48,9 @@
 							<RatingIndicator id="RI_XS" maxValue="5" class="sapUiSmallMarginBottom" value="4" iconSize="12px" tooltip="Rating Tooltip"/>
 							<Text text="MRP : RS {oProductModel>price}"></Text>
 							<VBox>
-								<Button icon="sap-icon://cart" text="Add to Cart" press="fnCart" visible="{= ${oProductModel>quantity} >1 ? false : true}"
+								<Button icon="sap-icon://cart" text="Add to Cart" press="fnCart" visible="{= ${oProductModel>quantity} >=1 ? false : true}"
 									class="sapUiTinyMarginTop buttonBg"></Button>
-								<StepInput value="{oProductModel>quantity}" width="10%" min="1" visible="{= ${oProductModel>quantity} >1 ? true : false}" id="stepinput"
+								<StepInput value="{oProductModel>quantity}" width="10%" min="1" visible="{= ${oProductModel>quantity} >=1 ? true : false}" id="stepinput"
 									change="fnCart" class="sapUiTinyMarginTop"></StepInput>
 							</VBox>
 						</VBox>

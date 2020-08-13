@@ -316,7 +316,7 @@ sap.ui.define([
 
 			this.getOwnerComponent().getModel("oProductModel").refresh();
 			this.onChangeOther(Path);
-
+			this.fnProductUpdate();
 			//this.fnOnAddToCart();
 		}
 

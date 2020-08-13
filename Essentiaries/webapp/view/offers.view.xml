@@ -2,14 +2,13 @@
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:l="sap.ui.layout" xmlns:tnt="sap.tnt" xmlns:f="sap.f" xmlns:grid="sap.ui.layout.cssgrid">
 	<App id="essentiaries">
 		<ScrollContainer horizontal="false" vertical="true" height="100%">
-				
 			<Breadcrumbs currentLocationText="Offers" class="sapUiSmallMargin">
 				<Link press="fnToHome" text="Home"/>
 				<!--<Link press="onPress" text="Category"/>-->
 			</Breadcrumbs>
 			<f:Card>
 				<f:layoutData>
-					<grid:ResponsiveColumnItemLayoutData columns="1" rows="1" />
+					<grid:ResponsiveColumnItemLayoutData columns="1" rows="1"/>
 				</f:layoutData>
 				<f:content>
 					<VBox class="sapUiSmallMargin">
@@ -17,12 +16,10 @@
 					</VBox>
 				</f:content>
 			</f:Card>
-			<OverflowToolbar class="sapUiSmallMarginTop"  width="75%">
+			<OverflowToolbar class="sapUiSmallMarginTop" width="75%">
 				<Title text="Offers" level="H2" class="sapUiSmallMarginBottom"/>
-			
 			</OverflowToolbar>
-		
-			<f:GridList id="gridList"  items="{oProductModel>/offers}" >
+			<f:GridList  items="{oProductModel>/offers}">
 				<f:customLayout>
 					<grid:ResponsiveColumnLayout columns="8" rows="8"/>
 				</f:customLayout>
@@ -38,52 +35,51 @@
 							<Title text="{oProductModel>productname}" level="H3" class="sapUiTinyMarginTop"></Title>
 							<!--<Text text="{oProductModel>brandname}" class="sapUiTinyMarginTop" ></Text>-->
 							<Text text="{oProductModel>size}{oProductModel>unitshort}" class="sapUiTinyMarginTop"></Text>
-							<RatingIndicator id="RI_XS" maxValue="5" class="sapUiSmallMarginBottom" value="4" iconSize="12px" tooltip="Rating Tooltip"/>
+							<RatingIndicator  maxValue="5" class="sapUiSmallMarginBottom" value="4" iconSize="12px" tooltip="Rating Tooltip"/>
 							<Text text="MRP : RS {oProductModel>price}"></Text>
 							<VBox>
 								<Button icon="sap-icon://cart" text="Add to Cart" press="fnCart" visible="{= ${oProductModel>quantity} >1 ? false : true}"
 									class="sapUiTinyMarginTop buttonBg"></Button>
-								<StepInput value="{oProductModel>quantity}" width="10%" min="1" visible="{= ${oProductModel>quantity} >1 ? true : false}" id="stepinput"
+								<StepInput value="{oProductModel>quantity}" width="10%" min="1" visible="{= ${oProductModel>quantity} >1 ? true : false}"
 									change="fnCart" class="sapUiTinyMarginTop"></StepInput>
 							</VBox>
 						</VBox>
 					</VBox>
 				</f:GridListItem>
-				
 			</f:GridList>
-				<VBox>
-						
-						<Title class="sapUiSmallMarginBegin sapUiSmallMarginTop" text="Recently Viewed" level="H3"/>
-						<HeaderContainer scrollStep="500" id="containerProduct" scrollStepByItem="1" showDividers="false" showOverflowItem="true"
-							content="{oProductModel>/Product}" class="sapUiSmallMargin">
-							<FlexBox alignItems="Center" justifyContent="Center">
-								<l:Grid defaultSpan="XL2 L2 M3 S6" class="grid">
-									<l:content >
-										<HBox >
+			<VBox>
+				<Title class="sapUiSmallMarginBegin sapUiSmallMarginTop" text="Recently Viewed" level="H3"/>
+				<HeaderContainer scrollStep="500" id="containerProduct" scrollStepByItem="1" showDividers="false" showOverflowItem="true"
+					content="{oProductModel>/Product}" class="sapUiSmallMargin">
+					<FlexBox alignItems="Center" justifyContent="Center">
+						<l:Grid defaultSpan="XL2 L2 M3 S6" class="grid">
+							<l:content >
+								<HBox >
+									<VBox>
+										<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" press="press" backgroundImage="{oProductModel>image}"></GenericTile>
+										<VBox class="sapUiTinyMarginBegin tilecolor" alignItems="Center">
+											<Title text="{oProductModel>productname}" level="H3" class="sapUiTinyMarginTop"></Title>
+											<!--<Text text="{oProductModel>brandname}" class="sapUiTinyMarginTop" ></Text>-->
+											<Text text="{oProductModel>size}{oProductModel>unitshort}" class="sapUiTinyMarginTop"></Text>
+											<RatingIndicator id="RI_XS1" maxValue="5" class="sapUiSmallMarginBottom" value="4" iconSize="12px" tooltip="Rating Tooltip"/>
+											<HBox><Text text="MRP:"/><Text
+												text="{ parts: [ {path: 'oEmptyModel>/Currency/currency'} ], type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true } }"/>
+												<Text text="{oProductModel>price}"></Text>
+											</HBox>
 											<VBox>
-												<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" press="press" backgroundImage="{oProductModel>image}"></GenericTile>
-												<VBox class="sapUiTinyMarginBegin tilecolor" alignItems="Center">
-													<Title text="{oProductModel>productname}" level="H3" class="sapUiTinyMarginTop"></Title>
-													<!--<Text text="{oProductModel>brandname}" class="sapUiTinyMarginTop" ></Text>-->
-													<Text text="{oProductModel>size}{oProductModel>unitshort}" class="sapUiTinyMarginTop"></Text>
-													<RatingIndicator id="RI_XS1" maxValue="5" class="sapUiSmallMarginBottom" value="4" iconSize="12px" tooltip="Rating Tooltip"/>
-													
-													<HBox><Text text="MRP:" /><Text text="{ parts: [ {path: 'oEmptyModel>/Currency/currency'} ], type: 'sap.ui.model.type.Currency', formatOptions: { showMeasure: true } }"/>
-                                                    <Text text="{oProductModel>price}"></Text></HBox>
-													<VBox>
-													<Button icon="sap-icon://cart" text="Add to Cart" press="fnCart" class="sapUiTinyMarginTop buttonBg"></Button>
-													<StepInput value="{oProductModel>quantity}"  width="10%" min="1" visible="false"  change="fnCart" id="stepinput1" class="sapUiTinyMarginTop stepMargin" ></StepInput>
-													</VBox>
-													
-												</VBox>
+												<Button icon="sap-icon://cart" text="Add to Cart" press="fnCart" visible="{= ${oProductModel>quantity} >=1 ? false : true}"
+													class="sapUiTinyMarginTop buttonBg"></Button>
+												<StepInput value="{oProductModel>quantity}" width="10%" min="1" visible="{= ${oProductModel>quantity} >=1 ? true : false}" 
+													change="fnCart" class="sapUiTinyMarginTop"></StepInput>
 											</VBox>
-										</HBox>
-									</l:content>
-								</l:Grid>
-							</FlexBox>
-						</HeaderContainer>
-					</VBox>
-				
+										</VBox>
+									</VBox>
+								</HBox>
+							</l:content>
+						</l:Grid>
+					</FlexBox>
+				</HeaderContainer>
+			</VBox>
 			<core:Fragment fragmentName="com.ink.Essentiaries.fragments.footer" type="XML"></core:Fragment>
 		</ScrollContainer>
 	</App>
