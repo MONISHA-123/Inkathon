@@ -161,13 +161,22 @@
 						"AdminOrderDetail"
 					]
 				},
-					{
+				{
 					"name": "offers",
 					"pattern": "offers",
 					"titleTarget": "",
 					"greedy": false,
 					"target": [
 						"offers"
+					]
+				},
+				{
+					"name": "productDescription",
+					"pattern": "productDescription/{ProductId}",
+					"titleTarget": "",
+					"greedy": false,
+					"target": [
+						"productDescription"
 					]
 				}
 			],
@@ -218,6 +227,10 @@
 				"offers": {
 					"viewType": "XML",
 					"viewName": "offers"
+				},
+				"productDescription": {
+					"viewType": "XML",
+					"viewName": "productDescription"
 				}
 			}
 		}

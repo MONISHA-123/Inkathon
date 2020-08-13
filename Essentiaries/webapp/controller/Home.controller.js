@@ -39,6 +39,14 @@ sap.ui.define([
 				CategoryId: id
 			});
 		},
+		onPressProduct :function(oEvent){
+			var sPath = oEvent.getSource().getBindingContext("oProductModel").getPath();
+			var pId=this.getOwnerComponent().getModel("oProductModel").getProperty(sPath + "/productid");
+			this.getRouter().navTo("productDescription", {
+				ProductId: pId
+				
+			});
+		},
 		onSearch: function (oEvent) {
 
 			var sKey = oEvent.getSource().getSelectedKey();
@@ -46,12 +54,13 @@ sap.ui.define([
 			var pId = oEvent.getSource().getSuggestionItemByKey(sKey).getDescription();
 			console.log(sName, sKey, pId);
 			this.getOwnerComponent().getModel("oProductModel").setProperty("/ProductSearch", pId);
-			this.getRouter().navTo("Product", {
-				CategoryId: sKey
+			this.getRouter().navTo("productDescription", {
+				ProductId: pId
 					//	Productname: sName
 			});
 
 		},
+	
 		onSuggest: function (oEvent) {
 			var sTerm = oEvent.getParameter("suggestValue");
 			var aFilters = [];
