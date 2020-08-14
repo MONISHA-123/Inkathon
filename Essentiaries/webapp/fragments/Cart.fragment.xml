@@ -52,7 +52,7 @@
 				<Button
 					
 					text="Proceed to cart"
-					press="fnToOrderPage" />
+					press="fnToOrderPage" id="ProceedToCart"/>
 			</OverflowToolbar>
 		</footer>
 	</Popover>

@@ -318,14 +318,6 @@ sap.ui.define([
 			this.onChangeOther(Path);
 			this.fnProductUpdate();
 			//this.fnOnAddToCart();
-		},
-		onPressProduct :function(oEvent){
-			var sPath = oEvent.getSource().getBindingContext("oProductModel").getPath();
-			var pId=this.getOwnerComponent().getModel("oProductModel").getProperty(sPath + "/productid");
-			this.getRouter().navTo("productDescription", {
-				ProductId: pId
-				
-			});
 		}
 
 	});

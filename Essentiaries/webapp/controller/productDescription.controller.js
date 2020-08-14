@@ -159,6 +159,21 @@ sap.ui.define([
 			this.onChangeOther();
 
 			//this.fnOnAddToCart();
+		},
+		 fnCateFooter:function(oEvent){
+        		var sPath = oEvent.getSource().getSelectedItem().getBindingContext("oProductModel").sPath;
+			var id = this.getOwnerComponent().getModel("oProductModel").getProperty(sPath + "/categoryid");
+			this.getRouter().navTo("Product", {
+				CategoryId: id
+			});
+        },
+        	onPressProduct :function(oEvent){
+			var sPath = oEvent.getSource().getBindingContext("oProductModel").getPath();
+			var pId=this.getOwnerComponent().getModel("oProductModel").getProperty(sPath + "/productid");
+			this.getRouter().navTo("productDescription", {
+				ProductId: pId
+				
+			});
 		}
 	});
 

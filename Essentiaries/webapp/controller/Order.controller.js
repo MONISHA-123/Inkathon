@@ -80,7 +80,7 @@ sap.ui.define([
 		},
 		fnSelectedAddress: function () {
 			var oAddress = this.getOwnerComponent().getModel("oProductModel").getProperty("/Placeorder/Address");
-			if (oAddress === "") {
+			if (oAddress == undefined) {
 				this._wizard.invalidateStep(this.byId("Address"));
 			} else {
 				this._wizard.validateStep(this.byId("Address"));
@@ -161,36 +161,33 @@ sap.ui.define([
 				this.id = this.getOwnerComponent().getModel("oProductModel").getProperty("/LoginUser/userid");
 				var Presentcart = this.presentItems;
 				var cart = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
-				
 
 				for (var i = 0; i < Presentcart.length; i++) {
 					for (var j = 0; j < cart.length; j++) {
-					var id = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart/" + j + "/productid");
-					if(Presentcart[i].productid==id)
-					break;
-					else continue;
-				}
-				if(j==cart.length){
-					oData.amount = Presentcart[i].amount;
-					oData.productname = Presentcart[i].productname;
-					oData.productid = Presentcart[i].productid;
-					oData.quantity = Presentcart[i].quantity;
-					oData.image = Presentcart[i].image;
-					oData.price = Presentcart[i].price;
-					oData.size = Presentcart[i].size;
-					oData.offerpercentage = Presentcart[i].offerpercentage;
-					// userCart.push(oData);
-					this.fnPostCart(oData);
-				}
-				else
-				{
-					// update cart
-					var iQuantity=Presentcart[i].quantity;
-				this.getOwnerComponent().getModel("oProductModel").setProperty("/Cart/" + j+"/quantity",iQuantity);
-				var oData=	this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart/" + j);
-				console.log(oData);
-				 this.fnUpdateCart(oData);
-				}
+						var id = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart/" + j + "/productid");
+						if (Presentcart[i].productid == id)
+							break;
+						else continue;
+					}
+					if (j == cart.length) {
+						oData.amount = Presentcart[i].amount;
+						oData.productname = Presentcart[i].productname;
+						oData.productid = Presentcart[i].productid;
+						oData.quantity = Presentcart[i].quantity;
+						oData.image = Presentcart[i].image;
+						oData.price = Presentcart[i].price;
+						oData.size = Presentcart[i].size;
+						oData.offerpercentage = Presentcart[i].offerpercentage;
+						// userCart.push(oData);
+						this.fnPostCart(oData);
+					} else {
+						// update cart
+						var iQuantity = Presentcart[i].quantity;
+						this.getOwnerComponent().getModel("oProductModel").setProperty("/Cart/" + j + "/quantity", iQuantity);
+						var oData = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart/" + j);
+						console.log(oData);
+						this.fnUpdateCart(oData);
+					}
 				}
 
 			}
@@ -204,6 +201,8 @@ sap.ui.define([
 			var modeofpayment = this.getOwnerComponent().getModel("oProductModel").getProperty("/OrderDetails/modeofpayment");
 			if (firstname == "" || lastname == "" || phoneno == "") {
 				MessageToast.show("Fill all the required fields");
+			} else if ((this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart")).length < 1) {
+				MessageToast.show("Cart is Empty");
 			} else {
 
 				this.getOwnerComponent().getModel("oProductModel").setProperty("/OrderDetails", {
@@ -247,6 +246,15 @@ sap.ui.define([
 				this.fnPostMasterOrder(oOrder.getProperty("/OrderDetails"));
 			}
 
+		},
+		fnHome: function () {
+			this._oDialog.close();
+
+			this._oDialog.destroy();
+
+			this._oDialog = null;
+
+			this.getRouter().navTo("Home");
 		}
 
 	});

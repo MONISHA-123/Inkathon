@@ -36,7 +36,7 @@ sap.ui.define([
 			this.oButton = oEvent.getSource();
 			// console.log(this.oButton);
 			if (!this._oPopover) {
-				
+
 				Fragment.load({
 
 					name: "com.ink.Essentiaries.fragments.Cart",
@@ -56,23 +56,22 @@ sap.ui.define([
 			} else {
 
 				this._oPopover.openBy(this.oButton);
-				
+
 				console.log(this.oButton);
 			}
-			var cartLength=this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart").length;
-			if(cartLength)
-			{
-				Fragment.byId("cartFragment","cartTable").setVisible(true);
-					Fragment.byId("cartFragment","cartPopOver").addStyleClass("cartTransparent");
-						Fragment.byId("cartFragment","cartPopOver").removeStyleClass("cartimage");
-		
-			}
-			else
-			{
-				Fragment.byId("cartFragment","cartTable").setVisible(false);
-					Fragment.byId("cartFragment","cartPopOver").addStyleClass("cartimage");
-					Fragment.byId("cartFragment","cartPopOver").removeStyleClass("cartTransparent");
-		
+			var cartLength = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart").length;
+			if (cartLength) {
+				Fragment.byId("cartFragment", "cartTable").setVisible(true);
+				Fragment.byId("cartFragment", "cartPopOver").addStyleClass("cartTransparent");
+				Fragment.byId("cartFragment", "cartPopOver").removeStyleClass("cartimage");
+				Fragment.byId("cartFragment", "ProceedToCart").setEnabled(true);
+
+			} else {
+				Fragment.byId("cartFragment", "cartTable").setVisible(false);
+				Fragment.byId("cartFragment", "cartPopOver").addStyleClass("cartimage");
+				Fragment.byId("cartFragment", "cartPopOver").removeStyleClass("cartTransparent");
+				Fragment.byId("cartFragment", "ProceedToCart").setEnabled(false);
+
 			}
 		},
 		fnPopCloseButton: function (oEvent) {
@@ -254,7 +253,6 @@ sap.ui.define([
 				success: function (data) {
 					console.log(data);
 					that.Refotp = data;
-					MessageToast.show("Welcome");
 
 				},
 				error: function (xhr, status) {
@@ -285,16 +283,57 @@ sap.ui.define([
 			this._oDialog.open();
 		},
 		fnOTPLogin: function () {
-			var temp;
+			var temp = "";
+			var that = this;
 			this.Guestotp = this.getView().getModel("oEmptyModel").getProperty("/GuestLogin/otp");
-			for (var i = 0; i <= 8; i = i + 2) {
+			for (var i = 0; i <= 10; i = i + 2) {
 				temp += this.Guestotp[i];
 			}
 			if (this.Guestotp) {
-				if (this.RefOTP === parseInt(temp, 10)) {
-					this._oDialog.close();
-					this._oDialog.destroy();
-					this._oDialog = null;
+				if (this.Refotp === parseInt(temp, 10)) {
+					var phoneno = this.getView().getModel("oEmptyModel").getProperty("/GuestLogin/phoneno");
+					var sUrl = "/AdminModule/saveguest";
+					var oData = {
+						"email": "",
+						"fname": "",
+						"lname": "",
+						"phoneno": phoneno,
+						"password": "",
+						"role": "user"
+					};
+					$.ajax({
+						type: "POST",
+						url: sUrl,
+						data: JSON.stringify(oData),
+						dataType: "json",
+						"headers": {
+							"Content-Type": "application/json",
+							"x-CSRF-Token": that.token
+						},
+
+						success: function (data) {
+							console.log(data);
+							data.fname = "Guest";
+							data.lname = "User";
+							var sInitial = (data.fname).charAt(0) + (data.lname).charAt(0);
+							that.getOwnerComponent().getModel("oProductModel").setProperty("/LoginUser", data);
+							that.getView().byId("accountMenu").setInitials(sInitial);
+							that.getView().byId("accountMenu").setVisible(true);
+							that.getView().byId("signIn").setVisible(false);
+							MessageToast.show("Welcome");
+							that._oDialog.close();
+							that._oDialog.destroy();
+							that._oDialog = null;
+
+						},
+						error: function (xhr, status) {
+
+						},
+						complete: function (xhr, status) {
+
+						}
+					});
+
 				} else {
 					MessageToast.show("Incorrect OTP");
 				}
@@ -850,23 +889,23 @@ sap.ui.define([
 			}
 
 		},
-	/*	fnCart: function (oEvent) {
-			MessageToast.show("Product Added To Cart ");
-			oEvent.getSource().getParent().getItems()[0].setVisible(false);
-			oEvent.getSource().getParent().getItems()[1].setVisible(true);
-			var Path = oEvent.getSource().getBindingContext("oProductModel").sPath;
-			var oData = this.getOwnerComponent().getModel("oProductModel").getProperty(Path);
-			this.getOwnerComponent().getModel("oProductModel").setProperty(Path + "/quantity", 1);
-			this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart").unshift(oData);
-			var price = this.getOwnerComponent().getModel("oProductModel").getProperty(Path + "/price");
-			this.getOwnerComponent().getModel("oProductModel").setProperty(Path + "/amount", price);
-			console.log(this.getOwnerComponent().getModel("oProductModel").getProperty(Path));
+		/*	fnCart: function (oEvent) {
+				MessageToast.show("Product Added To Cart ");
+				oEvent.getSource().getParent().getItems()[0].setVisible(false);
+				oEvent.getSource().getParent().getItems()[1].setVisible(true);
+				var Path = oEvent.getSource().getBindingContext("oProductModel").sPath;
+				var oData = this.getOwnerComponent().getModel("oProductModel").getProperty(Path);
+				this.getOwnerComponent().getModel("oProductModel").setProperty(Path + "/quantity", 1);
+				this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart").unshift(oData);
+				var price = this.getOwnerComponent().getModel("oProductModel").getProperty(Path + "/price");
+				this.getOwnerComponent().getModel("oProductModel").setProperty(Path + "/amount", price);
+				console.log(this.getOwnerComponent().getModel("oProductModel").getProperty(Path));
 
-			this.getOwnerComponent().getModel("oProductModel").refresh();
-			this.fnTotalCalc();
+				this.getOwnerComponent().getModel("oProductModel").refresh();
+				this.fnTotalCalc();
 
-			this.fnOnAddToCart();
-		},*/
+				this.fnOnAddToCart();
+			},*/
 		onChange: function (oEvent) {
 			var iQuantity = oEvent.getParameters().value;
 			var Path = oEvent.getSource().getParent().getBindingContextPath();
@@ -895,7 +934,7 @@ sap.ui.define([
 			this.fnTotalCalc();
 
 		},
-		
+
 		fnTotalCalc: function () {
 			var total = 0;
 			var oEmptyModel = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
@@ -1179,94 +1218,81 @@ sap.ui.define([
 				}
 			});
 		},
-	
-    
-    fnPostMasterOrder: function (oData) {
-            var that = this;
-            var sUrl = "/AdminModule/api/order/";
-            $.ajax({
-                type: "POST",
-                url: sUrl,
-                data: JSON.stringify(oData),
-                dataType: "json",
-                "headers": {
-                    "Content-Type": "application/json",
-                    "x-CSRF-Token": that.token
-                },
 
+		fnPostMasterOrder: function (oData) {
+			var that = this;
+			var sUrl = "/AdminModule/api/order/";
+			$.ajax({
+				type: "POST",
+				url: sUrl,
+				data: JSON.stringify(oData),
+				dataType: "json",
+				"headers": {
+					"Content-Type": "application/json",
+					"x-CSRF-Token": that.token
+				},
 
-                success: function (data) {
-                    that.GetUserMasterOrder();
-                    var oDataSlave = {
-                        "orderid": data.orderid,
-                        "productid": "",
-                        "productname": "",
-                        "quantity": "",
-                        "amount": ""
-                    };
-                    var cart = that.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
-                    for (var i = 0; i < cart.length; i++) {
-                        oDataSlave.productid = cart[i].productid;
-                        oDataSlave.productname = cart[i].productname;
-                        oDataSlave.quantity = cart[i].quantity;
-                        oDataSlave.amount = cart[i].amount;
-                        that.fnPostSlaveOrder(oDataSlave);
-                    }
-                    MessageToast.show("Order Placed");
-                    if (!that._oDialog) {
-                        that._oDialog = sap.ui.xmlfragment("AfterPlaceOrder", "com.ink.Essentiaries.fragments.AfterPlaceOrder", this);
-                    }
-                    that.getView().addDependent(that._oDialog);
-                    that._oDialog.open();
+				success: function (data) {
+					that.GetUserMasterOrder();
+					var oDataSlave = {
+						"orderid": data.orderid,
+						"productid": "",
+						"productname": "",
+						"quantity": "",
+						"amount": ""
+					};
+					var cart = that.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
+					for (var i = 0; i < cart.length; i++) {
+						oDataSlave.productid = cart[i].productid;
+						oDataSlave.productname = cart[i].productname;
+						oDataSlave.quantity = cart[i].quantity;
+						oDataSlave.amount = cart[i].amount;
+						that.fnPostSlaveOrder(oDataSlave);
+					}
+					MessageToast.show("Order Placed");
+					if (!that._oDialog) {
+						that._oDialog = sap.ui.xmlfragment("AfterPlaceOrder", "com.ink.Essentiaries.fragments.AfterPlaceOrder", that);
+					}
+					that.getView().addDependent(that._oDialog);
+					that._oDialog.open();
 
+				},
+				error: function (xhr, status) {
 
-                },
-                error: function (xhr, status) {
+				},
+				complete: function (xhr, status) {
 
+				}
+			});
+		},
 
-                },
-                complete: function (xhr, status) {
+		fnPostSlaveOrder: function (oData) {
+			var that = this;
+			var sUrl = "/AdminModule/api/orderslave/";
+			$.ajax({
+				type: "POST",
+				url: sUrl,
+				data: JSON.stringify(oData),
+				dataType: "json",
+				"headers": {
+					"Content-Type": "application/json",
+					"x-CSRF-Token": that.token
+				},
+				success: function (data) {
+					var cart = that.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
+					for (var i = 0; i < cart.length; i++) {
+						that.fnOnDeleteCart(cart[i].cart_id);
+					}
 
+				},
+				error: function (xhr, status) {
 
-                }
-            });
-        },
+				},
+				complete: function (xhr, status) {
 
-   fnPostSlaveOrder: function (oData) {
-            var that = this;
-            var sUrl = "/AdminModule/api/orderslave/";
-            $.ajax({
-                type: "POST",
-                url: sUrl,
-                data: JSON.stringify(oData),
-                dataType: "json",
-                "headers": {
-                    "Content-Type": "application/json",
-                    "x-CSRF-Token": that.token
-                },
-                success: function (data) {
-                    var cart = that.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
-                    for(var i=0;i<cart.length;i++){
-                        that.fnOnDeleteCart(cart[i].cart_id);
-                    }
-
-
-                },
-                error: function (xhr, status) {
-
-
-                },
-                complete: function (xhr, status) {
-
-
-                }
-            });
-        },
-
-
-
-
-
+				}
+			});
+		},
 
 		GetUserMasterOrder: function () {
 			var userid = this.getOwnerComponent().getModel("oProductModel").getProperty("/LoginUser/userid");
@@ -1296,37 +1322,43 @@ sap.ui.define([
 				type: "GET"
 			});
 		},
-		fnToHome:function(){
-                this._oDialog.close();
 
- 
-
-            this._oDialog.destroy();
-
- 
-
-            this._oDialog = null;
-
- 
-
-               // this.getRouter().navTo("Home");
-        },
-        fnProductUpdate:function(){
-        	var that=this;
-        	var cartData = that.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
+		fnProductUpdate: function () {
+			var that = this;
+			var cartData = that.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
 			var data = that.getOwnerComponent().getModel("oProductModel").getProperty("/Product");
-				
-					for (var i = 0; i < data.length; i++) {
-						for (var j = 0; j < cartData.length; j++) {
-							if (data[i].productid == cartData[j].productid) {
-								that.getOwnerComponent().getModel("oProductModel").setProperty("/Product" + i + "/quantity", cartData[j].quantity);
-								that.getOwnerComponent().getModel("oProductModel").refresh();
 
-							}
-						}
+			for (var i = 0; i < data.length; i++) {
+				for (var j = 0; j < cartData.length; j++) {
+					if (data[i].productid == cartData[j].productid) {
+						that.getOwnerComponent().getModel("oProductModel").setProperty("/Product" + i + "/quantity", cartData[j].quantity);
+						that.getOwnerComponent().getModel("oProductModel").refresh();
+
 					}
-        }
+				}
+			}
+		},
+		fnCateFooter: function (oEvent) {
+			var sPath = oEvent.getSource().getSelectedItem().getBindingContext("oProductModel").sPath;
+			var id = this.getOwnerComponent().getModel("oProductModel").getProperty(sPath + "/categoryid");
+			this.getRouter().navTo("Product", {
+				CategoryId: id
+			});
+		},
+		onPressProduct: function (oEvent) {
+			var sPath = oEvent.getSource().getBindingContext("oProductModel").getPath();
+			var pId = this.getOwnerComponent().getModel("oProductModel").getProperty(sPath + "/productid");
+			this.getRouter().navTo("productDescription", {
+				ProductId: pId
 
+			});
+		},
+		fnToAbout: function (oEvent) {
+			var Selectedkey = oEvent.getSource().getSelectedItem().getKey();
+			this.getRouter().navTo("About", {
+				KEY:Selectedkey 
+			});
+		}
 	});
 
 });

@@ -39,14 +39,7 @@ sap.ui.define([
 				CategoryId: id
 			});
 		},
-		onPressProduct :function(oEvent){
-			var sPath = oEvent.getSource().getBindingContext("oProductModel").getPath();
-			var pId=this.getOwnerComponent().getModel("oProductModel").getProperty(sPath + "/productid");
-			this.getRouter().navTo("productDescription", {
-				ProductId: pId
-				
-			});
-		},
+	
 		onSearch: function (oEvent) {
 
 			var sKey = oEvent.getSource().getSelectedKey();

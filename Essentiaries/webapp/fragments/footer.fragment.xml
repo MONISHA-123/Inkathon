@@ -4,18 +4,18 @@
 							<l:BlockLayoutRow>
 								<l:BlockLayoutCell >
 									<Title text="Category"/>
-									<SelectList items="{oProductModel>/Category}">
+									<SelectList items="{oProductModel>/Category}" selectionChange="fnCateFooter">
 										<core:Item key="{oProductModel>categoryname}" text="{oProductModel>categoryname}"/>
 									</SelectList>
 								</l:BlockLayoutCell>
 								<l:BlockLayoutCell>
 									<Title text="Essentiaries"/>
-									<SelectList>
-										<core:Item key="About us" text="About us"/>
-										<core:Item key="FAQ" text="FAQ"/>
-										<core:Item key="Privacy Policy" text="Privacy Policy"/>
+									<SelectList  selectionChange="fnToAbout">
+										<core:Item key="About us" text="About us"  />
+										<core:Item key="FAQ" text="FAQ" />
+										<core:Item key="Privacy Policy" text="Privacy Policy" />
 											<core:Item key="Careers" text="Careers" />
-										<core:Item key="Terms and Conditions" text="Terms and Conditions"/>
+										<core:Item key="Terms and Conditions" text="Terms and Conditions" />
 									</SelectList>
 								</l:BlockLayoutCell>
 								<l:BlockLayoutCell>

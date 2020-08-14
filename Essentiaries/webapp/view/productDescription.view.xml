@@ -61,7 +61,7 @@
 							<l:content >
 								<HBox >
 									<VBox>
-										<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" press="press" backgroundImage="{oProductModel>image}"></GenericTile>
+										<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" press="onPressProduct" backgroundImage="{oProductModel>image}"></GenericTile>
 										<VBox class="sapUiTinyMarginBegin tilecolor" alignItems="Center">
 											<Title text="{oProductModel>productname}" level="H3" class="sapUiTinyMarginTop"></Title>
 											<!--<Text text="{oProductModel>brandname}" class="sapUiTinyMarginTop" ></Text>-->
