@@ -881,6 +881,7 @@ sap.ui.define([
 			this.fnTotalCalc();
 
 		},
+		
 		fnTotalCalc: function () {
 			var total = 0;
 			var oEmptyModel = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");

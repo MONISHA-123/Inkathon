@@ -40,7 +40,7 @@
 					<VBox height="100%" alignItems="Center">
 						<layoutData>
 							<FlexItemData maxWidth="65%" growFactor="1" shrinkFactor="0"/><!-- Don't shrink below minimum size. Fill space if available. --></layoutData>
-						<GenericTile class=" tileLayout" press="press" backgroundImage="{oProductModel>image}"></GenericTile>
+						<GenericTile class=" tileLayout" press="onPressProduct" backgroundImage="{oProductModel>image}"></GenericTile>
 						<VBox alignItems="Center" class="grid">
 							<Title text="{oProductModel>productname}" level="H3" class="sapUiTinyMarginTop"></Title>
 							<!--<Text text="{oProductModel>brandname}" class="sapUiTinyMarginTop" ></Text>-->

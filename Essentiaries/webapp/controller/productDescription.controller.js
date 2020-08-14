@@ -99,6 +99,66 @@ sap.ui.define([
 				that.token = xhr.getResponseHeader("x-CSRF-Token");
 				//console.log(that.token);
 			});
+		},
+		onChangeOther: function () {
+			var quantity = this.getOwnerComponent().getModel("oProductModel").getProperty("/ProductID/0/quantity");
+			var price = this.getOwnerComponent().getModel("oProductModel").getProperty("/ProductID/0/price");
+			var cart = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
+			var iAmount = quantity * price;
+			var Amount = iAmount.toFixed(2);
+			iAmount = parseFloat(Amount);
+
+			for (var i = 0; i < cart.length; i++) {
+				if (cart[i].productid == this.getOwnerComponent().getModel("oProductModel").getProperty("/ProductID/0/productid")) {
+					this.getOwnerComponent().getModel("oProductModel").setProperty("/Cart/" + i + "/amount", iAmount);
+
+				}
+			}
+
+			this.fnTotalCalc();
+
+		},
+		fnTotalCalc: function () {
+			var total = 0;
+			var oEmptyModel = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
+			for (var j = 0; j < oEmptyModel.length; j++) {
+				total += this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart/" + j + "/amount");
+
+			}
+
+			this.getOwnerComponent().getModel("oProductModel").setProperty("/Total", total);
+		},
+	fnCart: function (oEvent) {
+			
+			MessageToast.show("Product Added To Cart ");
+
+			var cartId = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
+			var oData=this.getOwnerComponent().getModel("oProductModel").getProperty("/ProductID/0");
+
+			for (var i = 0; i < cartId.length; i++) {
+				if (cartId[i].productid == oData.productid) {
+					oEvent.getSource().getParent().getItems()[0].setVisible(false);
+					oEvent.getSource().getParent().getItems()[1].setVisible(true);
+					var iQuantity = this.getOwnerComponent().getModel("oProductModel").getProperty("/ProductID/0/quantity");
+					this.getOwnerComponent().getModel("oProductModel").setProperty("/Cart/" + i + "/quantity", iQuantity);
+					this.onChangeOther();
+					//	this.fnProductUpdate();
+					return;
+				}
+			}
+
+			oEvent.getSource().getParent().getItems()[0].setVisible(false);
+			oEvent.getSource().getParent().getItems()[1].setVisible(true);
+			this.getOwnerComponent().getModel("oProductModel").setProperty("/ProductID/0/quantity", 1);
+			this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart").unshift(oData);
+			var price = this.getOwnerComponent().getModel("oProductModel").getProperty("/ProductID/price");
+			this.getOwnerComponent().getModel("oProductModel").setProperty("/ProductID/0/amount", price);
+			console.log(this.getOwnerComponent().getModel("oProductModel").getProperty("/ProductID/0"));
+			//	this.fnProductUpdate();
+			this.getOwnerComponent().getModel("oProductModel").refresh();
+			this.onChangeOther();
+
+			//this.fnOnAddToCart();
 		}
 	});
 
