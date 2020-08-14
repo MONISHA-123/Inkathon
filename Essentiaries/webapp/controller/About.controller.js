@@ -18,7 +18,7 @@ sap.ui.define([
 			var key = oEvent.getParameter("arguments").KEY;
 			this.byId("IconTabBar").setSelectedKey(key);
 			
-		},
+		}
 
 	});
 

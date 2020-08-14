@@ -5,8 +5,8 @@
 			<IconTabBar id="IconTabBar" select="handleIconTabBarSelect" class="sapUiResponsiveContentPadding" stretchContentHeight="true">
 				<items>
 					<IconTabFilter text="About Us" key="About Us">
-						<ScrollContainer height="100%" width="100%" horizontal="false" vertical="true">
-							
+						<ScrollContainer height="100%" width="100%" horizontal="false" vertical="true" class="Aboutus">
+									<Image src="./images/aboutus.png" width="100%" height="auto"></Image>
 						</ScrollContainer>
 					</IconTabFilter>
 					<IconTabSeparator/>
@@ -15,20 +15,20 @@
 					</IconTabFilter>
 					<IconTabSeparator/>
 					<IconTabFilter text="Privacy Policy" key="Privacy Policy">
-						<ScrollContainer height="100%" width="100%" horizontal="false" vertical="true">
-							<VBox class="comingSoon"></VBox>
+						<ScrollContainer height="100%" width="100%" horizontal="false" vertical="true" >
+								<Image src="./images/comingSoon.jpg" width="100%" height="auto"></Image>
 						</ScrollContainer>
 					</IconTabFilter>
 					<IconTabSeparator/>
 					<IconTabFilter text="Careers" key="Careers">
-						<ScrollContainer height="100%" width="100%" horizontal="false" vertical="true">
-							<VBox class="comingSoon"></VBox>
+						<ScrollContainer height="100%" width="100%" horizontal="false" vertical="true" >
+								<Image src="./images/comingSoon.jpg" width="100%" height="auto"></Image>
 						</ScrollContainer>
 					</IconTabFilter>
 					<IconTabSeparator/>
-					<IconTabFilter key="Terms and Conditions" text="Terms and Conditions">
+					<IconTabFilter key="Terms and Conditions" text="Terms and Conditions "> 
 						<ScrollContainer height="100%" width="100%" horizontal="false" vertical="true">
-							<VBox class="comingSoon"></VBox>
+							<Image src="./images/comingSoon.jpg" width="100%" height="auto"></Image>
 						</ScrollContainer>
 					</IconTabFilter>
 				</items>
