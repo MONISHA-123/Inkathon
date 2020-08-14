@@ -395,8 +395,15 @@ background-color: #fce66d!important;
     background: #6e1f1f !important;
 }
 
-
-
+.cartimage.sapMPopover .sapMPopoverCont {
+		background-image:url("../images/empty-cart.svg");
+	    background-repeat: round;
+	    	background-size:  cover;
+	    	height:auto;
+}
+.cartTransparent.sapMPopover .sapMPopoverCont{
+	background: transparent;
+}
 .sapMWizardProgressNavStep[data-sap-ui-wpn-step-current="true"]:hover .sapMWizardProgressNavStepCircle {
     background-color: #6e1f1f;
     color: #fff;

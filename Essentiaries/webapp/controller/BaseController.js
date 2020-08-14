@@ -36,7 +36,7 @@ sap.ui.define([
 			this.oButton = oEvent.getSource();
 			// console.log(this.oButton);
 			if (!this._oPopover) {
-
+				
 				Fragment.load({
 
 					name: "com.ink.Essentiaries.fragments.Cart",
@@ -56,10 +56,24 @@ sap.ui.define([
 			} else {
 
 				this._oPopover.openBy(this.oButton);
-
+				
 				console.log(this.oButton);
 			}
-
+			var cartLength=this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart").length;
+			if(cartLength)
+			{
+				Fragment.byId("cartFragment","cartTable").setVisible(true);
+					Fragment.byId("cartFragment","cartPopOver").addStyleClass("cartTransparent");
+						Fragment.byId("cartFragment","cartPopOver").removeStyleClass("cartimage");
+		
+			}
+			else
+			{
+				Fragment.byId("cartFragment","cartTable").setVisible(false);
+					Fragment.byId("cartFragment","cartPopOver").addStyleClass("cartimage");
+					Fragment.byId("cartFragment","cartPopOver").removeStyleClass("cartTransparent");
+		
+			}
 		},
 		fnPopCloseButton: function (oEvent) {
 

@@ -1,14 +1,14 @@
 <core:FragmentDefinition xmlns="sap.m" xmlns:core="sap.ui.core">
 	<Popover
 		title="Cart"
-		class="sapUiResponsivePadding--header sapUiResponsivePadding--footer cartimage"
+		class="sapUiResponsivePadding--header sapUiResponsivePadding--footer cartimage "
 		placement="Bottom"
 		contentHeight="30%"
-		
+		  id="cartPopOver"     
 		>
 	
 	<Table 
-		items="{oProductModel>/Cart}" width="27rem">
+		items="{oProductModel>/Cart}" width="27rem" visible="false" id="cartTable" class="tableColor">
 		<columns>
 			<Column  >
 			

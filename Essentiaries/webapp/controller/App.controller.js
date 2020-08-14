@@ -43,9 +43,11 @@ sap.ui.define([
 			var accountMenu = this.byId("accountMenu");
 			var signIn = this.byId("signIn");
 			var cartId=this.byId("cartId");
+		
 			this.getOwnerComponent().getModel("oProductModel").setProperty("/accountMenu",accountMenu);
 				this.getOwnerComponent().getModel("oProductModel").setProperty("/signIn",signIn);
 				this.getOwnerComponent().getModel("oProductModel").setProperty("/cartId",cartId);
+				
 		}
 
 	});
