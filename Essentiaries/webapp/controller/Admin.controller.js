@@ -85,7 +85,7 @@ sap.ui.define([
 			this.GETMethod_PROMO();
 			this.GETMethod_UNIT();
 			this.GETMasterOrder();
-
+			this.ToolbarChanges();
 			var oModel = new JSONModel("model/products.json");
 			this.getView().setModel(oModel, "oTableModel");
 			var oVizFrame = this.getView().byId("idcolumn");
@@ -179,6 +179,16 @@ sap.ui.define([
 				},
 				type: "GET"
 			});
+		},
+		ToolbarChanges: function () {
+		var accountMenu = this.getOwnerComponent().getModel("oProductModel").getProperty("/accountMenu");
+			var cart = this.getOwnerComponent().getModel("oProductModel").getProperty("/cartId");
+			var signIn = this.getOwnerComponent().getModel("oProductModel").getProperty("/signIn");
+			var adminLogOut = this.getOwnerComponent().getModel("oProductModel").getProperty("/adminLogOut");
+			accountMenu.setVisible(false);
+			signIn.setVisible(false);
+				cart.setVisible(false);
+			adminLogOut.setVisible(true);
 		},
 		getRouter: function () {
 			return UIComponent.getRouterFor(this);
@@ -1294,13 +1304,13 @@ sap.ui.define([
 			oEvent.getSource().getParent().getParent().getCells()[5].getItems()[0].setVisible(true);
 
 			oEvent.getSource().getParent().getParent().getCells()[4].setEditable(false);
-			var id=oEvent.getSource().getParent().getParent().getCells()[0].getText();
-			var key=oEvent.getSource().getParent().getParent().getCells()[4].getSelectedKey();
-				var sUrl = "/AdminModule/api/order/"+id;
-				var oData={
-				"status":key	
-				};
-					this.fnPutCall(sUrl, oData);
+			var id = oEvent.getSource().getParent().getParent().getCells()[0].getText();
+			var key = oEvent.getSource().getParent().getParent().getCells()[4].getSelectedKey();
+			var sUrl = "/AdminModule/api/order/" + id;
+			var oData = {
+				"status": key
+			};
+			this.fnPutCall(sUrl, oData);
 		}
 	});
 

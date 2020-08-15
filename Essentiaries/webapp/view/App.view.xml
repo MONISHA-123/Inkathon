@@ -44,7 +44,7 @@
 									<OverflowToolbarLayoutData priority="NeverOverflow"/>
 								</layoutData>
 							</Avatar>
-
+							<Button icon="sap-icon://log" id="adminLogOut" visible="false" press="fnAdminLogOut"/>
 						</tnt:ToolHeader>
 		</tnt:header>
 

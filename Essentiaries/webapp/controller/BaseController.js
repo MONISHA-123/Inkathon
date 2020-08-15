@@ -172,7 +172,9 @@ sap.ui.define([
 							if (data.email == sEmail && data.password == sPassword && data.role == "admin") {
 								that.getView().byId("cart").setVisible(false);
 								that.getView().byId("signIn").setVisible(false);
+
 								that.getRouter().navTo("Admin");
+								that.getView().byId("adminLogOut").setVisible(true);
 							}
 						}
 
@@ -187,6 +189,20 @@ sap.ui.define([
 
 		},
 
+		fnAdminLogOut: function () {
+			this.getRouter().navTo("Home");
+			/*this.getView().byId("cart").setVisible(true);
+			this.getView().byId("signIn").setVisible(true);
+			this.getView().byId("adminLogOut").setVisible(false);*/
+			var accountMenu = this.getOwnerComponent().getModel("oProductModel").getProperty("/accountMenu");
+			var cart = this.getOwnerComponent().getModel("oProductModel").getProperty("/cartId");
+			var signIn = this.getOwnerComponent().getModel("oProductModel").getProperty("/signIn");
+			var adminLogOut = this.getOwnerComponent().getModel("oProductModel").getProperty("/adminLogOut");
+			accountMenu.setVisible(false);
+			signIn.setVisible(true);
+				cart.setVisible(true);
+			adminLogOut.setVisible(false);
+		},
 		fnOnCancel: function () {
 
 			this._oDialog.close();
@@ -1356,7 +1372,7 @@ sap.ui.define([
 		fnToAbout: function (oEvent) {
 			var Selectedkey = oEvent.getSource().getSelectedItem().getKey();
 			this.getRouter().navTo("About", {
-				KEY:Selectedkey 
+				KEY: Selectedkey
 			});
 		}
 	});

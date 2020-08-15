@@ -42,11 +42,12 @@ sap.ui.define([
 			this.getView().setModel(oEmptyModel, "oEmptyModel");
 			var accountMenu = this.byId("accountMenu");
 			var signIn = this.byId("signIn");
-			var cartId=this.byId("cartId");
-		
+			var cartId=this.byId("cart");
+			var adminLogOut=this.byId("adminLogOut");
 			this.getOwnerComponent().getModel("oProductModel").setProperty("/accountMenu",accountMenu);
 				this.getOwnerComponent().getModel("oProductModel").setProperty("/signIn",signIn);
 				this.getOwnerComponent().getModel("oProductModel").setProperty("/cartId",cartId);
+				this.getOwnerComponent().getModel("oProductModel").setProperty("/adminLogOut",adminLogOut);
 				
 		}
 
