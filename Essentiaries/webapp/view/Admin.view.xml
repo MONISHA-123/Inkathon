@@ -38,7 +38,7 @@
 											<layoutData>
 												<FlexItemData growFactor="1" shrinkFactor="0"/><!-- Don't shrink below minimum size. Fill space if available. --></layoutData>
 											<Title text="Order Pending" wrapping="true"/>
-											<NumericContent value="3" icon="sap-icon://pending" withMargin="false"/>
+											<NumericContent value="3" icon="sap-icon://pending" withMargin="false"  press="fnToPending"/>
 										</VBox>
 									</VBox>
 								</f:GridListItem>
@@ -48,7 +48,7 @@
 											<layoutData>
 												<FlexItemData growFactor="1" shrinkFactor="0"/><!-- Don't shrink below minimum size. Fill space if available. --></layoutData>
 											<Title text="Order in Process" wrapping="true"/>
-											<NumericContent value="3" icon="sap-icon://process" withMargin="false"/>
+											<NumericContent value="3" icon="sap-icon://process" press="fnToShipped" withMargin="false"/>
 										</VBox>
 									</VBox>
 								</f:GridListItem>
@@ -58,7 +58,7 @@
 											<layoutData>
 												<FlexItemData growFactor="1" shrinkFactor="0"/><!-- Don't shrink below minimum size. Fill space if available. --></layoutData>
 											<Title text="Cancel Order" wrapping="true"/>
-											<NumericContent value="3" icon="sap-icon://sys-cancel" withMargin="false"/>
+											<NumericContent value="3" icon="sap-icon://sys-cancel" press="fnToCancelled" withMargin="false"/>
 										</VBox>
 									</VBox>
 								</f:GridListItem>
@@ -68,7 +68,7 @@
 											<layoutData>
 												<FlexItemData growFactor="1" shrinkFactor="0"/><!-- Don't shrink below minimum size. Fill space if available. --></layoutData>
 											<Title text="Total Income" wrapping="true"/>
-											<NumericContent value="3" icon="sap-icon://money-bills" withMargin="false"/>
+											<NumericContent value="Rs:2.5Lakhs" icon="sap-icon://money-bills" withMargin="false"/>
 										</VBox>
 									</VBox>
 								</f:GridListItem>
@@ -103,26 +103,27 @@
 					<IconTabSeparator/>
 					<IconTabFilter icon="sap-icon://order-status" text="Orders" key="Orders">
 						<VBox>
-							<Table id="idOrderTable1" inset="false" alternateRowColors="true" items="{oProductModel>/MasterOrder}">
+							<Table id="idOrderTable" inset="false" alternateRowColors="true" items="{oProductModel>/MasterOrder}">
 								<headerToolbar>
 									<OverflowToolbar>
 										<content>
 											<Title text="Products" level="H3"/>
 											<ToolbarSpacer></ToolbarSpacer>
 											<Label text="Search Order " design="Bold"/>
-											<Input width="auto" placeholder="Type To Search" id="order" liveChange="onSearchID"/>
+											<!--<Input width="auto" placeholder="Type To Search" id="order" liveChange="onSearchID"/>-->
 											<MenuButton text="Status" useDefaultActionOnly="true" menuPosition="BeginBottom">
 												<menu>
-													<Menu itemSelected="onNewItem">
+													<Menu itemSelected="fnOrderStatus">
 														<items>
 															<MenuItem icon="sap-icon://pending" text="Pending"/>
 															<MenuItem icon="sap-icon://complete" text="Completed"/>
-															<MenuItem icon="sap-icon://status-in-process" text="On Process"/>
-															<MenuItem icon="sap-icon://cancel" text="Cancel"/>
+															<MenuItem icon="sap-icon://status-in-process" text="Shipped"/>
+															<MenuItem icon="sap-icon://cancel" text="Cancelled"/>
 														</items>
 													</Menu>
 												</menu>
 											</MenuButton>
+												<Button class="adminbtn" icon="sap-icon://synchronize" press="onRefreshOrderTable"></Button>
 										</content>
 									</OverflowToolbar>
 								</headerToolbar>

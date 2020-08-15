@@ -181,13 +181,13 @@ sap.ui.define([
 			});
 		},
 		ToolbarChanges: function () {
-		var accountMenu = this.getOwnerComponent().getModel("oProductModel").getProperty("/accountMenu");
+			var accountMenu = this.getOwnerComponent().getModel("oProductModel").getProperty("/accountMenu");
 			var cart = this.getOwnerComponent().getModel("oProductModel").getProperty("/cartId");
 			var signIn = this.getOwnerComponent().getModel("oProductModel").getProperty("/signIn");
 			var adminLogOut = this.getOwnerComponent().getModel("oProductModel").getProperty("/adminLogOut");
 			accountMenu.setVisible(false);
 			signIn.setVisible(false);
-				cart.setVisible(false);
+			cart.setVisible(false);
 			adminLogOut.setVisible(true);
 		},
 		getRouter: function () {
@@ -1311,7 +1311,46 @@ sap.ui.define([
 				"status": key
 			};
 			this.fnPutCall(sUrl, oData);
-		}
+		},
+		fnOrderStatus: function (oEvent) {
+			var oSelectedKey = oEvent.getParameter("item").getText();
+			var aTemp = [];
+			aTemp.push(new Filter("status", FilterOperator.Contains, oSelectedKey));
+
+			var oTable = this.byId("idOrderTable");
+			var oBinding = oTable.getBinding("items");
+			oBinding.filter(aTemp);
+		},
+		onRefreshOrderTable: function () {
+			this.byId("idOrderTable").getBinding("items").filter();
+		},
+		fnToPending: function () {
+			this.byId("idIconTabBar").setSelectedKey("Orders");
+			var aTemp = [];
+			aTemp.push(new Filter("status", FilterOperator.Contains, "Pending"));
+
+			var oTable = this.byId("idOrderTable");
+			var oBinding = oTable.getBinding("items");
+			oBinding.filter(aTemp);
+		},
+		fnToShipped: function () {
+			this.byId("idIconTabBar").setSelectedKey("Orders");
+			var aTemp = [];
+			aTemp.push(new Filter("status", FilterOperator.Contains, "Shipped"));
+
+			var oTable = this.byId("idOrderTable");
+			var oBinding = oTable.getBinding("items");
+			oBinding.filter(aTemp);
+		},
+		fnToCancelled:function () {
+			this.byId("idIconTabBar").setSelectedKey("Orders");
+			var aTemp = [];
+			aTemp.push(new Filter("status", FilterOperator.Contains, "Cancelled"));
+
+			var oTable = this.byId("idOrderTable");
+			var oBinding = oTable.getBinding("items");
+			oBinding.filter(aTemp);
+		},
 	});
 
 });
