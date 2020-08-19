@@ -1,6 +1,6 @@
 <mvc:View xmlns:core="sap.ui.core" xmlns:mvc="sap.ui.core.mvc" xmlns="sap.m" controllerName="com.ink.Essentiaries.controller.Admin"
 	xmlns:html="http://www.w3.org/1999/xhtml" xmlns:tnt="sap.tnt" xmlns:fb="sap.ui.comp.filterbar" xmlns:l="sap.ui.layout" xmlns:f="sap.f"
-	xmlns:viz="sap.viz.ui5.controls">
+	xmlns:viz="sap.viz.ui5.controls" 	xmlns:u="sap.ui.unified" >
 	<App id="essentiaries">
 		<ScrollContainer horizontal="false" vertical="true" height="100%">
 			<IconTabBar id="idIconTabBar" select="handleIconTabBarSelect" class="sapUiResponsiveContentPadding" stretchContentHeight="true">
@@ -285,7 +285,20 @@
 								<ColumnListItem >
 									<cells>
 										<Input value="{oProductModel>promotionid}" editable="false"/>
-										<Input value="{oProductModel>promotionimage}" editable="false"></Input>
+										<HBox>
+											<u:FileUploader
+										id="fileUploader"
+										name="myFileUpload"
+										uploadUrl="upload/"
+										tooltip="Upload your file to the local server"
+										uploadComplete="handleUploadComplete"
+										change="onBrowse" />
+									<Button
+										text="Upload File"
+										press="handleUploadPress"/>
+
+										</HBox>
+										<!--<Input value="{oProductModel>promotionimage}" editable="false"></Input>-->
 										<Input value="{oProductModel>promotiondescription}" editable="false"/>
 										<Input value="{oProductModel>referenceid}" editable="false"/>
 										<HBox>

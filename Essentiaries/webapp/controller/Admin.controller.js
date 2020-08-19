@@ -1152,6 +1152,7 @@ sap.ui.define([
 				"promotiondescription": "",
 				"referenceid": ""
 			});
+				
 			this._oDialog.open();
 		},
 		fnOnNewPromoSave: function () {
@@ -1162,6 +1163,7 @@ sap.ui.define([
 				id = parseInt(id, 10);
 			var des = this.getView().getModel("oEmptyModel").getProperty("/Promotion/promotiondescription").trim();
 			var icon = this.getView().getModel("oEmptyModel").getProperty("/Promotion/promotionimage");
+			
 			if (id == "" || refId == "" || icon == "" || des == "")
 				MessageToast.show("Fill all the required fields");
 			else if (id < 1)
@@ -1351,6 +1353,26 @@ sap.ui.define([
 			var oBinding = oTable.getBinding("items");
 			oBinding.filter(aTemp);
 		},
+		onBrowse :function(oEvent){
+			var that=this;
+				var file = oEvent.getParameters("file").files[0];
+					console.log(file);
+				this.baseFile="";
+			if (file) {
+                var Sales = new FileReader();
+                Sales.onload = function (e) {
+                	
+                    that.baseFile = e.currentTarget.result;
+
+                  console.log(that.baseFile);
+                };
+                Sales.readAsDataURL(file);
+            }
+            console.log(file);
+		},
+		handleUploadPress: function(oEvent) {
+		}
+		
 	});
 
 });
