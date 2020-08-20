@@ -30,7 +30,7 @@
 						text="{oProductModel>productname}"/>
 					<StepInput
 						value="{oProductModel>quantity}"
-						min="1"
+						min="0"
 						max="10"
 						width="80px"
 						textAlign="Center"

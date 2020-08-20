@@ -82,7 +82,7 @@
                                                     <Text text="{oProductModel>price}"></Text></HBox>
 													<VBox>
 													<Button icon="sap-icon://cart" text="Add to Cart" press="fnCart" class="sapUiTinyMarginTop buttonBg"></Button>
-													<StepInput value="{oProductModel>quantity}"  width="10%" min="1" visible="false"  change="fnCart" id="stepinput" class="sapUiTinyMarginTop stepMargin" ></StepInput>
+													<StepInput value="{oProductModel>quantity}"  width="10%" min="0" visible="false"  change="fnCart" id="stepinput" class="sapUiTinyMarginTop stepMargin" ></StepInput>
 													</VBox>
 													
 												</VBox>
