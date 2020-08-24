@@ -135,15 +135,24 @@ sap.ui.define([
 			var cartId = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
 			var oData=this.getOwnerComponent().getModel("oProductModel").getProperty("/ProductID/0");
 
-			for (var i = 0; i < cartId.length; i++) {
+				for (var i = 0; i < cartId.length; i++) {
+
 				if (cartId[i].productid == oData.productid) {
-					oEvent.getSource().getParent().getItems()[0].setVisible(false);
-					oEvent.getSource().getParent().getItems()[1].setVisible(true);
-					var iQuantity = this.getOwnerComponent().getModel("oProductModel").getProperty("/ProductID/0/quantity");
-					this.getOwnerComponent().getModel("oProductModel").setProperty("/Cart/" + i + "/quantity", iQuantity);
-					this.onChangeOther();
-					//	this.fnProductUpdate();
-					return;
+					if (this.getOwnerComponent().getModel("oProductModel").getProperty(Path + "/quantity") == 0) {
+						oEvent.getSource().getParent().getItems()[0].setVisible(true);
+						oEvent.getSource().getParent().getItems()[1].setVisible(false);
+						cartId.splice(i, 1);
+							this.fnTotalCalc();
+						return;
+					} else {
+						oEvent.getSource().getParent().getItems()[0].setVisible(false);
+						oEvent.getSource().getParent().getItems()[1].setVisible(true);
+						var iQuantity = this.getOwnerComponent().getModel("oProductModel").getProperty(Path + "/quantity");
+						this.getOwnerComponent().getModel("oProductModel").setProperty("/Cart/" + i + "/quantity", iQuantity);
+						this.onChangeOther(Path);
+						return;
+					}
+
 				}
 			}
 
