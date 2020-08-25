@@ -967,10 +967,17 @@ sap.ui.define([
 			var lastIndexValue = sPath.charAt(index + 1);
 			var id = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart/" + lastIndexValue + "/productid");
 			var product = this.getOwnerComponent().getModel("oProductModel").getProperty("/Product");
+			var catById = this.getOwnerComponent().getModel("oProductModel").getProperty("/CategoryByProduct");
 			var cartid = this.getOwnerComponent().getModel("oProductModel").getProperty(sPath + "/cart_id");
 			for (var i = 0; i < product.length; i++) {
 				if (id == product[i].productid) {
 					this.getOwnerComponent().getModel("oProductModel").setProperty("/Product/" + i + "/quantity", 0);
+					this.getOwnerComponent().getModel("oProductModel").refresh();
+				}
+			}
+			for (var j = 0; j < catById.length; j++) {
+				if (id == product[j].productid) {
+					this.getOwnerComponent().getModel("oProductModel").setProperty("/CategoryByProduct/" + j + "/quantity", 0);
 					this.getOwnerComponent().getModel("oProductModel").refresh();
 				}
 			}
@@ -983,7 +990,7 @@ sap.ui.define([
 				this.fnOnDeleteCart(cartid);
 			}
 			this.fnTotalCalc();
-
+			
 		},
 		fnNewAddressSave: function () {
 			var that = this;

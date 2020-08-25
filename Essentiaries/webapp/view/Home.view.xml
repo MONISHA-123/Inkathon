@@ -22,7 +22,7 @@
 							suggestionItems="{oProductModel>/Product}" 
 							submit="onSearch"
 							selectedItem="{oProductModel>/productname}">
-							<SuggestionItem  text="{oProductModel>productname}" description="{path:'oProductModel>productid'}"
+							<SuggestionItem  text="{oProductModel>productname}-{oProductModel>brandname}" description="{path:'oProductModel>productid'}"
 								key="{oProductModel>categoryid}" />
 						</Input>
 							

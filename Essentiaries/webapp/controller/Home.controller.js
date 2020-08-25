@@ -198,24 +198,25 @@ sap.ui.define([
 			
 		
 			
-			for (var i = 0; i < cartId.length; i++) {
-			if(this.getOwnerComponent().getModel("oProductModel").getProperty(Path + "/quantity")==0)
-			{
-				oEvent.getSource().getParent().getItems()[0].setVisible(true);
-				oEvent.getSource().getParent().getItems()[1].setVisible(false);
-				//var cartId = this.getOwnerComponent().getModel("oProductModel").getProperty(Path+"/productid");	
-				cartId.splice(i,1);
-				return;
-			}
-				if (cartId[i].productid == oData.productid) {
-					oEvent.getSource().getParent().getItems()[0].setVisible(false);
-					oEvent.getSource().getParent().getItems()[1].setVisible(true);
-					var iQuantity = this.getOwnerComponent().getModel("oProductModel").getProperty(Path + "/quantity");
-					this.getOwnerComponent().getModel("oProductModel").setProperty("/Cart/" + i + "/quantity", iQuantity);
-					this.onChangeOther(Path);
-					return;
-				}
-			}
+		  for (var i = 0; i < cartId.length; i++) {
+            if(cartId[i].productid == oData.productid&&this.getOwnerComponent().getModel("oProductModel").getProperty(Path + "/quantity")==0)
+            {
+                oEvent.getSource().getParent().getItems()[0].setVisible(true);
+                oEvent.getSource().getParent().getItems()[1].setVisible(false);
+                //var cartId = this.getOwnerComponent().getModel("oProductModel").getProperty(Path+"/productid");   
+                cartId.splice(i,1);
+                    this.fnTotalCalc();
+                return;
+            }
+                if (cartId[i].productid == oData.productid) {
+                    oEvent.getSource().getParent().getItems()[0].setVisible(false);
+                    oEvent.getSource().getParent().getItems()[1].setVisible(true);
+                    var iQuantity = this.getOwnerComponent().getModel("oProductModel").getProperty(Path + "/quantity");
+                    this.getOwnerComponent().getModel("oProductModel").setProperty("/Cart/" + i + "/quantity", iQuantity);
+                    this.onChangeOther(Path);
+                    return;
+                }
+            }
 			if (this.id) {
 				oEvent.getSource().getParent().getItems()[0].setVisible(false);
 				oEvent.getSource().getParent().getItems()[1].setVisible(true);
