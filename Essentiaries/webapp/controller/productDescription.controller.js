@@ -135,23 +135,31 @@ sap.ui.define([
 			var cartId = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
 			var oData=this.getOwnerComponent().getModel("oProductModel").getProperty("/ProductID/0");
 
-			for (var i = 0; i < cartId.length; i++) {
-				if (cartId[i].productid == oData.productid) {
-					oEvent.getSource().getParent().getItems()[0].setVisible(false);
-					oEvent.getSource().getParent().getItems()[1].setVisible(true);
-					var iQuantity = this.getOwnerComponent().getModel("oProductModel").getProperty("/ProductID/0/quantity");
-					this.getOwnerComponent().getModel("oProductModel").setProperty("/Cart/" + i + "/quantity", iQuantity);
-					this.onChangeOther();
-					//	this.fnProductUpdate();
-					return;
-				}
-			}
+		 for (var i = 0; i < cartId.length; i++) {
+            if(cartId[i].productid == oData.productid&&this.getOwnerComponent().getModel("oProductModel").getProperty("/ProductID/0/quantity")==0)
+            {
+                oEvent.getSource().getParent().getItems()[0].setVisible(true);
+                oEvent.getSource().getParent().getItems()[1].setVisible(false);
+                //var cartId = this.getOwnerComponent().getModel("oProductModel").getProperty(Path+"/productid");   
+                cartId.splice(i,1);
+                    this.fnTotalCalc();
+                return;
+            }
+                if (cartId[i].productid == oData.productid) {
+                    oEvent.getSource().getParent().getItems()[0].setVisible(false);
+                    oEvent.getSource().getParent().getItems()[1].setVisible(true);
+                    var iQuantity = this.getOwnerComponent().getModel("oProductModel").getProperty("/ProductID/0/quantity");
+                    this.getOwnerComponent().getModel("oProductModel").setProperty("/Cart/" + i + "/quantity", iQuantity);
+                    this.onChangeOther(Path);
+                    return;
+                }
+            }
 
 			oEvent.getSource().getParent().getItems()[0].setVisible(false);
 			oEvent.getSource().getParent().getItems()[1].setVisible(true);
 			this.getOwnerComponent().getModel("oProductModel").setProperty("/ProductID/0/quantity", 1);
 			this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart").unshift(oData);
-			var price = this.getOwnerComponent().getModel("oProductModel").getProperty("/ProductID/price");
+			var price = this.getOwnerComponent().getModel("oProductModel").getProperty("/ProductID/0/price");
 			this.getOwnerComponent().getModel("oProductModel").setProperty("/ProductID/0/amount", price);
 			console.log(this.getOwnerComponent().getModel("oProductModel").getProperty("/ProductID/0"));
 			//	this.fnProductUpdate();

@@ -200,7 +200,7 @@ sap.ui.define([
 			var adminLogOut = this.getOwnerComponent().getModel("oProductModel").getProperty("/adminLogOut");
 			accountMenu.setVisible(false);
 			signIn.setVisible(true);
-				cart.setVisible(true);
+			cart.setVisible(true);
 			adminLogOut.setVisible(false);
 		},
 		fnOnCancel: function () {
@@ -968,19 +968,40 @@ sap.ui.define([
 			var id = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart/" + lastIndexValue + "/productid");
 			var product = this.getOwnerComponent().getModel("oProductModel").getProperty("/Product");
 			var catById = this.getOwnerComponent().getModel("oProductModel").getProperty("/CategoryByProduct");
+			var offers = this.getOwnerComponent().getModel("oProductModel").getProperty("/offers");
 			var cartid = this.getOwnerComponent().getModel("oProductModel").getProperty(sPath + "/cart_id");
+				var productId=this.getOwnerComponent().getModel("oProductModel").getProperty("/ProductID/0");
 			for (var i = 0; i < product.length; i++) {
 				if (id == product[i].productid) {
 					this.getOwnerComponent().getModel("oProductModel").setProperty("/Product/" + i + "/quantity", 0);
 					this.getOwnerComponent().getModel("oProductModel").refresh();
 				}
 			}
-			for (var j = 0; j < catById.length; j++) {
-				if (id == product[j].productid) {
-					this.getOwnerComponent().getModel("oProductModel").setProperty("/CategoryByProduct/" + j + "/quantity", 0);
-					this.getOwnerComponent().getModel("oProductModel").refresh();
+			if (productId != undefined) {
+			
+					if (id == productId.productid) {
+						this.getOwnerComponent().getModel("oProductModel").setProperty("/ProductID/0/quantity", 0);
+						this.getOwnerComponent().getModel("oProductModel").refresh();
+					}
+				
+			}
+			if (catById != undefined) {
+				for (var j = 0; j < catById.length; j++) {
+					if (id == catById[j].productid) {
+						this.getOwnerComponent().getModel("oProductModel").setProperty("/CategoryByProduct/" + j + "/quantity", 0);
+						this.getOwnerComponent().getModel("oProductModel").refresh();
+					}
 				}
 			}
+			if (offers != undefined) {
+				for (var k = 0; k < offers.length; k++) {
+					if (id == offers[k].productid) {
+						this.getOwnerComponent().getModel("oProductModel").setProperty("/offers/" + k + "/quantity", 0);
+						this.getOwnerComponent().getModel("oProductModel").refresh();
+					}
+				}
+			}
+
 			var aList = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
 			aList.splice(lastIndexValue, 1);
 			this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart", aList);
@@ -990,7 +1011,7 @@ sap.ui.define([
 				this.fnOnDeleteCart(cartid);
 			}
 			this.fnTotalCalc();
-			
+
 		},
 		fnNewAddressSave: function () {
 			var that = this;
