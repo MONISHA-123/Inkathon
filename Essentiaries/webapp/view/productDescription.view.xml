@@ -33,7 +33,7 @@
 								<VBox>
 									<Button icon="sap-icon://cart" text="Add to Cart" press="fnCart" visible="{= ${oProductModel>/ProductID/0/quantity} >=1 ? false : true}"
 										class="sapUiTinyMarginTop buttonBg"></Button>
-									<StepInput value="{oProductModel>/ProductID/0/quantity}" width="10%" min="0" visible="{= ${oProductModel>/ProductID/0/quantity} >=1 ? true : false}" change="fnCart"
+									<StepInput value="{oProductModel>/ProductID/0/quantity}" width="10%" min="1" visible="{= ${oProductModel>/ProductID/0/quantity} >=1 ? true : false}" change="fnCart"
 										class="sapUiTinyMarginTop"></StepInput>
 								</VBox>
 					</VBox>
@@ -74,7 +74,7 @@
 											<VBox>
 												<Button icon="sap-icon://cart" text="Add to Cart" press="fnCart" visible="{= ${oProductModel>quantity} >=1 ? false : true}"
 													class="sapUiTinyMarginTop buttonBg"></Button>
-												<StepInput value="{oProductModel>quantity}" width="10%" min="0" visible="{= ${oProductModel>quantity} >=1 ? true : false}" change="fnCart"
+												<StepInput value="{oProductModel>quantity}" width="10%" min="1" visible="{= ${oProductModel>quantity} >=1 ? true : false}" change="fnCart"
 													class="sapUiTinyMarginTop"></StepInput>
 											</VBox>
 										</VBox>

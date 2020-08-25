@@ -39,7 +39,7 @@ sap.ui.define([
 				CategoryId: id
 			});
 		},
-
+	
 		onSearch: function (oEvent) {
 
 			var sKey = oEvent.getSource().getSelectedKey();
@@ -53,7 +53,7 @@ sap.ui.define([
 			});
 
 		},
-
+	
 		onSuggest: function (oEvent) {
 			var sTerm = oEvent.getParameter("suggestValue");
 			var aFilters = [];
@@ -115,6 +115,8 @@ sap.ui.define([
 					that.prodCount = data.length;
 
 					that.getOwnerComponent().getModel("oProductModel").setProperty("/Product", data);
+
+					
 
 				},
 				type: "GET"
@@ -188,30 +190,30 @@ sap.ui.define([
 		},
 		fnCart: function (oEvent) {
 			MessageToast.show("Product Added To Cart ");
-
+	
 			this.id = this.getOwnerComponent().getModel("oProductModel").getProperty("/LoginUser/userid");
 			var cartId = this.getOwnerComponent().getModel("oProductModel").getProperty("/Cart");
 			var Path = oEvent.getSource().getBindingContext("oProductModel").sPath;
 			var oData = this.getOwnerComponent().getModel("oProductModel").getProperty(Path);
-
+			
+		
+			
 			for (var i = 0; i < cartId.length; i++) {
-
+			if(this.getOwnerComponent().getModel("oProductModel").getProperty(Path + "/quantity")==0)
+			{
+				oEvent.getSource().getParent().getItems()[0].setVisible(true);
+				oEvent.getSource().getParent().getItems()[1].setVisible(false);
+				//var cartId = this.getOwnerComponent().getModel("oProductModel").getProperty(Path+"/productid");	
+				cartId.splice(i,1);
+				return;
+			}
 				if (cartId[i].productid == oData.productid) {
-					if (this.getOwnerComponent().getModel("oProductModel").getProperty(Path + "/quantity") == 0) {
-						oEvent.getSource().getParent().getItems()[0].setVisible(true);
-						oEvent.getSource().getParent().getItems()[1].setVisible(false);
-						cartId.splice(i, 1);
-							this.fnTotalCalc();
-						return;
-					} else {
-						oEvent.getSource().getParent().getItems()[0].setVisible(false);
-						oEvent.getSource().getParent().getItems()[1].setVisible(true);
-						var iQuantity = this.getOwnerComponent().getModel("oProductModel").getProperty(Path + "/quantity");
-						this.getOwnerComponent().getModel("oProductModel").setProperty("/Cart/" + i + "/quantity", iQuantity);
-						this.onChangeOther(Path);
-						return;
-					}
-
+					oEvent.getSource().getParent().getItems()[0].setVisible(false);
+					oEvent.getSource().getParent().getItems()[1].setVisible(true);
+					var iQuantity = this.getOwnerComponent().getModel("oProductModel").getProperty(Path + "/quantity");
+					this.getOwnerComponent().getModel("oProductModel").setProperty("/Cart/" + i + "/quantity", iQuantity);
+					this.onChangeOther(Path);
+					return;
 				}
 			}
 			if (this.id) {
@@ -235,35 +237,39 @@ sap.ui.define([
 			var price = this.getOwnerComponent().getModel("oProductModel").getProperty(Path + "/price");
 			this.getOwnerComponent().getModel("oProductModel").setProperty(Path + "/amount", price);
 			console.log(this.getOwnerComponent().getModel("oProductModel").getProperty(Path));
-
+	
+	
+				
 			this.getOwnerComponent().getModel("oProductModel").refresh();
 			this.onChangeOther(Path);
 			//this.fnOnAddToCart();
 		},
 		onPressPromotion: function (oEvent) {
-
+			
 			var sPath = oEvent.getSource().getBindingContext("oProductModel").getPath();
 			var refID = this.getOwnerComponent().getModel("oProductModel").getProperty(sPath + "/referenceid");
 			//console.log(refID);
-			//	this.byId("homePage").scrollTo(0, 1000);
-			var idLength = this.getOwnerComponent().getModel("oProductModel").getProperty("/Product");
-			for (var i = 0; i < idLength.length; i++) {
-				var prodcutId = this.getOwnerComponent().getModel("oProductModel").getProperty("/Product/" + i + "/productid");
-				var catId = this.getOwnerComponent().getModel("oProductModel").getProperty("/Product/" + i + "/categoryid");
-				var brandId = this.getOwnerComponent().getModel("oProductModel").getProperty("/Product/" + i + "/brandid");
-				if (prodcutId == refID) {
-					this.getRouter().navTo("productDescription", {
-						ProductId: prodcutId
-
-					});
-				} else if (catId == refID) {
-					this.getRouter().navTo("Product", {
-						CategoryId: catId
-					});
+		//	this.byId("homePage").scrollTo(0, 1000);
+			var idLength=this.getOwnerComponent().getModel("oProductModel").getProperty("/Product");
+			for( var i=0;i<idLength.length;i++)
+			{
+				var prodcutId=this.getOwnerComponent().getModel("oProductModel").getProperty("/Product/"+i+"/productid");
+				var catId=this.getOwnerComponent().getModel("oProductModel").getProperty("/Product/"+i+"/categoryid");
+				var brandId=this.getOwnerComponent().getModel("oProductModel").getProperty("/Product/"+i+"/brandid");
+				if(prodcutId==refID){
+							this.getRouter().navTo("productDescription", {
+									ProductId: prodcutId
+									
+								});
 				}
-
+				else if(catId==refID){
+						this.getRouter().navTo("Product", {
+									CategoryId: catId
+								});
+				}
+			
 			}
-			//this.getRouter().navTo("offers");
+				//this.getRouter().navTo("offers");
 		},
 		OnPressOffers: function () {
 			this.getRouter().navTo("offers");
