@@ -246,7 +246,7 @@ sap.ui.define([
 		onDataUpdate:function(){
 				var that = this;
 			var oData = this.getOwnerComponent().getModel("oProductModel").getProperty("/oChangeRow");
-			console.log(oData);
+		
 				if(oData.productid==""||oData.productname==""||oData.productdescription==""||oData.brandname==""||oData.categoryname==""||oData.unitid==""||oData.unitname==""||oData.unitshort==""||oData.image==""||oData.price==""||oData.stock=="")
 					MessageToast.show("Fill all the fields");	
 			else

@@ -45,7 +45,7 @@ sap.ui.define([
 			var sKey = oEvent.getSource().getSelectedKey();
 			var sName = oEvent.getParameters().value;
 			var pId = oEvent.getSource().getSuggestionItemByKey(sKey).getDescription();
-			console.log(sName, sKey, pId);
+		
 			this.getOwnerComponent().getModel("oProductModel").setProperty("/ProductSearch", pId);
 			this.getRouter().navTo("productDescription", {
 				ProductId: pId

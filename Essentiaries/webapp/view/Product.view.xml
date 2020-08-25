@@ -5,7 +5,7 @@
 				
 			<Breadcrumbs currentLocationText="{oProductModel>/CategoryByProduct/0/categoryname}" class="sapUiSmallMargin">
 				<Link press="fnToHome" text="Home"/>
-				<!--<Link press="onPress" text="Category"/>-->
+			
 			</Breadcrumbs>
 			<f:Card>
 				<f:layoutData>

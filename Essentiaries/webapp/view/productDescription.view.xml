@@ -5,7 +5,7 @@
 		<ScrollContainer horizontal="false" vertical="true" height="100%">
 			<Breadcrumbs currentLocationText="{oProductModel>/ProductID/0/productname}" class="sapUiSmallMargin">
 				<Link press="fnToHome" text="Home"/>
-				<!--<Link press="onPress" text="Category"/>-->
+			
 			</Breadcrumbs>
 			<OverflowToolbar class="sapUiSmallMarginTop sapUiSmallMarginBegin" width="75%">
 				<Title text="{oProductModel>/ProductID/0/productname}" level="H2" class="sapUiSmallMarginBottom"/>

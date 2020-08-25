@@ -40,8 +40,7 @@ sap.ui.define([
 
 					that.getOwnerComponent().getModel("oProductModel").setProperty("/offers", data);
 					
-					//console.log(data);
-
+					
 				},
 				type: "GET"
 			}).always(function (data, status, xhr) {

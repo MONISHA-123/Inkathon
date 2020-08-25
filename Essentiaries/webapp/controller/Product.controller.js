@@ -62,7 +62,7 @@ sap.ui.define([
 
 					that.getOwnerComponent().getModel("oProductModel").setProperty("/Product", data);
 					
-					console.log(data);
+				
 
 				},
 				type: "GET"

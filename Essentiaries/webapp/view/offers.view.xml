@@ -59,7 +59,7 @@
 										<GenericTile class="sapUiTinyMarginBegin sapUiTinyMarginTop tileLayout" press="press" backgroundImage="{oProductModel>image}"></GenericTile>
 										<VBox class="sapUiTinyMarginBegin tilecolor" alignItems="Center">
 											<Title text="{oProductModel>productname}" level="H3" class="sapUiTinyMarginTop"></Title>
-											<!--<Text text="{oProductModel>brandname}" class="sapUiTinyMarginTop" ></Text>-->
+
 											<Text text="{oProductModel>size}{oProductModel>unitshort}" class="sapUiTinyMarginTop"></Text>
 											<RatingIndicator id="RI_XS1" maxValue="5" class="sapUiSmallMarginBottom" value="4" iconSize="12px" tooltip="Rating Tooltip"/>
 											<HBox><Text text="MRP:"/><Text

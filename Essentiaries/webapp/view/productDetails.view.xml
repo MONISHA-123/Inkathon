@@ -12,30 +12,7 @@
 					</Toolbar>
 					
 					<VBox class="sapUiSmallMargin">
-						<!--	<f:SimpleForm id="idSimpleFormDisplay" editable="false" layout="ColumnLayout" title="Products">
-							<f:content>
-								<Label text="Product ID"/>
-								<Text id="nameText" text="{ID}"/>
-								<Label text="Product Name"/>
-								<Text text="{Name}"/>
-								<Label text="Price"/>
-								<Text text="{Price}"/>
-								<Label text="Description"/>
-								<Text id="countryText" text="{Description}"/>
-							</f:content>
-						</f:SimpleForm>
-						<f:SimpleForm id="idSimpleFormEdit" editable="true" layout="ColumnLayout" title="Products" visible="false">
-							<f:content>
-								<Label text="Product ID"/>
-								<Input id="name" value="{ID}"/>
-								<Label text="Product Name"/>
-								<Input value="{Name}"></Input>
-								<Label text="Price"/>
-								<Input value="{Price}"></Input>
-								<Label text="Description"/>
-								<Input value="{Description}"></Input>
-							</f:content>
-						</f:SimpleForm>-->
+					
 						<f:Form editable="true" id="ProdDisplay">
 							<f:layout>
 								<f:ResponsiveGridLayout labelSpanXL="4" labelSpanL="4" labelSpanM="4" labelSpanS="12" adjustLabelSpan="false" emptySpanXL="0" emptySpanL="0"
